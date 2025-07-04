@@ -1,0 +1,393 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto | Mi Tienda</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Menú de navegación -->
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo" aria-label="Ir a la página principal">
+                <img src="imagenes/logo.png" alt="Logo de la tienda">
+                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATARACTIVAS</span>  <!-- Nombre de la tienda agregado -->
+            </a>
+            <input type="checkbox" id="menu" aria-label="Abrir menú">
+            <label for="menu" class="menu-label">
+                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menu">
+            </label>
+            <nav class="navbar" aria-label="Menú de navegación">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="subastas.html">Subastas</a></li>
+                    <li><a href="Barter.html">Barter</a></li>
+                    <li><a href="Blockcorporativo.html">Block</a></li>
+                </ul>
+            </nav>
+            
+            <div class="carrito-container">
+                <ul>
+                    <li class="submenu">
+                        <img id="img-carrito" src="imagenes/car.png" alt="Carrito de compras">
+                        <div id="carrito" role="complementary">
+                            <table id="lista-carrito">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="carrito-items"></tbody>
+                            </table>
+                            <p id="total-carrito">Total: S/. 0</p>
+                            <button id="vaciar-carrito" class="btn-3">Vaciar Carrito</button>
+                            <button id="comprar-carrito" class="btn-3" style="display:none;">Comprar 🛍️</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            
+        </div>
+    </header>
+
+ <!-- Detalles del producto -->
+ <main class="product-detail container">
+    <div class="product-images">
+        <!-- Imagen Principal -->
+        <img id="main-img" src="" alt="Imagen del producto" loading="lazy">
+
+        <!-- Imágenes Miniatura -->
+        <div class="thumbnail-images">
+            <img id="extra-img1" src="" alt="Vista extra 1" loading="lazy" onclick="cambiarImagen(this)">
+            <img id="extra-img2" src="" alt="Vista extra 2" loading="lazy" onclick="cambiarImagen(this)">
+            <img id="extra-img3" src="" alt="Vista extra 3" loading="lazy" onclick="cambiarImagen(this)">
+        </div>
+    </div>
+    
+    <div class="product-info">
+        <h2 id="product-name">Cargando...</h2>
+        <p id="product-description">Descripción...</p>
+
+        <div class="selector">
+            <p><strong>Categoría:</strong> <span id="product-category"></span></p>
+            <p><strong>Código:</strong> <span id="product-code"></span></p>
+            <p><strong>Stock Disponible:</strong> <span id="product-stock"></span></p>
+            <p><strong>Precio Oferta:</strong> <span id="product-price"></span></p>
+            <p><strong>Precio Normal:</strong> <span id="product-priceS"></span></p>
+            <p><s id="product-price-old"></s></p>
+            
+        </div>
+   
+        <!-- Opciones de Modelo -->
+        <div class="selector">
+            <label for="model-select">Modelo:</label>
+            <select id="model-select">
+                <!-- Los Modelos se agregarán dinámicamente -->
+            </select>
+        </div>
+
+        <!-- Opciones de Color -->
+        <div class="selector">
+            <label for="color-select">Color:</label>
+            <select id="color-select">
+                <!-- Los colores se agregarán dinámicamente -->
+            </select>
+        </div>
+
+        <div class="selector">
+            <label for="size-select">Tamaño:</label>
+            <select id="size-select">
+                <!-- Los tamaños se agregarán dinámicamente -->
+            </select>
+        </div>
+
+        <div class="selector">
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" min="1" max="10" value="1">
+        </div>
+
+        <div class="selector">
+            <h3>Política de Envío</h3>
+            <p id="product-shipping"></p>
+        </div>
+
+        <div class="selector">
+            <h3>Información del Producto</h3>
+            <p id="product-additional-info"></p>
+        </div>
+
+        <button class="btn-3" id="agregar-carrito">Agregar al carrito</button>
+    </div>
+</main>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let producto = JSON.parse(localStorage.getItem("producto"));
+
+        if (producto) {
+            document.getElementById("product-name").textContent = producto.nombre || "Sin nombre";
+            document.getElementById("product-description").textContent = producto.descripcion || "Sin descripción";
+            document.getElementById("product-price").textContent = producto.precio || "No disponible";
+            document.getElementById("product-price-old").textContent = producto.precioOriginal || "No disponible";
+            document.getElementById("product-stock").textContent = producto.stock || "No disponible";
+            document.getElementById("product-code").textContent = producto.codigo || "No disponible";
+            document.getElementById("product-category").textContent = producto.categoria || "No disponible";
+            document.getElementById("product-shipping").textContent = producto.politicaEnvio || "No disponible";
+            document.getElementById("product-additional-info").textContent = producto.informacionAdicional || "No disponible";
+            document.getElementById("product-priceS").textContent = producto.precioS || "No disponible";
+
+            // Asignar imágenes si existen
+            document.getElementById("main-img").src = producto.imagen || "default.jpg";
+            document.getElementById("extra-img1").src = producto.imagenExtra1 || "default.jpg";
+            document.getElementById("extra-img2").src = producto.imagenExtra2 || "default.jpg";
+            document.getElementById("extra-img3").src = producto.imagenExtra3 || "default.jpg";
+
+            // Agregar modelos disponibles
+            let modelSelect = document.getElementById("model-select");
+            if (producto.modelo && producto.modelo.length > 0) {
+                producto.modelo.forEach(modelo => {
+                    let option = document.createElement("option");
+                    option.value = modelo;
+                    option.textContent = modelo;
+                    modelSelect.appendChild(option);
+                });
+            } else {
+                modelSelect.innerHTML = `<option value="">No disponible</option>`;
+            }
+
+            // Agregar colores disponibles
+            let colorSelect = document.getElementById("color-select");
+            if (producto.colores && producto.colores.length > 0) {
+                producto.colores.forEach(color => {
+                    let option = document.createElement("option");
+                    option.value = color;
+                    option.textContent = color;
+                    colorSelect.appendChild(option);
+                });
+            } else {
+                colorSelect.innerHTML = `<option value="">No disponible</option>`;
+            }
+
+            // Agregar tamaños disponibles
+            let sizeSelect = document.getElementById("size-select");
+            if (producto.tamanos && producto.tamanos.length > 0) {
+                producto.tamanos.forEach(tamano => {
+                    let option = document.createElement("option");
+                    option.value = tamano;
+                    option.textContent = tamano;
+                    sizeSelect.appendChild(option);
+                });
+            } else {
+                sizeSelect.innerHTML = `<option value="">No disponible</option>`;
+            }
+        } else {
+            document.getElementById("product-name").textContent = "Producto no encontrado";
+        }
+    });
+
+    // Función para cambiar la imagen principal al hacer clic en una miniatura
+    function cambiarImagen(elemento) {
+        document.getElementById("main-img").src = elemento.src;
+    }
+
+    // 🔹 Función para cambiar la imagen principal cuando se hace clic en una miniatura
+    function cambiarImagen(elemento) {
+        let imagenPrincipal = document.getElementById("main-img");
+        imagenPrincipal.src = elemento.src;
+    }
+
+
+
+
+
+    // 🔹 Lógica para agregar el producto al carrito
+    document.addEventListener("DOMContentLoaded", function () {
+    actualizarCarrito(); // Cargar carrito al inicio
+
+    // Verificar si los botones existen antes de agregar eventos
+    const btnAgregar = document.getElementById("agregar-carrito");
+    const btnVaciar = document.getElementById("vaciar-carrito");
+    const btnComprar = document.getElementById("comprar-carrito");
+
+    if (btnAgregar) btnAgregar.addEventListener("click", agregarAlCarrito);
+    if (btnVaciar) btnVaciar.addEventListener("click", vaciarCarrito);
+    if (btnComprar) btnComprar.addEventListener("click", comprarCarrito);
+});
+
+// 🔹 Función para agregar productos al carrito con modelo, color y tamaño
+function agregarAlCarrito() {
+    const modelo = document.getElementById("model-select")?.value || "No seleccionado";
+    const color = document.getElementById("color-select")?.value || "No seleccionado";
+    const size = document.getElementById("size-select")?.value || "No seleccionado";
+    let quantity = parseInt(document.getElementById("quantity")?.value, 10) || 1;
+
+    if (quantity <= 0 || isNaN(quantity)) {
+        alert("❌ La cantidad debe ser mayor a 0.");
+        return;
+    }
+
+    let producto = {
+        id: document.getElementById("product-code")?.textContent || `producto-${Date.now()}`,
+        nombre: document.getElementById("product-name")?.textContent || "Sin nombre",
+        precio: parseFloat(document.getElementById("product-price")?.textContent.replace('S/. ', '').replace(',', '')) || 0,
+        modelo: modelo,
+        color: color,
+        size: size,
+        quantity: quantity,
+        imagen: document.getElementById("main-img")?.src || "imagenes/default-image.jpg"
+    };
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    let productoExistente = carrito.find(item =>
+        item.id === producto.id &&
+        item.modelo === producto.modelo &&
+        item.color === producto.color &&
+        item.size === producto.size
+    );
+
+    if (productoExistente) {
+        productoExistente.quantity += quantity;
+    } else {
+        carrito.push(producto);
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    actualizarCarrito();
+    alert("✅ Producto agregado al carrito! 🛒");
+}
+
+// 🔹 Función para actualizar la vista del carrito
+function actualizarCarrito() {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const carritoItems = document.getElementById("carrito-items");
+    const totalCarrito = document.getElementById("total-carrito");
+    const btnComprar = document.getElementById("comprar-carrito");
+
+    if (!carritoItems || !totalCarrito || !btnComprar) return;
+
+    carritoItems.innerHTML = ""; 
+
+    let total = 0;
+    carrito.forEach(producto => {
+        const row = document.createElement("tr");
+        row.setAttribute("data-id", producto.id);
+
+        row.innerHTML = `
+            <td><img src="${producto.imagen}" alt="${producto.nombre}" width="50"></td>
+            <td>${producto.nombre} <br><small>(${producto.modelo} - ${producto.color} - ${producto.size})</small></td>
+            <td>S/. ${producto.precio.toFixed(2)}</td>
+            <td>${producto.quantity}</td>
+            <td><a href="#" class="borrar" data-id="${producto.id}" data-modelo="${producto.modelo}" data-color="${producto.color}" data-size="${producto.size}">❌</a></td>
+        `;
+
+        carritoItems.appendChild(row);
+        total += producto.precio * producto.quantity;
+    });
+
+    totalCarrito.textContent = `Total: S/. ${total.toFixed(2)}`;
+
+    document.querySelectorAll(".borrar").forEach(btn => {
+        btn.addEventListener("click", eliminarElemento);
+    });
+
+    if (carrito.length === 0) {
+        carritoItems.innerHTML = `<tr><td colspan="5" style="text-align:center; color: gray;">🛒 El carrito está vacío</td></tr>`;
+        btnComprar.style.display = "none"; // Ocultar botón si el carrito está vacío
+    } else {
+        btnComprar.style.display = "block"; // Mostrar botón si hay productos
+    }
+}
+
+// ❌ Función para eliminar un producto del carrito
+function eliminarElemento(e) {
+    e.preventDefault();
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const id = e.target.getAttribute("data-id");
+    const modelo = e.target.getAttribute("data-modelo");
+    const color = e.target.getAttribute("data-color");
+    const size = e.target.getAttribute("data-size");
+
+    carrito = carrito.filter(producto =>
+        !(producto.id === id && producto.modelo === modelo && producto.color === color && producto.size === size)
+    );
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    actualizarCarrito();
+}
+
+// 🗑️ Función para vaciar el carrito
+function vaciarCarrito() {
+    localStorage.removeItem("carrito");
+    actualizarCarrito();
+    alert("🗑️ Carrito vaciado!");
+}
+
+// 🛍️ Función para realizar la compra y enviar mensaje a WhatsApp
+function comprarCarrito() {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    if (carrito.length === 0) {
+        alert("❌ No hay productos en el carrito.");
+        return;
+    }
+
+    let mensaje = "🛒 *Resumen de tu compra:*\n";
+    let total = 0;
+
+    carrito.forEach(producto => {
+        mensaje += `\n📌 *${producto.nombre}* - ${producto.modelo}, ${producto.color}, ${producto.size}\n   Cantidad: ${producto.quantity} | Precio: *S/. ${producto.precio.toFixed(2)}*\n`;
+        total += producto.precio * producto.quantity;
+    });
+
+    mensaje += `\n💰 *Total a pagar: S/. ${total.toFixed(2)}*`;
+
+    // Número de WhatsApp de destino
+    const numeroWhatsApp = "51952580740";
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+
+    // Confirmar la compra antes de enviar el mensaje
+    if (confirm(mensaje + "\n\n¿Confirmas la compra?")) {
+        window.open(urlWhatsApp, "_blank"); // Abrir WhatsApp en una nueva ventana
+        localStorage.removeItem("carrito");
+        actualizarCarrito();
+        alert("✅ ¡Gracias por tu compra! 🛍️");
+    }
+}
+
+</script>
+
+
+
+
+<!-- Pie de página -->
+<footer class="footer">
+    <div class="footer-content container">
+        <div class="link">
+            <h3>Información</h3>
+            <ul>
+                <li><a href="#">Sobre nosotros</a></li>
+                <li><a href="#">Política de privacidad</a></li>
+                <li><a href="#">Términos y condiciones</a></li>
+                <li><a href="#">Ayuda</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="filtro.js"></script>
+
+
+</body>
+</html>

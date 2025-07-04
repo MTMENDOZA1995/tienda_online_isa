@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Mi Tienda</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Íconos de FontAwesome -->
+</head>
+<body>
+
+    <!-- Menú de navegación (Encabezado) -->
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo" aria-label="Ir a la página principal">
+                <img src="imagenes/logo.png" alt="Logo de la tienda">
+                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATARACTIVAS</span>  <!-- Nombre de la tienda agregado -->
+            </a>
+            <input type="checkbox" id="menu" aria-label="Abrir menú">
+            <label for="menu" class="menu-label">
+                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú">
+            </label>
+            <nav class="navbar" aria-label="Menú de navegación">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="subastas.html">Subastas</a></li>
+                    <li><a href="Barter.html">Barter</a></li>
+                    <li><a href="Blockcorporativo.html">Block</a></li>
+                </ul>
+            </nav>
+            
+            <div class="carrito-container">
+                <ul>
+                    <li class="submenu">
+                        <img id="img-carrito" src="imagenes/car.png" alt="Carrito de compras">
+                        <div id="carrito" role="complementary">
+                            <table id="lista-carrito">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <p id="total-carrito">Total: $0</p>
+                            <button id="vaciar-carrito" class="btn-3">Vaciar Carrito</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    
+    <p>¡Muy pronto, ISA te traerá emocionantes novedades que no quedrás perderte!</p>
+
+    <style>
+        p {
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #6cc82a;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+    
+        p:hover {
+            background-color: #6cc82a;
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+    
+
+    
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="link">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Ayuda</a></li>
+                </ul>
+            </div>
+
+            <div class="link">
+                <h3>Redes Sociales</h3>
+                <ul>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="filtro.js"></script>
+
+
+</body>
+</html>
