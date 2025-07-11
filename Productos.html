@@ -3,51 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | Mi Tienda</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- Íconos de FontAwesome -->
+    <title>Productos | IMPORTACIONES SOSTENIBLES & ATRACTIVAS</title>
+    <link rel="icon" href="imagenes/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="Productos.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-    <!-- Menú de navegación (Encabezado) -->
     <header class="header">
         <div class="menu container">
-            <a href="index.html" class="logo" aria-label="Ir a la página principal">
-                <img src="imagenes/logo.png" alt="Logo de la tienda">
-                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATARACTIVAS</span>  <!-- Nombre de la tienda agregado -->
+            <a href="index.html" class="logo" aria-label="Ir a la página principal de Importaciones Sostenibles y Atractivas">
+                <img src="imagenes/logo.png" alt="Logo de Importaciones Sostenibles y Atractivas">
+                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATRACTIVAS</span>
             </a>
-            <input type="checkbox" id="menu" aria-label="Abrir menú">
-            <label for="menu" class="menu-label">
-                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú">
+
+            <input type="checkbox" id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
+            <label for="menu-toggle" class="menu-label">
+                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú de hamburguesa">
             </label>
-            <nav class="navbar" aria-label="Menú de navegación">
+
+            <nav class="navbar" id="main-navigation" aria-label="Menú de navegación principal">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="subastas.html">Subastas</a></li>
-                    <li><a href="Barter.html">Barter</a></li>
-                    <li><a href="Blockcorporativo.html">Block</a></li>
-                </ul>
+                    <li><a href="productos.html" aria-current="page">Productos</a></li> <li><a href="subastas.html">Subastas</a></li>
+                    <li><a href="barter.html">Barter</a></li>
+                    <li><a href="blog.html">Blog Corporativo</a></li> </ul>
             </nav>
-            
-            <div class="carrito-container">
-                <ul>
-                    <li class="submenu">
-                        <img id="img-carrito" src="imagenes/car.png" alt="Carrito de compras">
-                        <div id="carrito" role="complementary">
-                            <table id="lista-carrito">
+
+            <div class="cart-container">
+                <ul class="submenu">
+                    <li>
+                        <img id="cart-icon" src="imagenes/car.png" alt="Icono de carrito de compras">
+                        <div id="cart-dropdown" class="cart-dropdown" role="complementary" aria-labelledby="cart-icon">
+                            <h4>Productos en el carrito</h4>
+                            <table id="cart-list">
                                 <thead>
                                     <tr>
                                         <th>Imagen</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Accion</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody id="cart-list-body">
+                                    <tr>
+                                        <td colspan="5" class="empty-cart-message">El carrito está vacío.</td>
+                                    </tr>
+                                </tbody>
                             </table>
-                            <p id="total-carrito">Total: $0</p>
-                            <button id="vaciar-carrito" class="btn-3">Vaciar Carrito</button>
+                            <p id="cart-total">Total: S/. 0.00</p>
+                            <button id="clear-cart-btn" class="btn-3">Vaciar Carrito</button>
+                            <button id="checkout-btn" class="btn-3 checkout-btn">Finalizar Compra</button>
                         </div>
                     </li>
                 </ul>
@@ -55,72 +66,77 @@
         </div>
     </header>
 
-    <!-- Filtro de búsqueda por categoría -->
-    <section class="filtro-categorias">
-        <label for="categoria">Filtrar por Categoría:</label>
-        <select id="categoria" aria-label="Seleccionar categoría para filtrar productos">
-            <option value="todos">Todos</option>
-            <option value="Art. Celulares">Art. Celulares</option>
-            <option value="Art Cocina">Art Cocina</option>
-            <option value="Art Mascotas">Art Mascotas</option>
-            <option value="Art Medida">Art Medida</option>
-            <option value="Cerraduras">Cerraduras</option>
-            <option value="Coleccion">Coleccion</option>
-            <option value="Cosmeticos">Cosmeticos</option>
-            <option value="Credenciales">Credenciales</option>
-            <option value="Joyeria">Joyeria</option>
-            <option value="Llaveros">Llaveros</option>
-            <option value="Pulseras">Pulseras</option>
-            <option value="Reloj">Reloj</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Tecnologia">Tecnologia</option>
-            <!-- Puedes agregar más categorías aquí -->
-        </select>
+    <section class="category-filter container">
+        <label for="category-select">Filtrar por Categoría:</label>
+        <select id="category-select" aria-label="Seleccionar categoría para filtrar productos">
+            <option value="all">Todos</option> 
+            <option value="celulares">Art. Celulares</option>
+            <option value="cocina">Art. Cocina</option>
+            <option value="mascotas">Art. Mascotas</option>
+            <option value="medida">Art. Medida</option>
+            <option value="cerraduras">Cerraduras</option>
+            <option value="coleccion">Colección</option>
+            <option value="cosmeticos">Cosméticos</option>
+            <option value="credenciales">Credenciales</option>
+            <option value="joyeria">Joyería</option>
+            <option value="llaveros">Llaveros</option>
+            <option value="pulseras">Pulseras</option>
+            <option value="reloj">Reloj</option>
+            <option value="ropa">Ropa</option>
+            <option value="tecnologia">Tecnología</option>
+            </select>
     </section>
 
-
-    <!-- PRODUCTOS -->
-    <main class="products container">
-        <p class="Titulo_Pagina">Productos</p>
-        <div class="box-container" id="lista-1">
-            <!-- Los productos se insertarán dinámicamente aquí -->
-        </div>
-    
-        <!-- Paginación -->
-        <button class="btn-2" id="load-more">Cargar más</button>
+    <main class="products-section container">
+        <h1 class="page-title">Nuestros Productos</h1> <div class="products-grid" id="product-list">
+            </div>
+        <button class="btn-2 load-more-btn" id="load-more-products">Cargar más productos</button>
     </main>
 
-    
-
-    <!-- Pie de página -->
+  <!-- =============  FOOTER  ============= -->
     <footer class="footer">
         <div class="footer-content container">
-            <div class="link">
-                <h3>Información</h3>
+            <div class="footer-links">
+                <h3>Sobre Nosotros</h3>
                 <ul>
-                    <li><a href="#">Sobre nosotros</a></li>
-                    <li><a href="#">Política de privacidad</a></li>
-                    <li><a href="#">Términos y condiciones</a></li>
-                    <li><a href="#">Ayuda</a></li>
+                    <li><a href="nosotros.html">Nuestra Historia</a></li>
+                    <li><a href="mision.html">Misión y Visión</a></li>
+                    <li><a href="politicas.html">Políticas de la Tienda</a></li>
                 </ul>
             </div>
 
-            <div class="link">
-                <h3>Redes Sociales</h3>
+            <div class="footer-links">
+                <h3>Servicio al Cliente</h3>
                 <ul>
-                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i> Twitter</a></li>
-                    <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    <li><a href="devoluciones.html">Devoluciones y Reembolsos</a></li>
+                    <li><a href="metodos-pago.html">Métodos de Pago</a></li> <li><a href="envio.html">Envío</a></li>
                 </ul>
             </div>
+
+            <div class="footer-links">
+                <h3>Síguenos</h3>
+                <ul class="social-icons">
+                    <li><a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
+                    <li><a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17-17 11.6 2.2.1 4.4-.6 6-2C3 15.5 3 13.1 3 11.5c0-1.4.5-2.8 1.4-4S6.9 6 8.5 6c1.6 0 3.3.9 4.3 2.1l-.8-2.6h3.6s2.3.6 2.8 1.6l-.3 1.2c-.3.4-.6.8-.9 1.2z"/></svg></a></li>
+                    <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37a4 4 0 1 1-7.25-.09c.39-1.92 2.3-3.06 4.32-3.06h.03a4 4 0 0 1 4.14 4.14v.03a4 4 0 0 1-3.06 4.32c-1.92.39-3.06 2.3-3.06 4.32z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a></li>
+                    <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
+                    <li><a href="#" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17.5c-1.3-.8-1.5-2.2-.6-3.4L4.8 11a4 4 0 0 1 4-2c1.7 0 3.2.7 4 1.8L16.2 8a4 4 0 0 1 4 2c0 1.7-.7 3.2-1.8 4L19 16.2a4 4 0 0 1-4 2c-1.7 0-3.2-.7-4-1.8L7.8 18a4 4 0 0 1-4-2c0-1.7.7-3.2 1.8-4L2.5 17.5z"/><path d="M12 2L10 6 12 10 14 6Z"/><circle cx="12" cy="12" r="10"/></svg></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 IMPORTACIONES SOSTENIBLES & ATRACTIVAS. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <script src="filtro.js"></script>
 
-
+    <script src="js/cart.js" defer></script>
+     <script src="js/menu.js" defer></script> 
+    <script src="js/Products.js" defer></script>
+   
 </body>
 </html>
 
 
+    

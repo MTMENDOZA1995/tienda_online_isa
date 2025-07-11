@@ -13,7 +13,7 @@ body {
     font-family: "Poppins", sans-serif; /* Primary font for the entire body */
     background-color: #f2f2f2; /* A light, soft gray background color */
     color: #333; /* Default text color for good readability */
-    font-size: 14px; /* Base font size reduced for a more compact feel */
+    font-size: 14px; /* Base font size for a good balance of compactness and readability */
     line-height: 1.5; /* Adjusted line height for smaller text */
 }
 
@@ -27,7 +27,7 @@ img {
     width: 90%; /* Increased width slightly for more content space */
     max-width: 1200px; /* Reduced max-width for overall compactness */
     margin: 0 auto; /* Centers the container horizontally */
-    padding: 15px; /* Reduced padding for more dense layout */
+    padding: 15px; /* Reduced padding for a more dense layout */
 }
 
 h1, h2, h3, h4 { /* Consolidated heading styles */
@@ -39,9 +39,9 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 /* --- BUTTON STYLES --- */
 .btn-1 {
     display: inline-block; /* Allows button to size to content while accepting margin */
-    padding: 10px 20px; /* Reduced padding */
+    padding: 10px 20px; /* Adjusted padding */
     background-color: #6cc82a; /* Vibrant brand green for primary actions */
-    margin-right: 15px; /* Reduced margin */
+    margin-right: 15px; /* Adjusted margin */
     color: #FFFFFF; /* High-contrast white text */
     text-transform: capitalize; /* Capitalizes first letter of each word */
     text-align: center;
@@ -49,7 +49,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     transition: background-color 0.3s ease; /* Smooth transition on hover */
     border: none; /* Removes default button border */
     cursor: pointer; /* Indicates a clickable element */
-    font-size: 14px; /* Font size reduced */
+    font-size: 14px; /* Adjusted font size */
 }
 
 .btn-1:hover {
@@ -59,12 +59,12 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 .btn-2,
 .btn-3 {
     background-color: #6cc82a;
-    margin-top: 30px; /* Reduced margin */
+    margin-top: 30px; /* Adjusted margin */
     display: inline-block;
-    padding: 8px 25px; /* Reduced padding */
+    padding: 8px 25px; /* Adjusted padding */
     border-radius: 20px; /* Adjusted border-radius */
     color: #FFFFFF;
-    font-size: 14px; /* Font size reduced */
+    font-size: 14px; /* Adjusted font size */
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly lighter shadow */
     border: none;
@@ -80,7 +80,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 /* --- GLOBAL TITLES & TEXT --- */
 .welcome-text {
     color: #6cc82a;
-    font-size: 16px;
+    font-size: 16px; /* Adjusted font size */
     font-weight: 600;
     display: block;
     margin-bottom: 20px;
@@ -89,7 +89,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
 .page-title { /* For main page titles (e.g., "Nuevos Productos") */
     color: #000000;
-    font-size: 26px;
+    font-size: 26px; /* Adjusted font size */
     font-weight: 600;
     display: block;
     margin-bottom: 20px;
@@ -101,7 +101,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     display: flex;
     align-items: center;
     background-color: #000000;
-    padding: 100px 0 0 0; /* Reduced top padding */
+    padding: 100px 0 0 0; /* Adjusted top padding */
     position: relative;
     flex-direction: column;
 }
@@ -114,7 +114,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px; /* Reduced padding */
+    padding: 15px; /* Adjusted padding */
     z-index: 1000;
     background-color: #000000;
 }
@@ -126,15 +126,15 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 }
 
 .logo img {
-    height: 60px; /* Reduced logo height */
+    height: 60px; /* Adjusted logo height */
     width: auto;
-    max-width: 120px; /* Reduced max-width */
+    max-width: 120px; /* Adjusted max-width */
     object-fit: contain;
     margin-right: 10px;
 }
 
 .store-name {
-    font-size: 12px;
+    font-size: 12px; /* Adjusted font size */
     font-weight: bold;
     color: #6cc82a;
     text-transform: uppercase;
@@ -153,8 +153,8 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 }
 
 .navbar ul li a {
-    font-size: 14px;
-    padding: 12px 14px;
+    font-size: 14px; /* Adjusted font size */
+    padding: 12px 14px; /* Adjusted padding */
     color: #f6f7f6;
     display: block;
     font-weight: bold;
@@ -194,14 +194,14 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     display: none;
 }
 
-/* Header Content (Main marketing text and image) - specific to homepage */
+/* Header Content (Main marketing text and image) */
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
     width: 100%;
-    
+    flex-wrap: wrap;
 }
 
 .header-txt {
@@ -390,7 +390,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 .oferts {
     padding: 80px 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 15px;
 }
@@ -852,7 +852,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     transform: scale(1.01);
 }
 
-.add-to-cart-btn-detail:disabled {
+.add-to-cart-btn-detail:disabled { /* Style for disabled button (e.g. out of stock) */
     background-color: #ccc;
     cursor: not-allowed;
     transform: none;
