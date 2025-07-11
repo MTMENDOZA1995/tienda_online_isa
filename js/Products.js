@@ -89,10 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice: 24.00,
             discount: "80% DES.",
             images: {
-                main: "productos/ISA-0000028.jpg",
-                extra1: "productos/ISA-0000028.jpg",
-                extra2: "productos/ISA-0000028.jpg",
-                extra3: "productos/ISA-0000028.jpg"
+                main: "productos/ISA-0000028.png",
+                extra1: "productos/ISA-0000028.png",
+                extra2: "productos/ISA-0000028.png",
+                extra3: "productos/ISA-0000028.png",
             },
             code: "ISA-0000028",
             stock: 3,
