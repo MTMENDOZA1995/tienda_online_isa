@@ -174,41 +174,81 @@ const renderCart = () => {
 
 /**
  * Función para proceder a la compra via WhatsApp.
+ * Genera un resumen del carrito y lo envía a un número de WhatsApp predefinido.
  */
 const proceedToCheckout = () => {
+    // 1. Validar si el carrito está vacío
     if (cart.length === 0) {
-        alert("❌ Tu carrito está vacío. Por favor, añade productos antes de comprar.");
+        alert("❌ Tu carrito está vacío. Por favor, añade productos antes de continuar.");
         return;
     }
 
-    let message = "🛒 *Resumen de tu compra en IMPORTACIONES SOSTENIBLES & ATRACTIVAS:*\n";
+    // --- Configuración (fácil de modificar) ---
+    const WHATSAPP_NUMBER = "51952580740"; // Número de WhatsApp de destino (ej. '51952580740' para Perú)
+    const STORE_NAME = "IMPORTACIONES SOSTENIBLES & ATRACTIVAS";
+    const CURRENCY_SYMBOL = "S/."; // Símbolo de la moneda, usado en el formato de mensaje
+    const THANK_YOU_MESSAGE = "✅ ¡Tu pedido ha sido enviado a WhatsApp! Te contactaremos pronto para confirmar tu compra. ¡Gracias!";
+    const EMPTY_CART_ALERT = "❌ Tu carrito está vacío. Por favor, añade productos antes de comprar.";
+    const CONFIRM_PROMPT_TEXT = "\n\n¿Deseas enviar este pedido por WhatsApp para confirmar tu compra?";
+
+
+    // 2. Construir el mensaje de resumen del pedido para WhatsApp
+    let messageParts = []; // Usamos un array para construir el mensaje de forma más limpia
+
+    messageParts.push(`🛒 *Resumen de tu compra en ${STORE_NAME}:*`); // Título del mensaje
+
     let total = 0;
 
-    cart.forEach(item => {
-        message += `\n📌 *${item.name}*`;
-        // Solo añade opciones si no son "Unico" para evitar ruido
-        const options = [item.model, item.color, item.size].filter(opt => opt && opt !== "Unico").join(', ');
-        if (options) {
-            message += ` (${options})`;
+    cart.forEach((item, index) => {
+        // Genera una lista numerada para cada producto para mayor claridad
+        messageParts.push(`\n*${index + 1}. ${item.name}*`);
+
+        // Construye las opciones (modelo, color, tamaño) de forma dinámica
+        const options = [];
+        if (item.model && item.model.toLowerCase() !== "unico" && item.model !== "No seleccionado") {
+            options.push(item.model);
         }
-        message += `\n   Cantidad: ${item.quantity} | Precio Unitario: *${formatCurrency(item.price)}*\n`;
+        if (item.color && item.color.toLowerCase() !== "unico" && item.color !== "No seleccionado") {
+            options.push(item.color);
+        }
+        if (item.size && item.size.toLowerCase() !== "unico" && item.size !== "No seleccionado") {
+            options.push(item.size);
+        }
+
+        if (options.length > 0) {
+            messageParts.push(`   Opciones: _${options.join(', ')}_`); // Usa guiones bajos para cursiva en WhatsApp
+        }
+
+        // Añade cantidad y precio unitario
+        messageParts.push(`   Cantidad: ${item.quantity} | Precio Unitario: *${formatCurrency(item.price)}*`);
+        
         total += item.price * item.quantity;
     });
 
-    message += `\n💰 *Total a pagar: ${formatCurrency(total)}*`;
-    message += `\n\n¡Espero tu confirmación para procesar el pedido!`;
+    // Añade el total al final del mensaje
+    messageParts.push(`\n💰 *Total a pagar: ${formatCurrency(total)}*`);
+    messageParts.push(`\n¡Espero tu confirmación para procesar el pedido!`);
 
-    const whatsappNumber = "51952580740"; // Asegúrate de que este número sea correcto
-    const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
 
-    if (confirm(message + "\n\n¿Deseas enviar este pedido por WhatsApp para confirmar tu compra?")) {
+    const fullMessage = messageParts.join('\n'); // Une todas las partes con saltos de línea
+
+
+    // 3. Confirmar la compra antes de enviar el mensaje
+    if (confirm(fullMessage + CONFIRM_PROMPT_TEXT)) {
+        const whatsappURL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(fullMessage)}`;
+        
         window.open(whatsappURL, "_blank"); // Abre WhatsApp en una nueva pestaña
-        // Opcional: vaciar carrito después de la confirmación inicial (o esperar confirmación de pago)
-        // clearCart(); // Puedes decidir si vaciarlo aquí o en una página de confirmación real
-        alert("✅ Tu pedido ha sido enviado a WhatsApp. ¡Gracias por tu compra! Te contactaremos pronto.");
+
+        // 4. Vaciar carrito y notificar al usuario
+        // Decisión sobre cuándo vaciar el carrito:
+        // - Si lo vacías aquí, el usuario ya no lo verá en la web.
+        // - Si lo vacías DESPUÉS de una confirmación de pago real (en un sistema más complejo),
+        //   el usuario lo mantiene en su carrito web hasta que el pago se confirme.
+        //   Para una integración simple de WhatsApp, vaciarlo aquí está bien.
+        clearCart(); // Llama a la función para vaciar el carrito y actualizar la UI
+        alert(THANK_YOU_MESSAGE); // Mensaje final de agradecimiento
     }
 };
-
 
 
 
