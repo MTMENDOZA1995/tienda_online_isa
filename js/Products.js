@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadMoreBtn = document.getElementById("load-more-products"); // Botón "Cargar más" (si existe en tu HTML)
 
     // Configuración para la carga de productos
-    const PRODUCTS_PER_LOAD = 9; // Cantidad inicial de productos y a cargar por clic
+    const PRODUCTS_PER_LOAD = 10; // Cantidad inicial de productos y a cargar por clic
     let currentProductIndex = 0; // Índice para controlar la paginación de productos visibles
 
     // --- Datos de productos ---
