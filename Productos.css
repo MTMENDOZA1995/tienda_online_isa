@@ -366,7 +366,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     background: #000000;
 }
 
-.checkout-btn {
+#checkout-btn-dropdown {
     display: block;
     width: 100%;
     background-color: #ac56ff;
@@ -382,7 +382,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     text-align: center;
 }
 
-.checkout-btn:hover {
+#checkout-btn-dropdown:hover {
     background-color: #8e3ddf;
 }
 
