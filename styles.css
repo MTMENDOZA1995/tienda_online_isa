@@ -1337,24 +1337,20 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
     /* --- CARRITO (Dropdown): Más Centrado y Pequeño para Móviles --- */
     .cart-container { /* Ajusta el contenedor global del carrito */
-        margin-left: auto; /* Empuja el cart-container a la derecha para centrarlo */
-        margin-right: auto; /* Para centrar junto con margin-left: auto; */
-        width: auto; /* Permite que se ajuste a su contenido y se centre */
-        max-width: 320px; /* Limita su tamaño máximo para no ser demasiado ancho en móviles */
+        margin-left: 0; /* Elimina margen fijo a la izquierda */
+        width: 100%; /* Ocupa todo el ancho para centrado flexible */
         display: flex; /* Convierte el contenedor en flex */
-        justify-content: center; /* Centra el icono y el dropdown dentro de su contenedor */
-        position: relative; /* Asegura que el dropdown se posicione correctamente */
-        padding-right: 0; /* Asegura que no haya padding extra que interfiera con el centrado */
+        justify-content: flex-end; /* Empuja el icono del carrito a la derecha */
+        padding-right: 15px; /* Añade un padding a la derecha para que no pegue al borde */
     }
     .cart-dropdown {
-        min-width: 280px; 
-        padding: 12px; /* Aumentado padding */
-        right: auto; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        top: 100%; 
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
-        border-radius: 5px; 
+        min-width: 280px; /* Reduje el ancho mínimo para móviles */
+        padding: 12px;
+        right: 0; /* Asegura que el dropdown se alinee a la derecha del viewport */
+        left: auto; /* Elimina cualquier empuje a la izquierda */
+        transform: translateX(0); /* Elimina cualquier transformación que lo desplace */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra más ligera */
+        border-radius: 5px; /* Menor radio de borde */
     }
     #cart-list th,
     #cart-list td {
