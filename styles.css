@@ -1144,8 +1144,8 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .oferts h2 {
-        font-size: 26px; /* Ajuste del título */
-        margin-bottom: 25px; /* Espacio debajo del título */
+        font-size: 26px;
+        margin-bottom: 25px;
         text-align: center;
     }
 
@@ -1173,7 +1173,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         flex-basis: 30%; /* Más espacio para la imagen en diseño horizontal */
         min-width: 60px; /* Asegura un ancho mínimo para la imagen */
         max-width: 75px; /* Limita el ancho de la imagen */
-        height: auto; /* Altura automática */
+        height: auto;
         display: flex; /* Convierte el contenedor de la imagen en flex para centrar la imagen */
         align-items: center; /* Centra verticalmente la imagen dentro de su contenedor */
         justify-content: center; /* Centra horizontalmente la imagen dentro de su contenedor */
@@ -1187,36 +1187,39 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     /* --- PRODUCTOS: Cuadrícula de 2 en 2 --- */
     .products-grid {
         gap: 20px; /* Espacio entre productos */
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* **CLAVE: Dos o más columnas** */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* **CLAVE: Dos o más columnas** */
         justify-content: center; /* Centra la cuadrícula si no llena todo el espacio */
     }
 
     .product-card { /* Tarjeta de producto individual */
-        flex-basis: calc(50% - 10px); /* Asegura dos columnas */
-        max-width: 300px; /* Limita el ancho en tabletas */
-        padding: 15px; /* Ajustado padding */
-        font-size: 14px; /* Ajustado font size */
+        flex-basis: calc(50% - 10px); /* Ajusta para que quepan 2 por fila con el gap */
+        max-width: 300px;
+        padding: 15px;
+        font-size: 14px;
     }
     .product-card img {
-        height: 150px; /* Ajustado altura imagen */
+        height: 150px;
     }
     .product-title {
-        font-size: 16px; /* Ajustado font size */
+        font-size: 16px;
     }
     .product-description {
-        font-size: 12px; /* Ajustado font size */
+        font-size: 12px;
+    }
+    .product-price-original, .product-price-offer, .product-price-normal {
+        font-size: 14px;
     }
     .product-price-offer {
-        font-size: 18px; /* Ajustado font size */
+        font-size: 18px;
     }
     .add-to-cart-btn {
-        font-size: 13px; /* Ajustado font size */
-        padding: 8px 20px; /* Ajustado padding */
+        font-size: 13px;
+        padding: 8px 20px;
     }
 
 
     /* ... (resto de .product-detail, footer, testimonial, search-bar para 991px) ... */
-    .product-detail { /* Estilo de product-detail.html cuando la pantalla es mediana */
+    .product-detail {
         flex-direction: column;
         align-items: center;
         gap: 25px;
@@ -1258,10 +1261,10 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 /* Media Query para la mayoría de los Smartphones (hasta 768px de ancho) */
 @media (max-width: 768px) {
     body {
-        font-size: 13.5px; /* Mantiene este tamaño base */
+        font-size: 13.5px;
     }
     .container {
-        padding: 12px; /* Ajusta el padding del contenedor principal */
+        padding: 12px;
     }
     .header {
         padding-top: 70px;
@@ -1299,21 +1302,18 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
     /* --- CARRITO (Dropdown): Más Centrado y Pequeño para Móviles --- */
     .cart-container { /* Ajusta el contenedor global del carrito */
-        margin-left: auto; /* **CLAVE: Empuja el cart-container a la derecha para centrarlo si es necesario** */
-        margin-right: auto; /* **CLAVE: Para centrar junto con margin-left: auto;** */
-        width: auto; /* Permite que se ajuste a su contenido y se centre */
-        max-width: 320px; /* Limita su tamaño máximo para no ser demasiado ancho en móviles */
-        display: flex; /* Asegura el flex para justify-content */
-        justify-content: center; /* Centra el icono y el dropdown dentro de su contenedor */
-        position: relative; /* Asegura que el dropdown se posicione correctamente */
+        margin-left: 0; /* Elimina margen fijo a la izquierda */
+        width: 100%; /* Ocupa todo el ancho para centrado flexible */
+        display: flex; /* Convierte el contenedor en flex */
+        justify-content: flex-end; /* Empuja el icono del carrito a la derecha */
+        padding-right: 15px; /* Añade un padding a la derecha para que no pegue al borde */
     }
     .cart-dropdown {
         min-width: 280px; /* Reduje el ancho mínimo para móviles */
-        padding: 10px;
-        right: auto; /* Remueve 'right: 0' para permitir centrado horizontal */
-        left: 50%; /* Intenta centrarlo horizontalmente */
-        transform: translateX(-50%); /* Ajuste de transformación para centrado */
-        top: 100%; /* Mantiene debajo del icono */
+        padding: 12px;
+        right: 0; /* Asegura que el dropdown se alinee a la derecha del viewport */
+        left: auto; /* Elimina cualquier empuje a la izquierda */
+        transform: translateX(0); /* Elimina cualquier transformación que lo desplace */
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra más ligera */
         border-radius: 5px; /* Menor radio de borde */
     }
@@ -1337,7 +1337,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         font-size: 24px;
     }
 
-    /* --- OFERTAS: Una columna por oferta (Apiladas) para móviles --- */
+    /* --- OFERTAS: Una columna por oferta (Apiladas verticalmente) para móviles --- */
     .oferts .offer-cards-grid {
         flex-direction: column; /* **CLAVE: UNA COLUMNA** para ofertas */
         align-items: center; /* Centra las tarjetas apiladas */
@@ -1347,8 +1347,8 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         flex-basis: 100%; /* Ocupa todo el ancho cuando está apilado */
         max-width: 350px; /* Ancho máximo para la tarjeta apilada */
         flex-direction: row; /* Mantiene el texto y la imagen en fila dentro de la tarjeta */
-        padding: 10px 12px; /* Ajustado padding */
-        gap: 8px; /* Ajustado gap */
+        padding: 10px 12px;
+        gap: 8px;
     }
     .ofert-txt h3 {
         font-size: 15px;
@@ -1367,8 +1367,8 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* **CLAVE: Dos columnas en móviles** */
     }
     .product-card {
-        flex-basis: calc(50% - 10px); /* Ajusta para 2 por fila con el gap */
-        max-width: 250px; /* Limita el ancho en tabletas */
+        flex-basis: calc(50% - 10px); /* Ajusta para 2 por fila con gap */
+        max-width: 250px;
         padding: 12px;
         font-size: 13.5px;
     }
@@ -1506,7 +1506,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 }
 
-@media (max-width: 480px) { /* Smallest Mobiles (most common phone portrait) */
+@media (max-width: 480px) { /* Small mobiles (most common phone portrait) */
     body {
         font-size: 12px;
     }
@@ -1541,17 +1541,17 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
     /* --- CARRITO (Dropdown) - Más pequeño en móviles muy pequeños --- */
     .cart-dropdown {
-        min-width: 200px; /* Further reduced min-width */
-        padding: 8px; /* Further reduced padding */
+        min-width: 220px; /* Further reduced min-width */
+        padding: 10px; /* Further reduced padding */
     }
     #cart-list th, #cart-list td {
-        padding: 4px; /* Further reduced padding */
-        font-size: 10px; /* Further reduced font size */
+        padding: 5px; /* Further reduced padding */
+        font-size: 11px; /* Further reduced font size */
     }
     .borrar {
         width: 18px; /* Further reduced size */
         height: 18px; /* Further reduced size */
-        font-size: 0.55em;
+        font-size: 0.6em;
     }
     #clear-cart-btn, .checkout-btn-dropdown-style {
         padding: 6px 8px; /* Further reduced padding */
@@ -1566,7 +1566,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     /* --- OFERTAS: Una columna por oferta (apiladas verticalmente) --- */
     .ofert-item {
         flex-basis: 100%; /* Full width */
-        max-width: 300px; /* Limit width */
+        max-width: 320px; /* Limit width */
         padding: 10px 12px;
         flex-direction: column; /* Stack vertically for very small screens */
         text-align: center;
@@ -1583,7 +1583,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         font-size: 12px;
     }
     .ofert-img img {
-        max-height: 50px;
+        max-height: 60px;
     }
 
 
@@ -1664,7 +1664,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
     .options-selector select, .options-selector input {
         padding: 8px 6px;
-        font-size: 12px;
+        font-size: 13px;
     }
     .add-to-cart-btn-detail {
         padding: 10px 20px;
