@@ -472,10 +472,10 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 }
 
 .products-grid {
-    margin-top: 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 15px;
+    grid-template-columns: repeat(2, 1fr); /* Fuerza 2 columnas */
+    justify-content: center;
 }
 
 .product-card {
@@ -699,6 +699,14 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     padding: 15px;
     align-items: flex-start;
 }
+
+.products-grid {
+    display: grid;
+    gap: 30px; /* Espacio entre productos */
+    grid-template-columns: repeat(4, 1fr); /* Por defecto en escritorio */
+    justify-content: center;
+}
+
 
 .product-images-container {
     flex: 0 0 45%;
@@ -1110,6 +1118,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     .menu label {
         display: block;
         order: 3; /* Asegura el icono de hamburguesa a la derecha */
+        
     }
 
     .menu-label img {
@@ -1156,7 +1165,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     .header-img {
         flex-basis: 100%; /* Ocupan todo el ancho, se apilan */
         margin-right: 0;
-        margin-bottom: 28px;
+        margin-bottom: 8px;
     }
 
     .butons {
@@ -1281,7 +1290,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     /* --- PRODUCTOS (en general): Asegurar 2x2 --- */
     .products-grid {
         gap: 20px; /* Espacio entre productos */
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Mantiene 2 o más columnas */
+        grid-template-columns: repeat(2, 1fr); /* Fuerza dos columnas fijas */
         justify-content: center; /* Centra la cuadrícula si no llena todo el espacio */
     }
     .product-card { /* Tarjeta de producto individual */
@@ -1678,6 +1687,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         padding: 12px;
         font-size: 14px;
         max-width: 300px; /* Limita el ancho del card individual */
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* 1 o 2 columnas según ancho disponible */
     }
     .product-card img {
         height: 180px; /* Altura ajustada de la imagen para una columna */
