@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Finaliza tu compra en Importaciones Sostenibles & Atractivas. Revisa tu pedido y completa tus datos.">
+    <meta name="keywords" content="finalizar compra, checkout, carrito, pedido, tienda online">
+    <title>Finalizar Compra | IMPORTACIONES SOSTENIBLES & ATRACTIVAS</title>
+    <link rel="icon" href="imagenes/logo.png" type="image/x-icon"> 
 
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="FCompra.css"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header class="header">
+        <div class="menu container">
+            <a href="index.html" class="logo" aria-label="Ir a la página principal de Importaciones Sostenibles y Atractivas">
+                <img src="imagenes/logo.png" alt="Logo de la tienda Importaciones Sostenibles y Atractivas" loading="lazy">
+                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES &amp; ATRACTIVAS</span>
+            </a>
+
+            <input type="checkbox" id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
+            <label for="menu-toggle" class="menu-label">
+                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú de hamburguesa" loading="lazy">
+            </label>
+
+            <nav class="navbar" id="main-navigation" aria-label="Menú de navegación principal">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="subastas.html">Subastas</a></li>
+                    <li><a href="barter.html">Barter</a></li>
+                    <li><a href="blog.html">Blog Corporativo</a></li>
+                </ul>
+            </nav>
+            
+            <div class="cart-container">
+                <ul class="submenu">
+                    <li>
+                        <img id="cart-icon" src="imagenes/car.png" alt="Icono de carrito de compras" loading="lazy">
+                        <div id="cart-dropdown" class="cart-dropdown" role="complementary" aria-labelledby="cart-icon">
+                            <h4>Productos en el carrito</h4>
+                            <table id="cart-list">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-list-body"></tbody>
+                            </table>
+                            <p id="cart-total">Total: S/. 0.00</p>
+                            <button id="clear-cart-btn" class="btn-3">Vaciar Carrito</button>
+                            <button id="checkout-btn-dropdown" class="btn-3 checkout-btn-dropdown-style">Finalizar Compra 🛍️</button> 
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="checkout-main container">
+        <h1 class="checkout-title">Finalizar Compra</h1>
+
+        <div class="checkout-content">
+            <section class="order-summary">
+                <h2>Resumen de tu Pedido</h2>
+                <div class="order-items-scroll">
+                    <table class="order-items-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="checkout-item-list">
+                            </tbody>
+                    </table>
+                </div>
+                <div class="order-total-summary">
+                    <p>Subtotal: <span id="checkout-subtotal">S/. 0.00</span></p>
+                    <p>Envío: <span id="checkout-shipping">S/. 0.00</span></p>
+                    <p class="final-total">Total: <span id="checkout-final-total">S/. 0.00</span></p>
+                </div>
+            </section>
+
+            <section class="customer-payment-details">
+                <h2>Datos de Contacto y Envío</h2>
+                <form id="checkout-form" class="checkout-form">
+                    <div class="form-group">
+                        <label for="full-name">Nombre Completo:</label>
+                        <input type="text" id="full-name" name="fullName" required placeholder="Ej. Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" id="email" name="email" required placeholder="Ej. tu@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Teléfono / WhatsApp:</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej. +51 987 654 321">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Dirección de Envío:</label>
+                        <input type="text" id="address" name="address" required placeholder="Ej. Av. Principal 123">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Ciudad:</label>
+                        <input type="text" id="city" name="city" required placeholder="Ej. Cajamarca">
+                    </div>
+                    <div class="form-group">
+                        <label for="region">Región / Departamento:</label>
+                        <input type="text" id="region" name="region" required placeholder="Ej. Cajamarca">
+                    </div>
+                    <div class="form-group">
+                        <label for="postal-code">Código Postal (opcional):</label>
+                        <input type="text" id="postal-code" name="postalCode" placeholder="Ej. 06001">
+                    </div>
+
+                    <h2 class="payment-title">Método de Pago</h2>
+                    <div class="form-group payment-method">
+                        <label>
+                            <input type="radio" name="paymentMethod" value="contra-entrega" checked>
+                            Pago Contra Entrega (Efectivo)
+                        </label>
+                        <label>
+                            <input type="radio" name="paymentMethod" value="transferencia">
+                            Yape (Te contactaremos para detalles)
+                        </label>
+                        <label>
+                            <input type="radio" name="paymentMethod" value="tarjeta-visa-izipay">
+                            <i class="fab fa-cc-visa"></i> Tarjeta de Crédito / Débito (Vía Izipay Seguro)
+                        </label>
+                    </div>
+                    <p class="payment-note" style="display:none;">
+                        <i class="fas fa-info-circle"></i> Serás redirigido/a a la plataforma segura de Izipay para completar el pago con tu tarjeta.
+                    </p>
+
+                    <div class="form-group comments-group">
+                        <label for="comments">Comentarios Adicionales (opcional):</label>
+                        <textarea id="comments" name="comments" rows="3" placeholder="Ej. Dejar el paquete con el portero, etc."></textarea>
+                    </div>
+
+                    <button type="submit" id="place-order-btn" class="btn-3 place-order-btn">Realizar Pedido</button>
+                    <p class="terms-privacy-text">Al hacer clic en "Realizar Pedido", aceptas nuestros <a href="terminos.html" target="_blank">Términos y Condiciones</a> y nuestra <a href="privacidad.html" target="_blank">Política de Privacidad</a>.</p>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content container">
+            <div class="footer-links">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="nosotros.html">Nuestra Historia</a></li>
+                    <li><a href="mision.html">Misión y Visión</a></li>
+                    <li><a href="politicas.html">Políticas de la Tienda</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Servicio al Cliente</h3>
+                <ul>
+                    <li><a href="devoluciones.html">Devoluciones y Reembolsos</a></li>
+                    <li><a href="metodos-pago.html">Métodos de Pago</a></li> 
+                    <li><a href="envio.html">Envío</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Síguenos</h3>
+                <ul class="social-icons">
+                    <li><a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="#" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 IMPORTACIONES SOSTENIBLES & ATRACTIVAS. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/cart.js" defer></script>
+    <script src="js/FCompra.js" defer></script> 
+    <script src="js/menu.js" defer></script> 
+    
+</body>
+</html>
