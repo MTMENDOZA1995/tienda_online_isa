@@ -1,1 +1,334 @@
+/* checkout.css */
 
+/* Importa las variables o estilos base si styles.css no es un buen punto de partida */
+/* @import url('styles.css'); /* No es necesario si styles.css se carga antes en HTML */
+
+/* --- GENERALES DE CHECKOUT --- */
+.checkout-main {
+    padding-top: 50px; /* Más espacio arriba para el contenido principal */
+    padding-bottom: 50px; /* Más espacio abajo */
+    background-color: #f8f8f8; /* Un fondo ligeramente diferente para la sección de checkout */
+}
+
+.checkout-title {
+    text-align: center;
+    font-size: 30px; /* Título principal más grande */
+    color: #111419;
+    margin-bottom: 40px; /* Espacio debajo del título */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.checkout-content {
+    display: flex; /* Contenedor principal de las dos columnas de checkout */
+    gap: 40px; /* Espacio entre las dos columnas (resumen y formulario) */
+    flex-wrap: wrap; /* Permite que las columnas se apilen en pantallas pequeñas */
+    justify-content: center; /* Centra las columnas si no ocupan todo el ancho */
+}
+
+/* --- SECCIÓN DE RESUMEN DEL PEDIDO --- */
+.order-summary {
+    flex: 1; /* Permite que esta columna crezca */
+    min-width: 300px; /* Ancho mínimo para la columna de resumen */
+    max-width: 450px; /* Ancho máximo para el resumen */
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.order-summary h2 {
+    font-size: 22px; /* Título del resumen */
+    color: #111419;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order-items-scroll {
+    max-height: 350px; /* Altura máxima para la tabla de ítems con scroll */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    margin-bottom: 20px;
+    border: 1px solid #eee; /* Borde sutil para el área de scroll */
+    border-radius: 5px;
+}
+
+.order-items-table {
+    width: 100%;
+    border-collapse: collapse; /* Elimina espacios entre celdas */
+}
+
+.order-items-table th,
+.order-items-table td {
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0; /* Borde de fila más claro */
+    text-align: left;
+    font-size: 14px;
+    vertical-align: middle; /* Alinea el contenido verticalmente */
+}
+
+.order-items-table th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.order-items-table td img {
+    width: 40px; /* Tamaño de imagen de producto en la tabla */
+    height: 40px;
+    object-fit: contain;
+    margin-right: 8px; /* Espacio entre imagen y texto */
+    vertical-align: middle; /* Alinea la imagen verticalmente */
+}
+
+/* Estilo para el botón de borrar en la tabla del resumen */
+.order-items-table .borrar {
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    color: #FFFFFF;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6em;
+    transition: background-color 0.3s ease;
+    margin-left: auto; /* Mueve el botón a la derecha de su celda */
+}
+.order-items-table .borrar:hover {
+    background-color: #c0392b;
+}
+
+
+.order-total-summary {
+    border-top: 2px solid #eee;
+    padding-top: 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.order-total-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.order-total-summary .final-total {
+    font-weight: bold;
+    font-size: 18px;
+    color: #6cc82a; /* Color de marca para el total final */
+}
+
+/* --- SECCIÓN DE DATOS DEL CLIENTE Y PAGO --- */
+.customer-payment-details {
+    flex: 2; /* Permite que esta columna ocupe más espacio */
+    min-width: 400px; /* Ancho mínimo para la columna de formulario */
+    max-width: 700px; /* Ancho máximo */
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.customer-payment-details h2 {
+    font-size: 22px;
+    color: #111419;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.customer-payment-details .payment-title {
+    margin-top: 30px; /* Espacio entre la dirección y el método de pago */
+}
+
+.checkout-form .form-group {
+    margin-bottom: 15px; /* Espacio entre grupos de formulario */
+}
+
+.checkout-form label {
+    display: block; /* Etiqueta en su propia línea */
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #444;
+    font-size: 14px;
+}
+
+.checkout-form input[type="text"],
+.checkout-form input[type="email"],
+.checkout-form input[type="tel"],
+.checkout-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); /* Sombra interna sutil */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checkout-form input[type="text"]:focus,
+.checkout-form input[type="email"]:focus,
+.checkout-form input[type="tel"]:focus,
+.checkout-form textarea:focus {
+    border-color: #6cc82a; /* Borde verde al enfocar */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 200, 42, 0.2); /* Resplandor verde al enfocar */
+}
+
+.checkout-form .payment-method label {
+    display: flex; /* Alinea radio button y texto */
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: normal; /* Para que el texto de la opción no sea negrita */
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.checkout-form .payment-method input[type="radio"] {
+    margin-right: 10px;
+    width: 18px; /* Tamaño del radio button */
+    height: 18px;
+}
+
+.checkout-form .comments-group textarea {
+    resize: vertical; /* Permite redimensionar solo verticalmente */
+}
+
+.place-order-btn { /* Botón principal de Realizar Pedido */
+    width: 100%;
+    padding: 15px 25px; /* Más padding para un botón principal */
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #6cc82a; /* Color principal de la marca */
+    color: #fff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px; /* Margen superior para separarlo de los campos */
+}
+
+.place-order-btn:hover {
+    background-color: #5aaf26; /* Tono más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+}
+
+.terms-privacy-text {
+    font-size: 12px;
+    text-align: center;
+    color: #777;
+    margin-top: 15px;
+}
+
+.terms-privacy-text a {
+    color: #6cc82a; /* Color de enlace para términos y privacidad */
+    text-decoration: underline;
+}
+
+/* --- RESPONSIVIDAD PARA CHECKOUT --- */
+@media (max-width: 991px) {
+    .checkout-title {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+    .checkout-content {
+        flex-direction: column; /* Apila las columnas */
+        gap: 30px; /* Aumenta el espacio entre las secciones apiladas */
+    }
+    .order-summary,
+    .customer-payment-details {
+        max-width: 100%; /* Ocupan todo el ancho disponible */
+        min-width: unset; /* Elimina el mínimo para flexibilidad */
+    }
+}
+
+@media (max-width: 768px) {
+    .checkout-title {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+    .order-summary,
+    .customer-payment-details {
+        padding: 20px; /* Reduce el padding en móviles */
+    }
+    .order-summary h2, .customer-payment-details h2 {
+        font-size: 20px;
+    }
+    .order-items-table th, .order-items-table td {
+        font-size: 13px;
+        padding: 8px;
+    }
+    .order-items-table td img {
+        width: 35px;
+        height: 35px;
+    }
+    .order-total-summary {
+        font-size: 15px;
+    }
+    .order-total-summary .final-total {
+        font-size: 17px;
+    }
+    .checkout-form label, .checkout-form input[type="text"],
+    .checkout-form input[type="email"], .checkout-form input[type="tel"],
+    .checkout-form textarea, .checkout-form .payment-method label {
+        font-size: 13px;
+    }
+    .checkout-form input[type="radio"] {
+        width: 16px;
+        height: 16px;
+    }
+    .place-order-btn {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+    .terms-privacy-text {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkout-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .order-summary,
+    .customer-payment-details {
+        padding: 15px; /* Reduce aún más el padding */
+    }
+    .order-summary h2, .customer-payment-details h2 {
+        font-size: 18px;
+    }
+    .order-items-table th, .order-items-table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+    .order-items-table td img {
+        width: 30px;
+        height: 30px;
+    }
+    .order-total-summary {
+        font-size: 14px;
+    }
+    .order-total-summary .final-total {
+        font-size: 16px;
+    }
+    .checkout-form label, .checkout-form input[type="text"],
+    .checkout-form input[type="email"], .checkout-form input[type="tel"],
+    .checkout-form textarea, .checkout-form .payment-method label {
+        font-size: 12px;
+    }
+    .place-order-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .terms-privacy-text {
+        font-size: 10px;
+    }
+}
