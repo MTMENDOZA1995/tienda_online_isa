@@ -585,6 +585,30 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     font-size: 16px;
 }
 
+/* --- PRODUCT DETAIL PAGE (Estilo para pantallas grandes por defecto) --- */
+.product-detail {
+    display: flex; /* Convierte el contenedor en un flexbox */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay espacio */
+    justify-content: center; /* Centra las columnas si no ocupan todo el ancho */
+    gap: 40px; /* Espacio entre las dos columnas */
+    margin-top: 60px; /* Margen superior a la sección */
+    padding: 20px; /* Relleno interno de la sección */
+    align-items: flex-start; /* Alinea los ítems en la parte superior (para que las cajas tengan su altura natural) */
+}
+
+/* Y para las columnas internas: */
+.product-images-container {
+    flex: 0 0 45%; /* La imagen ocupa el 45% del ancho disponible */
+    max-width: 550px; /* Ancho máximo para la columna de imagen */
+    /* ... (resto de tus estilos para .product-images-container) ... */
+}
+
+.product-info-detail {
+    flex: 0 0 50%; /* La información ocupa el 50% del ancho disponible */
+    max-width: 600px; /* Ancho máximo para la columna de información */
+    /* ... (resto de tus estilos para .product-info-detail) ... */
+}
+
 /* --- CATEGORY FILTER (for product listing page) --- */
 .category-filter {
     background: white;
@@ -1185,50 +1209,97 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
 
     /* --- PRODUCTOS: Cuadrícula de 2 en 2 --- */
-    .products-grid {
-        gap: 20px; /* Espacio entre productos */
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* **CLAVE: Dos o más columnas** */
-        justify-content: center; /* Centra la cuadrícula si no llena todo el espacio */
-    }
-
-    .product-card { /* Tarjeta de producto individual */
-        flex-basis: calc(50% - 10px); /* Ajusta para que quepan 2 por fila con el gap */
-        max-width: 300px;
-        padding: 15px;
-        font-size: 14px;
-    }
-    .product-card img {
-        height: 150px;
-    }
-    .product-title {
-        font-size: 16px;
-    }
-    .product-description {
-        font-size: 12px;
-    }
-    .product-price-original, .product-price-offer, .product-price-normal {
-        font-size: 14px;
-    }
-    .product-price-offer {
-        font-size: 18px;
-    }
-    .add-to-cart-btn {
-        font-size: 13px;
-        padding: 8px 20px;
-    }
-
-
-    /* ... (resto de .product-detail, footer, testimonial, search-bar para 991px) ... */
-    .product-detail {
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
+     .product-detail {
+        /* Mantener display: flex; del estilo base */
+        flex-direction: row; /* **CLAVE: Vuelve a formato de fila para dos columnas** */
+        flex-wrap: wrap; /* Permite que los elementos se envuelvan si no caben 2 */
+        justify-content: center; /* Centra las dos columnas */
+        align-items: flex-start; /* Alinea los ítems en la parte superior */
+        gap: 25px; /* Espacio entre las dos columnas */
+        padding: 18px; /* Ajustado padding de la sección */
+        margin-top: 30px; /* Ajustado margen superior */
     }
 
     .product-images-container,
     .product-info-detail {
-        flex-basis: 100%;
-        max-width: 500px;
+        /* Ajustado para que quepan dos columnas con espacio */
+        flex-basis: calc(50% - 15px); /* **CLAVE: Cada uno ocupa casi la mitad** (gap de 25px / 2 = 12.5px por lado) */
+        max-width: 400px; /* Ancho máximo para cada columna para evitar que se estiren demasiado */
+        padding: 15px; /* Reducido padding interno de las cajas */
+    }
+
+    .product-images-container > img {
+        height: 200px; /* Reducida altura de la imagen principal para que quepa mejor */
+        margin-bottom: 15px; /* Ajustado margen */
+    }
+
+    .thumbnail-images img {
+        width: 60px; /* Ajustado tamaño miniaturas */
+        height: 60px; /* Ajustado tamaño miniaturas */
+    }
+
+    .product-info-detail h2 {
+        font-size: 22px; /* Ajustado tamaño título producto */
+        margin-bottom: 12px;
+    }
+    .product-info-detail p {
+        font-size: 13.5px; /* Ajustado tamaño texto */
+        margin-bottom: 10px;
+    }
+    #product-category, #product-code, #product-stock, .shipping-policy, .additional-info {
+        font-size: 12.5px; /* Ajustado tamaño texto info */
+        margin-bottom: 4px;
+    }
+    .price-display {
+        gap: 8px; /* Ajustado gap precios */
+        margin-bottom: 12px;
+    }
+    #product-price-old {
+        font-size: 14px; /* Ajustado tamaño precio tachado */
+    }
+    #product-price, #product-priceS {
+        font-size: 20px; /* Ajustado tamaño precios principales */
+    }
+    .options-selector label {
+        font-size: 13.5px; /* Ajustado tamaño label */
+        margin-bottom: 4px;
+    }
+    .options-selector select, .options-selector input[type="number"] {
+        padding: 8px 6px; /* Ajustado padding inputs */
+        font-size: 13.5px; /* Ajustado tamaño font inputs */
+    }
+    .add-to-cart-btn-detail {
+        padding: 12px 22px; /* Ajustado padding botón */
+        font-size: 15px; /* Ajustado font size botón */
+    }
+
+    /* --- PRODUCTOS (en general): Asegurar 2x2 --- */
+    .products-grid {
+        gap: 20px; /* Espacio entre productos */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Mantiene 2 o más columnas */
+        justify-content: center; /* Centra la cuadrícula si no llena todo el espacio */
+    }
+    .product-card { /* Tarjeta de producto individual */
+        flex-basis: calc(50% - 10px); /* Asegura dos columnas */
+        max-width: 300px; /* Limita el ancho en tabletas */
+        padding: 15px; /* Ajustado padding */
+        font-size: 14px; /* Ajustado font size */
+    }
+    .product-card img {
+        height: 150px; /* Ajustado altura imagen */
+    }
+    .product-title {
+        font-size: 16px; /* Ajustado font size */
+    }
+    .product-description {
+        font-size: 12px; /* Ajustado font size */
+    }
+    .product-price-offer {
+        font-size: 18px; /* Ajustado font size */
+    }
+    .add-to-cart-btn {
+        font-size: 13px; /* Ajustado font size */
+        padding: 8px 20px; /* Ajustado padding */
     }
 
     .footer-content {
@@ -1362,32 +1433,37 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
 
     /* --- PRODUCTOS: Dos por fila para móviles --- */
+   /* --- PRODUCTOS: Mantener 2x2 en 768px si es posible, o 1x1 si la pantalla es muy estrecha --- */
     .products-grid {
-        gap: 15px; /* Espacio entre productos */
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* **CLAVE: Dos columnas en móviles** */
+        gap: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Más compacto para 2 columnas */
     }
     .product-card {
-        flex-basis: calc(50% - 10px); /* Ajusta para 2 por fila con gap */
-        max-width: 250px;
-        padding: 12px;
-        font-size: 13.5px;
+        flex-basis: calc(50% - 7.5px); /* Ajusta para 2 por fila con el gap de 15px */
+        max-width: 220px; /* Ancho máximo más pequeño */
+        padding: 10px; /* Menor padding */
+        font-size: 13px; /* Menor tamaño de fuente */
+    }
+    .product-card img {
+        height: 120px; /* Menor altura para la imagen */
     }
     .product-title {
-        font-size: 15px;
-    }
-    .product-description {
-        font-size: 12px;
-    }
-    .product-price-original, .product-price-offer, .product-price-normal {
         font-size: 14px;
     }
+    .product-description {
+        font-size: 11px;
+    }
+    .product-price-original, .product-price-offer, .product-price-normal {
+        font-size: 13px;
+    }
     .product-price-offer {
-        font-size: 16px;
+        font-size: 15px;
     }
     .add-to-cart-btn {
-        padding: 6px 15px;
-        font-size: 12px;
+        padding: 5px 12px;
+        font-size: 11px;
     }
+
 
     #load-more-products {
         padding: 8px 25px;
@@ -1588,29 +1664,36 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
 
     /* --- PRODUCTOS: Una columna por producto (apilados) --- */
+    /* --- PRODUCTOS: Una columna por producto (apilados) --- */
     .products-grid {
         gap: 15px;
-        grid-template-columns: 1fr; /* **CLAVE: Una columna en móviles muy pequeños** */
+        grid-template-columns: 1fr; /* **CLAVE: UNA SOLA COLUMNA para las pantallas más pequeñas** */
     }
     .product-card {
         padding: 12px;
+        font-size: 14px;
+        max-width: 300px; /* Limita el ancho del card individual */
+    }
+    .product-card img {
+        height: 180px; /* Altura ajustada de la imagen para una columna */
     }
     .product-title {
-        font-size: 14px;
+        font-size: 16px;
     }
     .product-description {
-        font-size: 11px;
-    }
-    .product-price-original, .product-price-offer, .product-price-normal {
         font-size: 13px;
     }
-    .product-price-offer {
+    .product-price-original, .product-price-offer, .product-price-normal {
         font-size: 15px;
     }
-    .add-to-cart-btn {
-        padding: 6px 15px;
-        font-size: 12px;
+    .product-price-offer {
+        font-size: 17px;
     }
+    .add-to-cart-btn {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
     #load-more-products {
         padding: 7px 20px;
         font-size: 14px;
