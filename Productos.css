@@ -1089,7 +1089,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .menu-label img {
-        width: 30px; /* Tamaño del icono de menú hamburguesa */
+        width: 40px; /* Tamaño del icono de menú hamburguesa */
         height: auto;
     }
 
@@ -1591,25 +1591,34 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
 
-    /* --- PRODUCTOS: Una columna por producto (apilados) --- */
+    /* --- PRODUCTOS: Dos columnas por producto (en móviles muy pequeños) --- */
     .products-grid {
-        gap: 15px;
-        grid-template-columns: 1fr; /* **CLAVE: Una sola columna para las pantallas más pequeñas** */
+        gap: 10px; /* **AJUSTADO:** Reduce el gap para que quepan 2 */
+        /* **CLAVE:** Cambia a repeat(auto-fit, minmax(130px, 1fr)) para dos columnas.
+           Un min-width de 130px (x2 = 260px) + 10px de gap = 270px. Esto debería caber en la mayoría de los móviles a 320px o más. */
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
+        justify-content: center; /* Asegura el centrado de la cuadrícula */
     }
     .product-card {
-        padding: 12px;
+        /* Se ajusta a la nueva configuración de la cuadrícula */
+        padding: 8px; /* Reducido padding interno */
+        font-size: 13px; /* Reducido tamaño de fuente */
+        max-width: 160px; /* **AJUSTADO:** Limita el ancho del card individual para no sobresalir */
+    }
+    .product-card img {
+        height: 120px; /* Ajustada altura de la imagen para que se ajuste mejor a la tarjeta más pequeña */
     }
     .product-title {
-        font-size: 14px;
+        font-size: 14px; /* Ajustado font size */
     }
     .product-description {
-        font-size: 11px;
+        font-size: 11px; /* Ajustado font size */
     }
     .product-price-original, .product-price-offer, .product-price-normal {
-        font-size: 13px;
+        font-size: 13px; /* Ajustado font size */
     }
     .product-price-offer {
-        font-size: 15px;
+        font-size: 15px; /* Ajustado font size */
     }
     .add-to-cart-btn {
         padding: 6px 15px;
