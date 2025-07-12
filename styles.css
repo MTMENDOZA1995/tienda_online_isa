@@ -1112,6 +1112,11 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         order: 3; /* Asegura el icono de hamburguesa a la derecha */
     }
 
+    .menu-label img {
+    width: 45px;
+    height: auto;
+    }
+
     .navbar {
         position: absolute;
         top: 100%;
