@@ -1,45 +1,47 @@
 // js/cart.js
 
-// Almacén de datos del carrito. Usamos 'cart' en lugar de 'carrito' para consistencia en nombres.
-let cart = [];
+// CORRECTION: Declare 'cart' as a global variable directly on the window object.
+// This is ESSENTIAL for all scripts (product-detail.js, FCompra.js) to access the SAME cart data.
+window.cart = []; // CHANGED: Now 'cart' is a global property of the window object.
 
 // --- Selectores del DOM del carrito ---
-const cartIcon = document.getElementById("cart-icon"); // Icono del carrito en el header
-const cartDropdown = document.getElementById("cart-dropdown"); // Menú desplegable del carrito
-const cartListBody = document.getElementById("cart-list").querySelector("tbody"); // Cuerpo de la tabla del carrito
-const cartTotalElem = document.getElementById("cart-total"); // Elemento para mostrar el total
-const clearCartBtn = document.getElementById("clear-cart-btn"); // Botón vaciar carrito
-const checkoutBtn = document.querySelector(".checkout-btn"); // Botón finalizar compra
+const cartIcon = document.getElementById("cart-icon");
+const cartDropdown = document.getElementById("cart-dropdown");
+const cartListBody = document.getElementById("cart-list").querySelector("tbody");
+const cartTotalElem = document.getElementById("cart-total");
+const clearCartBtn = document.getElementById("clear-cart-btn");
+const checkoutBtnDropdown = document.getElementById("checkout-btn-dropdown");
 
 // --- Funciones de Utilidad para el Carrito ---
 
 /**
  * Carga el carrito desde localStorage.
+ * Esta función es globalmente accesible.
  */
-const loadCart = () => {
+window.loadCart = () => { // Correctly global
     try {
         const storedCart = localStorage.getItem("cart");
-        cart = storedCart ? JSON.parse(storedCart) : [];
+        window.cart = storedCart ? JSON.parse(storedCart) : []; // CORRECTION: Assign to window.cart
+        // console.log('loadCart: Cart loaded from localStorage:', window.cart); // Debug: Confirm load
     } catch (e) {
         console.error("Error al cargar el carrito de localStorage:", e);
-        cart = []; // Asegurarse de que el carrito sea un array vacío en caso de error
+        window.cart = []; // CORRECTION: Assign to window.cart
     }
 };
 
 /**
  * Guarda el carrito en localStorage.
+ * Siempre guarda el contenido del window.cart global.
  */
-const saveCart = () => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+const saveCart = () => { // Only used internally
+    localStorage.setItem("cart", JSON.stringify(window.cart)); // CORRECTION: Use window.cart
 };
 
 /**
  * Formatea un número a la moneda local (S/.) para el carrito.
- * Duplicado aquí para que este script sea autocontenido, pero idealmente se podría importar.
- * @param {number} amount El monto a formatear.
- * @returns {string} El monto formateado como cadena de moneda.
+ * Esta función es globalmente accesible.
  */
-const formatCurrency = (amount) => {
+window.formatCurrency = (amount) => { // Correctly global
     if (typeof amount !== 'number' || isNaN(amount)) {
         return "S/. 0.00";
     }
@@ -55,8 +57,8 @@ const formatCurrency = (amount) => {
  * Esta función es global para que `product-detail.js` pueda llamarla.
  * @param {object} productToAdd Objeto del producto con sus propiedades y cantidad.
  */
-window.addToCart = (productToAdd) => { // Función global para que pueda ser llamada desde product-detail.js
-    const existingItemIndex = cart.findIndex(item =>
+window.addToCart = (productToAdd) => { // Correctly global
+    const existingItemIndex = window.cart.findIndex(item => // CORRECTION: Refer to window.cart
         item.id === productToAdd.id &&
         item.model === productToAdd.model &&
         item.color === productToAdd.color &&
@@ -64,247 +66,214 @@ window.addToCart = (productToAdd) => { // Función global para que pueda ser lla
     );
 
     if (existingItemIndex > -1) {
-        // Asegúrate de no exceder el stock disponible
-        const currentQuantity = cart[existingItemIndex].quantity;
+        const currentQuantity = window.cart[existingItemIndex].quantity; // CORRECTION: Refer to window.cart
         if (currentQuantity + productToAdd.quantity > productToAdd.maxStock) {
             alert(`⛔ No puedes agregar más de ${productToAdd.maxStock} unidades de este producto (stock actual: ${currentQuantity}).`);
             return;
         }
-        cart[existingItemIndex].quantity += productToAdd.quantity;
+        window.cart[existingItemIndex].quantity += productToAdd.quantity; // CORRECTION: Refer to window.cart
     } else {
         if (productToAdd.quantity > productToAdd.maxStock) {
              alert(`⛔ No puedes agregar más de ${productToAdd.maxStock} unidades de este producto.`);
              return;
         }
-        cart.push(productToAdd);
+        window.cart.push(productToAdd); // CORRECTION: Refer to window.cart
     }
 
     saveCart();
-    renderCart(); // Actualiza la vista del carrito
+    window.renderCart(); // Call to global renderCart
     alert(`✅ ${productToAdd.name} agregado al carrito!`);
 };
 
 /**
- // ... (resto del código) ...
-
-/**
  * Elimina un producto específico del carrito.
- * @param {string} id ID del producto (viene como string de data-id).
- * @param {string} model Modelo del producto.
- * @param {string} color Color del producto.
- * @param {string} size Tamaño del producto.
  */
-const removeFromCart = (id, model, color, size) => {
-    // AÑADE ESTA LÍNEA PARA CONVERTIR EL ID A NÚMERO
+const removeFromCart = (id, model, color, size) => { // Not global, only used internally by event listener
     const numericId = parseInt(id, 10); 
+    // console.log('removeFromCart: Intentando eliminar producto con ID:', id, 'Modelo:', model, 'Color:', color, 'Tamaño:', size); // Debug
 
-    console.log('removeFromCart: Intentando eliminar producto con ID:', id, 'Modelo:', model, 'Color:', color, 'Tamaño:', size);
-
-    cart = cart.filter(item =>
-        // Usa numericId para la comparación
+    window.cart = window.cart.filter(item => // CORRECTION: Refer to window.cart
         !(item.id === numericId && item.model === model && item.color === color && item.size === size)
     );
     saveCart();
-    renderCart();
-    console.log('removeFromCart: Carrito después de filtrar:', cart);
+    window.renderCart(); // Call to global renderCart
+    // console.log('removeFromCart: Carrito después de filtrar:', cart); // Debug
 };
 
 /**
  * Vacía completamente el carrito.
+ * Esta función es globalmente accesible.
  */
-const clearCart = () => {
+window.clearCart = () => { // Correctly global
     if (confirm("¿Estás seguro de que quieres vaciar el carrito?")) {
-        cart = [];
+        window.cart = []; // CORRECTION: Refer to window.cart
         saveCart();
-        renderCart();
+        window.renderCart(); // Call to global renderCart
         alert("🗑️ Carrito vaciado!");
     }
 };
 
 /**
  * Renderiza el contenido del carrito en el DOM.
+ * Esta función es globalmente accesible.
  */
-const renderCart = () => {
-    // AÑADE ESTE CONSOLE.LOG PARA VERIFICAR SI ESTOS ELEMENTOS SE ENCUENTRAN
-    console.log('renderCart: Verificando selectores - cartListBody:', cartListBody, 'cartTotalElem:', cartTotalElem, 'checkoutBtn:', checkoutBtn);
+window.renderCart = () => { // Correctly global
+    // console.log('renderCart: Verificando selectores - cartListBody:', cartListBody, 'cartTotalElem:', cartTotalElem, 'checkoutBtnDropdown:', checkoutBtnDropdown); // Debug
 
-    if (!cartListBody || !cartTotalElem || !checkoutBtn) {
-        console.error('renderCart: Uno o más elementos del DOM no se encontraron. Esto puede causar que el carrito no se renderice.');
-        return; // Asegurarse de que los elementos existan
+    if (!cartListBody || !cartTotalElem || !checkoutBtnDropdown || !clearCartBtn) { 
+        console.error('renderCart: Error de DOM. Uno o más elementos del carrito no se encontraron:', 
+                      { cartListBody, cartTotalElem, clearCartBtn, checkoutBtnDropdown });
+        return;
     }
 
     cartListBody.innerHTML = ""; // Limpiar la tabla
     let total = 0;
 
-    if (cart.length === 0) {
+    if (window.cart.length === 0) { // CORRECTION: Refer to window.cart
         cartListBody.innerHTML = '<tr><td colspan="5" class="empty-cart-message">🛒 El carrito está vacío.</td></tr>';
-        checkoutBtn.style.display = "none";
+        checkoutBtnDropdown.style.display = "none";
         clearCartBtn.style.display = "none";
     } else {
-        cart.forEach(item => {
+        window.cart.forEach(item => { // CORRECTION: Refer to window.cart
             const row = document.createElement("tr");
-                        //  ******************************************************************
-            //  * AQUÍ ES DONDE DEBES CAMBIAR EL CÓDIGO HTML DE LA FILA  *
-            //  ******************************************************************
+            const itemTotalPrice = item.price * item.quantity;
+            const options = [];
+            if (item.model && item.model.toLowerCase() !== "unico" && item.model !== "no seleccionado") { options.push(item.model); }
+            if (item.color && item.color.toLowerCase() !== "unico" && item.color !== "no seleccionado") { options.push(item.color); }
+            if (item.size && item.size.toLowerCase() !== "unico" && item.size !== "no seleccionado") { options.push(item.size); }
+            const optionsString = options.length > 0 ? `<br><small>(${options.join(' - ')})</small>` : '';
+
             row.innerHTML = `
                 <td><img src="${item.image}" alt="${item.name}" width="50px"></td>
                 <td>
                     ${item.name}
-                    <br><small>(${item.model !== "Unico" ? item.model : ''}${item.model !== "Unico" && item.color !== "Unico" ? ' - ' : ''}${item.color !== "Unico" ? item.color : ''}${((item.model !== "Unico" || item.model !== "Unico") && item.size !== "Unico") ? ' - ' : ''}${item.size !== "Unico" ? item.size : ''})</small>
+                    ${optionsString}
                 </td>
                 <td>${formatCurrency(item.price)}</td>
                 <td>${item.quantity}</td>
-                <td><a href="#" class="borrar" data-id="${item.id}" data-model="${item.model}" data-color="${item.color}" data-size="${item.size}"><img src="imagenes/eliminar.png" alt="Eliminar" style="width: 25px; height: 25px; vertical-align: middle;"></a></td>
+                <td><a href="#" class="borrar" data-id="${item.id}" data-model="${item.model}" data-color="${item.color}" data-size="${item.size}"><img src="imagenes/eliminar.png" alt="Eliminar" style="width: 20px; height: 20px; vertical-align: middle;"></a></td>
             `;
-            //  ******************************************************************
-            //  * FIN DEL CÓDIGO HTML A CAMBIAR                                *
-            //  ******************************************************************
-            
             cartListBody.appendChild(row);
-            total += item.price * item.quantity;
+            total += itemTotalPrice;
         });
-        checkoutBtn.style.display = "block";
+        checkoutBtnDropdown.style.display = "block";
         clearCartBtn.style.display = "block";
     }
     cartTotalElem.textContent = `Total: ${formatCurrency(total)}`;
 };
 
-
-
-
+// --- Función que construye el mensaje de resumen del pedido para WhatsApp ---
 /**
- * Función para proceder a la compra via WhatsApp.
- * Genera un resumen del carrito y lo envía a un número de WhatsApp predefinido.
+ * Construye el mensaje de resumen del carrito para WhatsApp.
+ * Esta función ya NO envía el mensaje ni pide confirmación, solo devuelve la cadena del mensaje.
+ * Es llamada por js/checkout.js.
+ * @param {object} customerData (Opcional) Datos del cliente para incluir en el mensaje.
+ * @returns {string} El mensaje de resumen del pedido formateado para WhatsApp.
  */
-const proceedToCheckout = () => {
-    // 1. Validar si el carrito está vacío
-    if (cart.length === 0) {
-        alert("❌ Tu carrito está vacío. Por favor, añade productos antes de continuar.");
-        return;
+window.getWhatsAppOrderMessage = (customerData = {}) => { // Correctly global
+    if (window.cart.length === 0) { // CORRECTION: Refer to window.cart
+        return "❌ Tu carrito está vacío. No hay productos para generar un pedido.";
     }
 
-    // --- Configuración (fácil de modificar) ---
-    const WHATSAPP_NUMBER = "51952580740"; // Número de WhatsApp de destino (ej. '51952580740' para Perú)
     const STORE_NAME = "IMPORTACIONES SOSTENIBLES & ATRACTIVAS";
-    const CURRENCY_SYMBOL = "S/."; // Símbolo de la moneda, usado en el formato de mensaje
-    const THANK_YOU_MESSAGE = "✅ ¡Tu pedido ha sido enviado a WhatsApp! Te contactaremos pronto para confirmar tu compra. ¡Gracias!";
-    const EMPTY_CART_ALERT = "❌ Tu carrito está vacío. Por favor, añade productos antes de comprar.";
-    const CONFIRM_PROMPT_TEXT = "\n\n¿Deseas enviar este pedido por WhatsApp para confirmar tu compra?";
+    // const CURRENCY_SYMBOL = "S/."; // Already global via window.formatCurrency
 
+    let messageParts = [];
+    messageParts.push(`🛒 *Resumen de tu compra en ${STORE_NAME}:*`);
 
-    // 2. Construir el mensaje de resumen del pedido para WhatsApp
-    let messageParts = []; // Usamos un array para construir el mensaje de forma más limpia
+    // Añadir datos del cliente si están disponibles (desde checkout.js)
+    if (Object.keys(customerData).length > 0 && customerData.fullName) {
+        messageParts.push(`\n*Datos del Cliente:*`);
+        messageParts.push(`  Nombre: ${customerData.fullName}`);
+        if (customerData.email) messageParts.push(`  Email: ${customerData.email}`);
+        if (customerData.phone) messageParts.push(`  Teléfono: ${customerData.phone}`);
+        if (customerData.address) messageParts.push(`  Dirección: ${customerData.address}, ${customerData.city}, ${customerData.region}`);
+        if (customerData.paymentMethod) {
+            let paymentMethodText = '';
+            if (customerData.paymentMethod === 'contra-entrega') paymentMethodText = 'Contra Entrega';
+            else if (customerData.paymentMethod === 'transferencia') paymentMethodText = 'Transferencia Bancaria';
+            else if (customerData.paymentMethod === 'tarjeta-visa-izipay') paymentMethodText = 'Tarjeta (Izipay)';
+            messageParts.push(`  Método de Pago: ${paymentMethodText}`);
+        }
+        if (customerData.comments) messageParts.push(`  Comentarios: _${customerData.comments}_`);
+    }
 
-    messageParts.push(`🛒 *Resumen de tu compra en ${STORE_NAME}:*`); // Título del mensaje
+    messageParts.push(`\n*Productos:*\n`);
 
     let total = 0;
 
-    cart.forEach((item, index) => {
-        // Genera una lista numerada para cada producto para mayor claridad
-        messageParts.push(`\n*${index + 1}. ${item.name}*`);
-
-        // Construye las opciones (modelo, color, tamaño) de forma dinámica
+    window.cart.forEach((item, index) => { // CORRECTION: Refer to window.cart
+        messageParts.push(`*${index + 1}. ${item.name}*`);
         const options = [];
-        if (item.model && item.model.toLowerCase() !== "unico" && item.model !== "No seleccionado") {
-            options.push(item.model);
-        }
-        if (item.color && item.color.toLowerCase() !== "unico" && item.color !== "No seleccionado") {
-            options.push(item.color);
-        }
-        if (item.size && item.size.toLowerCase() !== "unico" && item.size !== "No seleccionado") {
-            options.push(item.size);
-        }
-
-        if (options.length > 0) {
-            messageParts.push(`   Opciones: _${options.join(', ')}_`); // Usa guiones bajos para cursiva en WhatsApp
-        }
-
-        // Añade cantidad y precio unitario
-        messageParts.push(`   Cantidad: ${item.quantity} | Precio Unitario: *${formatCurrency(item.price)}*`);
-        
+        if (item.model && item.model.toLowerCase() !== "unico" && item.model !== "no seleccionado") { options.push(item.model); }
+        if (item.color && item.color.toLowerCase() !== "unico" && item.color !== "no seleccionado") { options.push(item.color); }
+        if (item.size && item.size.toLowerCase() !== "unico" && item.size !== "no seleccionado") { options.push(item.size); }
+        if (options.length > 0) { messageParts.push(`  Opciones: _${options.join(' - ')}_`); }
+        messageParts.push(`  Cantidad: ${item.quantity} | Precio Unitario: *${window.formatCurrency(item.price)}*`);
         total += item.price * item.quantity;
     });
 
-    // Añade el total al final del mensaje
-    messageParts.push(`\n💰 *Total a pagar: ${formatCurrency(total)}*`);
-    messageParts.push(`\n¡Espero tu confirmación para procesar el pedido!`);
+    messageParts.push(`\n💰 *Total a pagar: ${window.formatCurrency(total)}*`);
+    messageParts.push(`\n¡Gracias por tu pedido!`);
 
-
-    const fullMessage = messageParts.join('\n'); // Une todas las partes con saltos de línea
-
-
-    // 3. Confirmar la compra antes de enviar el mensaje
-    if (confirm(fullMessage + CONFIRM_PROMPT_TEXT)) {
-        const whatsappURL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(fullMessage)}`;
-        
-        window.open(whatsappURL, "_blank"); // Abre WhatsApp en una nueva pestaña
-
-        // 4. Vaciar carrito y notificar al usuario
-        // Decisión sobre cuándo vaciar el carrito:
-        // - Si lo vacías aquí, el usuario ya no lo verá en la web.
-        // - Si lo vacías DESPUÉS de una confirmación de pago real (en un sistema más complejo),
-        //   el usuario lo mantiene en su carrito web hasta que el pago se confirme.
-        //   Para una integración simple de WhatsApp, vaciarlo aquí está bien.
-        clearCart(); // Llama a la función para vaciar el carrito y actualizar la UI
-        alert(THANK_YOU_MESSAGE); // Mensaje final de agradecimiento
-    }
+    return messageParts.join('\n');
 };
-
 
 
 // --- Event Listeners Globales (DOMContentLoaded para la carga inicial) ---
 document.addEventListener("DOMContentLoaded", () => {
-    // AÑADE ESTE CONSOLE.LOG PARA VER LOS SELECTORES AL INICIO
-    console.log('DOMContentLoaded: Selectores al inicio - cartIcon:', cartIcon, 'cartDropdown:', cartDropdown, 'cartListBody:', cartListBody);
+    // console.log('DOMContentLoaded: Selectores al inicio - cartIcon:', cartIcon, 'cartDropdown:', cartDropdown, 'cartListBody:', cartListBody); // Debug
 
-    loadCart(); // Carga el carrito al inicio de la página
-    renderCart(); // Renderiza la vista del carrito
+    window.loadCart(); // Call to global loadCart
+    window.renderCart(); // Call to global renderCart
 
     // Delegación de eventos para los botones de eliminar del carrito (más eficiente)
     if (cartListBody) {
-        // AÑADE ESTE CONSOLE.LOG PARA CONFIRMAR QUE EL LISTENER SE INTENTA AGREGAR
-        console.log('DOMContentLoaded: Intentando agregar click listener a cartListBody.');
+        // console.log('DOMContentLoaded: Intentando agregar click listener a cartListBody.'); // Debug
         cartListBody.addEventListener("click", (event) => {
-            // AÑADE ESTE CONSOLE.LOG PARA VER SI EL CLIC SE DETECTA EN EL TBODY
-            console.log('Clic detectado en cartListBody:', event.target);
+            // console.log('Clic detectado en cartListBody:', event.target); // Debug
 
             const deleteButton = event.target.closest('.borrar');
 
-            if (deleteButton) { // Si se encontró un padre con la clase 'borrar'
-                console.log('Clic en botón borrar reconocido.');
-                event.preventDefault(); // Previene la navegación del enlace
+            if (deleteButton) {
+                // console.log('Clic en botón borrar reconocido.'); // Debug
+                event.preventDefault();
 
-                // Ahora obtenemos los data-attributes desde deleteButton (que es el <a>)
                 const id = deleteButton.dataset.id;
                 const model = deleteButton.dataset.model;
                 const color = deleteButton.dataset.color;
                 const size = deleteButton.dataset.size;
 
-                console.log('Datos del producto a eliminar (desde data-attributes):', { id, model, color, size });
+                // console.log('Datos del producto a eliminar (desde data-attributes):', { id, model, color, size }); // Debug
                 
-                removeFromCart(id, model, color, size);
+                removeFromCart(id, model, color, size); // Calls local removeFromCart
             } else {
-                // Opcional: para depuración si el clic no es en .borrar
-                // console.log('Clic no fue en un botón borrar.'); 
+                // console.log('Clic no fue en un botón borrar.'); // Debug
             }
         });
     } else {
-
-        // AÑADE ESTE CONSOLE.LOG SI cartListBody NO SE ENCONTRÓ
-        console.log('DOMContentLoaded: cartListBody no se encontró, no se pudo agregar el click listener.');
+        // console.log('DOMContentLoaded: cartListBody no se encontró, no se pudo agregar el click listener.'); // Debug
     }
 
     if (clearCartBtn) {
-        console.log('DOMContentLoaded: Agregando click listener a clearCartBtn.');
-        clearCartBtn.addEventListener("click", clearCart);
+        // console.log('DOMContentLoaded: Agregando click listener a clearCartBtn.'); // Debug
+        clearCartBtn.addEventListener("click", window.clearCart); // Call to global clearCart
     } else {
-        console.log('DOMContentLoaded: clearCartBtn no se encontró.');
+        // console.log('DOMContentLoaded: clearCartBtn no se encontró.'); // Debug)
     }
 
-    if (checkoutBtn) {
-        console.log('DOMContentLoaded: Agregando click listener a checkoutBtn.');
-        checkoutBtn.addEventListener("click", proceedToCheckout);
+    // MODIFIED: The "Comprar" button in the dropdown now redirects to checkout.html
+    // WhatsApp logic will be handled ONLY in checkout.js
+    if (checkoutBtnDropdown) {
+        // console.log('DOMContentLoaded: Agregando click listener a checkoutBtnDropdown.'); // Debug
+        checkoutBtnDropdown.addEventListener("click", () => {
+            if (window.cart.length === 0) {
+                alert("❌ Tu carrito está vacío. Añade productos antes de finalizar la compra.");
+                return;
+            }
+            window.location.href = "FCompra.html"; // Redirect to FCompra.html
+        });
     } else {
-        console.log('DOMContentLoaded: checkoutBtn no se encontró.');
+        // console.log('DOMContentLoaded: checkoutBtnDropdown no se encontró.'); // Debug
     }
 });
