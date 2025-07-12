@@ -1,214 +1,287 @@
-// js/checkout.js
+// js/cart.js
 
-document.addEventListener("DOMContentLoaded", () => {
-    // --- Selectores del DOM de la página de Checkout ---
-    const checkoutItemList = document.getElementById('checkout-item-list'); // tbody de la tabla de resumen de items
-    const checkoutSubtotal = document.getElementById('checkout-subtotal');
-    const checkoutShipping = document.getElementById('checkout-shipping');
-    const checkoutFinalTotal = document.getElementById('checkout-final-total');
-    const placeOrderBtn = document.getElementById('place-order-btn'); // Botón "Realizar Pedido"
-    const checkoutForm = document.getElementById('checkout-form');     // El formulario completo
-    const paymentNote = document.querySelector('.payment-note'); // Nota para el método de pago Izipay
+// --- CORRECCIÓN CRÍTICA: Declara 'cart' como una variable global directamente en el objeto window. ---
+// Esto es ESENCIAL para que todos los scripts (product-detail.js, FCompra.js) accedan a los MISMOS datos del carrito.
+window.cart = []; // ¡¡¡ASEGÚRATE DE QUE ESTA ES LA PRIMERA LÍNEA EJECUTABLE DE TU ARCHIVO!!!
 
-    // --- Configuración (para mensajes y números específicos de checkout.js) ---
-    const WHATSAPP_NUMBER = "51952580740"; // Número de WhatsApp de destino (ej. '51952580740' para Perú)
-    const THANK_YOU_MESSAGE_FINAL = "✅ ¡Tu pedido ha sido enviado con éxito! Te contactaremos pronto para confirmar tu compra. ¡Gracias por tu confianza!";
-    const CONFIRM_PROMPT_CHECKOUT = "\n\n¿Deseas enviar este pedido con tus datos de contacto por WhatsApp para confirmar tu compra?";
-    const DUMMY_IZIPAY_LINK = "https://example.com/izipay-secure-payment-page"; // REEMPLAZAR CON LINK REAL DE IZIPAY
+// --- Selectores del DOM del carrito (estos selectores son para el DROPDOWN del carrito en el HEADER) ---
+const cartIcon = document.getElementById("cart-icon");
+const cartDropdown = document.getElementById("cart-dropdown");
+const cartListBody = document.getElementById("cart-list").querySelector("tbody");
+const cartTotalElem = document.getElementById("cart-total");
+const clearCartBtn = document.getElementById("clear-cart-btn");
+// Este botón es el que está en el DROPDOWN del carrito, que redirige a FCompra.html
+const checkoutBtnDropdown = document.getElementById("checkout-btn-dropdown"); 
 
-    /**
-     * Renderiza el resumen de los productos del carrito en la tabla de checkout.
-     * Calcula y muestra el subtotal, costo de envío y total final.
-     * @returns {object} Un objeto con los totales calculados: { subtotal, shipping, finalTotal }.
-     */
-    const renderCheckoutSummary = () => {
-        // Validación de que window.loadCart exista (desde cart.js)
-        if (typeof window.loadCart !== 'function') {
-            console.error("renderCheckoutSummary: window.loadCart no está definido. Asegúrate de que js/cart.js esté cargado ANTES de js/checkout.js (o js/FCompra.js).");
-            if (checkoutItemList) {
-                checkoutItemList.innerHTML = '<tr><td colspan="3" class="empty-cart-message" style="color: red;">Error: No se pudo cargar la funcionalidad del carrito. Recargue la página.</td></tr>';
-            }
-            if (placeOrderBtn) placeOrderBtn.disabled = true;
-            return { subtotal: 0, shipping: 0, finalTotal: 0 }; // Return default values on error
+// --- Funciones de Utilidad para el Carrito ---
+
+/**
+ * Carga el carrito desde localStorage.
+ * Esta función es globalmente accesible (window.loadCart).
+ */
+window.loadCart = () => { // CORRECTO: Ahora es global
+    try {
+        const storedCart = localStorage.getItem("cart");
+        window.cart = storedCart ? JSON.parse(storedCart) : []; // Referencia explícita a window.cart
+        // console.log('loadCart: Carrito cargado de localStorage:', window.cart); // Debug: Confirmación de carga
+    } catch (e) {
+        console.error("Error al cargar el carrito de localStorage:", e);
+        window.cart = []; // En caso de error, inicializar globalmente para evitar null
+    }
+};
+
+/**
+ * Guarda el carrito en localStorage.
+ * Siempre guarda el contenido del window.cart global.
+ */
+const saveCart = () => { // Solo se usa internamente en este archivo
+    localStorage.setItem("cart", JSON.stringify(window.cart)); // Referencia explícita a window.cart
+};
+
+/**
+ * Formatea un número a la moneda local (S/.) para el carrito.
+ * Esta función es globalmente accesible (window.formatCurrency).
+ * @param {number} amount El monto a formatear.
+ * @returns {string} El monto formateado como cadena de moneda.
+ */
+window.formatCurrency = (amount) => { // CORRECTO: Ya es global
+    if (typeof amount !== 'number' || isNaN(amount)) {
+        return "S/. 0.00";
+    }
+    return new Intl.NumberFormat('es-PE', {
+        style: 'currency',
+        currency: 'PEN',
+        minimumFractionDigits: 2,
+    }).format(amount);
+};
+
+/**
+ * Agrega un producto al carrito o incrementa su cantidad si ya existe.
+ * Esta función es global (window.addToCart) para que `product-detail.js` pueda llamarla.
+ * @param {object} productToAdd Objeto del producto con sus propiedades y cantidad.
+ */
+window.addToCart = (productToAdd) => { // CORRECTO: Ya es global
+    const existingItemIndex = window.cart.findIndex(item => // Referencia explícita a window.cart
+        item.id === productToAdd.id &&
+        item.model === productToAdd.model &&
+        item.color === productToAdd.color &&
+        item.size === productToAdd.size
+    );
+
+    if (existingItemIndex > -1) {
+        const currentQuantity = window.cart[existingItemIndex].quantity; // Referencia explícita a window.cart
+        if (currentQuantity + productToAdd.quantity > productToAdd.maxStock) {
+            alert(`⛔ No puedes agregar más de ${productToAdd.maxStock} unidades de este producto (stock actual: ${currentQuantity}).`);
+            return;
         }
-        
-        window.loadCart(); // Carga el carrito global de cart.js (ahora sabemos que existe)
-
-        // Verificación defensiva de que los elementos DOM del resumen existan
-        if (!checkoutItemList || !checkoutSubtotal || !checkoutShipping || !checkoutFinalTotal) {
-            console.error("renderCheckoutSummary: Uno o más selectores DOM para el resumen de checkout no se encontraron. Verifique los IDs en checkout.html. Elementos faltantes:", { checkoutItemList, checkoutSubtotal, checkoutShipping, checkoutFinalTotal });
-            if (placeOrderBtn) placeOrderBtn.disabled = true;
-            return { subtotal: 0, shipping: 0, finalTotal: 0 }; // Return default values on error
+        window.cart[existingItemIndex].quantity += productToAdd.quantity; // Referencia explícita a window.cart
+    } else {
+        if (productToAdd.quantity > productToAdd.maxStock) {
+             alert(`⛔ No puedes agregar más de ${productToAdd.maxStock} unidades de este producto.`);
+             return;
         }
-
-        checkoutItemList.innerHTML = ''; // Limpiar lista antes de renderizar
-        let currentSubtotal = 0;
-        const shippingCost = 5.00; // Costo fijo de envío (PEN) - puedes ajustar la lógica aquí
-
-        if (!window.cart || window.cart.length === 0) { // Si el carrito está vacío
-            checkoutItemList.innerHTML = '<tr><td colspan="3" class="empty-cart-message">Tu carrito está vacío. <a href="productos.html">Añade productos aquí.</a></td></tr>';
-            if (placeOrderBtn) placeOrderBtn.disabled = true; // Deshabilita el botón si no hay productos
-            currentSubtotal = 0; // Asegurarse de que el subtotal sea 0
-        } else {
-            window.cart.forEach(item => {
-                const row = document.createElement('tr');
-                const itemTotalPrice = item.price * item.quantity;
-                currentSubtotal += itemTotalPrice;
-
-                // Construcción de la cadena de opciones para el mensaje (más robusta)
-                const options = [];
-                // Se asegura de que la propiedad exista y no sea "Unico" o "no seleccionado"
-                if (item.model && item.model.toLowerCase() !== "unico" && item.model.toLowerCase() !== "no seleccionado") { options.push(item.model); }
-                if (item.color && item.color.toLowerCase() !== "unico" && item.color.toLowerCase() !== "no seleccionado") { options.push(item.color); }
-                if (item.size && item.size.toLowerCase() !== "unico" && item.size.toLowerCase() !== "no seleccionado") { options.push(item.size); }
-                const optionsString = options.length > 0 ? `<br><small>(${options.join(' - ')})</small>` : '';
-
-                row.innerHTML = `
-                    <td><img src="${item.image}" alt="${item.name}" width="40px" height="40px">${item.name}${optionsString}</td>
-                    <td class="text-center">${item.quantity}</td>
-                    <td class="text-right">${window.formatCurrency(itemTotalPrice)}</td>
-                `;
-                checkoutItemList.appendChild(row);
-            });
-            if (placeOrderBtn) placeOrderBtn.disabled = false; // Habilita el botón si hay productos
-        }
-
-        const finalTotal = currentSubtotal + shippingCost;
-
-        checkoutSubtotal.textContent = window.formatCurrency(currentSubtotal);
-        checkoutShipping.textContent = window.formatCurrency(shippingCost);
-        checkoutFinalTotal.textContent = window.formatCurrency(finalTotal);
-        
-        // Actualizar estado del botón de pedido basado en si hay ítems en el carrito (redundante pero seguro)
-        if (window.cart && window.cart.length === 0) {
-            if (placeOrderBtn) placeOrderBtn.disabled = true;
-        }
-        // CORRECTION: Return the calculated totals
-        return { subtotal: currentSubtotal, shipping: shippingCost, finalTotal: finalTotal }; 
-    };
-
-    // --- Lógica para mostrar/ocultar nota de Izipay ---
-    const togglePaymentNote = () => {
-        // Verificación defensiva de elementos DOM
-        if (!checkoutForm || !paymentNote) { 
-            // console.warn("togglePaymentNote: Formulario o nota de pago no encontrados."); // Debug
-            return; 
-        }
-
-        const selectedPaymentMethodInput = document.querySelector('input[name="paymentMethod"]:checked');
-        const selectedPaymentMethod = selectedPaymentMethodInput ? selectedPaymentMethodInput.value : '';
-
-        if (selectedPaymentMethod === 'tarjeta-visa-izipay') {
-            paymentNote.style.display = 'block'; // Muestra la nota
-        } else {
-            paymentNote.style.display = 'none'; // Oculta la nota
-        }
-    };
-
-    // --- Lógica de Envío del Formulario (al hacer clic en "Realizar Pedido") ---
-    if (checkoutForm) {
-        // Event listener para cambios en los métodos de pago (radio buttons)
-        checkoutForm.addEventListener('change', (event) => {
-            // Solo ejecuta togglePaymentNote si el cambio fue en un radio button de paymentMethod
-            if (event.target && event.target.name === 'paymentMethod' && event.target.type === 'radio') {
-                togglePaymentNote();
-            }
-        });
-
-        // Event listener para el envío del formulario
-        checkoutForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita el envío tradicional del formulario
-
-            // Verificación inicial del carrito (más explícita)
-            if (!window.cart || window.cart.length === 0) {
-                alert("❌ Tu carrito está vacío. Por favor, añade productos antes de realizar el pedido.");
-                return;
-            }
-
-            // Recopilar todos los datos del formulario (más defensivo)
-            const customerData = {
-                fullName: document.getElementById('full-name')?.value.trim() || '',
-                email: document.getElementById('email')?.value.trim() || '',
-                phone: document.getElementById('phone')?.value.trim() || '',
-                address: document.getElementById('address')?.value.trim() || '',
-                city: document.getElementById('city')?.value.trim() || '',
-                region: document.getElementById('region')?.value.trim() || '',
-                postalCode: document.getElementById('postal-code')?.value.trim() || '',
-                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked')?.value || 'no-seleccionado',
-                comments: document.getElementById('comments')?.value.trim() || ''
-            };
-
-            // Validaciones de formulario (mejoradas)
-            let validationErrors = [];
-            if (!customerData.fullName) validationErrors.push("Nombre Completo");
-            if (!customerData.email) validationErrors.push("Correo Electrónico");
-            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerData.email)) { // Validación de formato de email
-                validationErrors.push("Correo Electrónico (formato inválido)");
-            }
-            if (!customerData.phone) validationErrors.push("Teléfono / WhatsApp");
-            if (!customerData.address) validationErrors.push("Dirección de Envío");
-            if (!customerData.city) validationErrors.push("Ciudad");
-            if (!customerData.region) validationErrors.push("Región / Departamento");
-
-            if (validationErrors.length > 0) {
-                alert(`Por favor, completa los siguientes campos obligatorios o corrígelos:\n- ${validationErrors.join('\n- ')}`);
-                return;
-            }
-
-            // --- Generar Mensaje de WhatsApp Completo ---
-            // Asegúrate de que getWhatsAppOrderMessage exista (desde cart.js)
-            if (typeof window.getWhatsAppOrderMessage !== 'function') {
-                console.error("getWhatsAppOrderMessage no está definido. Asegúrate de que js/cart.js esté cargado ANTES de js/checkout.js (o js/FCompra.js).");
-                alert("Error al procesar el pedido. Funcionalidad de carrito no disponible.");
-                return;
-            }
-            
-            // CORRECTION: Call renderCheckoutSummary() to get the latest totals
-            const { shipping: calculatedShipping } = renderCheckoutSummary(); // Extract shipping cost
-
-            // Pass customerData AND calculatedShipping to getWhatsAppOrderMessage
-            const orderSummaryMessage = window.getWhatsAppOrderMessage(customerData, calculatedShipping);
-
-            // 3. Confirmar la compra antes de enviar el mensaje final a WhatsApp o redirigir a Izipay
-            if (confirm(orderSummaryMessage + CONFIRM_PROMPT_CHECKOUT)) {
-                // Si es pago con tarjeta, abrimos Izipay y luego (idealmente) confirmamos WhatsApp
-                if (customerData.paymentMethod === 'tarjeta-visa-izipay') {
-                    alert("Serás redirigido/a a la plataforma segura de Izipay para completar el pago con tarjeta. ¡Por favor, no cierres la ventana!");
-                    
-                    const realIzipayPaymentLink = DUMMY_IZIPAY_LINK; // REEMPLAZAR CON LINK REAL DE IZIPAY
-                    
-                    // Abrir Izipay en una nueva pestaña
-                    window.open(realIzipayPaymentLink, '_blank'); 
-                    
-                    // En un escenario real, el vaciado del carrito y el alert final
-                    // se harían *después* de que Izipay confirme el pago (a través de un webhook a tu servidor).
-                    // Para este frontend simple, lo simulamos con un retraso.
-                    setTimeout(() => {
-                        if (typeof window.clearCart === 'function') {
-                            window.clearCart(); // Vaciar carrito
-                            renderCheckoutSummary(); // Actualizar resumen de checkout para mostrar vacío
-                        }
-                        alert(THANK_YOU_MESSAGE_FINAL);
-                    }, 500); // 0.5 segundos de retraso
-                    
-                } else {
-                    // Para otros métodos de pago (Contra Entrega, Transferencia)
-                    const whatsappURL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderSummaryMessage)}`;
-                    window.open(whatsappURL, "_blank"); // Abre WhatsApp directamente
-                    
-                    if (typeof window.clearCart === 'function') {
-                        window.clearCart(); // Vaciar carrito
-                        renderCheckoutSummary(); // Actualizar resumen de checkout para mostrar vacío
-                    }
-                    alert(THANK_YOU_MESSAGE_FINAL);
-                }
-            }
-            
-            checkoutForm.reset(); // Limpia el formulario (pero el carrito ya se vació si la acción fue confirmada)
-        });
+        window.cart.push(productToAdd); // Referencia explícita a window.cart
     }
 
-    // --- Inicialización ---
-    renderCheckoutSummary(); // Carga el resumen del carrito al cargar la página
-    togglePaymentNote(); // Asegura que la nota de Izipay esté visible/oculta al cargar
+    saveCart(); // Guarda el carrito global
+    window.renderCart(); // Llama a la función renderCart global
+    alert(`✅ ${productToAdd.name} agregado al carrito!`);
+};
+
+/**
+ * Elimina un producto específico del carrito.
+ * (Función interna, no necesita ser global).
+ */
+const removeFromCart = (id, model, color, size) => { 
+    const numericId = parseInt(id, 10); 
+
+    window.cart = window.cart.filter(item => // Referencia explícita a window.cart
+        !(item.id === numericId && item.model === model && item.color === color && item.size === size)
+    );
+    saveCart(); // Guarda el carrito global
+    window.renderCart(); // Llama a la función renderCart global
+    // console.log('removeFromCart: Carrito después de filtrar:', window.cart); // Debug
+};
+
+/**
+ * Vacía completamente el carrito.
+ * Esta función es global (window.clearCart) para que `FCompra.js` pueda llamarla.
+ */
+window.clearCart = () => { 
+    if (confirm("¿Estás seguro de que quieres vaciar el carrito?")) {
+        window.cart = []; // Referencia explícita a window.cart
+        saveCart(); // Guarda el carrito global
+        window.renderCart(); // Llama a la función renderCart global
+        alert("🗑️ Carrito vaciado!");
+    }
+};
+
+/**
+ * Renderiza el contenido del carrito en el DOM (el DROPDOWN en el HEADER).
+ * Esta función es global (window.renderCart) para que otros scripts (como `FCompra.js`) puedan llamarla.
+ */
+window.renderCart = () => { 
+    // Los selectores aquí deben apuntar a los elementos del DROPDOWN del carrito en el HEADER.
+    if (!cartListBody || !cartTotalElem || !checkoutBtnDropdown || !clearCartBtn) { 
+        console.error('renderCart: Error de DOM. Uno o más elementos del carrito (HEADER) no se encontraron.', 
+                      { cartListBody, cartTotalElem, clearCartBtn, checkoutBtnDropdown });
+        return;
+    }
+
+    cartListBody.innerHTML = ""; 
+    let total = 0;
+
+    if (window.cart.length === 0) { // Referencia explícita a window.cart
+        cartListBody.innerHTML = '<tr><td colspan="5" class="empty-cart-message">🛒 El carrito está vacío.</td></tr>';
+        checkoutBtnDropdown.style.display = "none";
+        clearCartBtn.style.display = "none";
+    } else {
+        window.cart.forEach(item => { // Referencia explícita a window.cart
+            const row = document.createElement("tr");
+            const itemTotalPrice = item.price * item.quantity;
+            const options = [];
+            if (item.model && item.model.toLowerCase() !== "unico" && item.model !== "no seleccionado") { options.push(item.model); }
+            if (item.color && item.color.toLowerCase() !== "unico" && item.color !== "no seleccionado") { options.push(item.color); }
+            if (item.size && item.size.toLowerCase() !== "unico" && item.size !== "no seleccionado") { options.push(item.size); }
+            const optionsString = options.length > 0 ? `<br><small>(${options.join(' - ')})</small>` : '';
+
+            row.innerHTML = `
+                <td><img src="${item.image}" alt="${item.name}" width="50px"></td>
+                <td>
+                    ${item.name}
+                    ${optionsString}
+                </td>
+                <td>${window.formatCurrency(item.price)}</td>
+                <td>${item.quantity}</td>
+                <td><a href="#" class="borrar" data-id="${item.id}" data-model="${item.model}" data-color="${item.color}" data-size="${item.size}"><img src="imagenes/eliminar.png" alt="Eliminar" style="width: 20px; height: 20px; vertical-align: middle;"></a></td>
+            `;
+            cartListBody.appendChild(row);
+            total += itemTotalPrice;
+        });
+        checkoutBtnDropdown.style.display = "block";
+        clearCartBtn.style.display = "block";
+    }
+    cartTotalElem.textContent = `Total: ${window.formatCurrency(total)}`;
+};
+
+/**
+ * Construye el mensaje de resumen del carrito para WhatsApp.
+ * Esta función es global (window.getWhatsAppOrderMessage) y es llamada por `FCompra.js`.
+ * @param {object} customerData (Opcional) Datos del cliente para incluir en el mensaje.
+ * @param {number} shippingCost (NUEVO) El costo de envío a sumar al total.
+ * @returns {string} El mensaje de resumen del pedido formateado para WhatsApp.
+ */
+window.getWhatsAppOrderMessage = (customerData = {}, shippingCost = 0) => { 
+    if (window.cart.length === 0) { // Referencia explícita a window.cart
+        return "❌ Tu carrito está vacío. No hay productos para generar un pedido.";
+    }
+
+    const STORE_NAME = "IMPORTACIONES SOSTENIBLES & ATRACTIVAS";
+
+    let messageParts = [];
+    messageParts.push(`🛒 *Resumen de tu compra en ${STORE_NAME}:*`);
+
+    // Añadir datos del cliente si están disponibles (desde FCompra.js)
+    if (Object.keys(customerData).length > 0 && customerData.fullName) { 
+        messageParts.push(`\n*Datos del Cliente:*`);
+        messageParts.push(`  Nombre: ${customerData.fullName}`);
+        if (customerData.email) messageParts.push(`  Email: ${customerData.email}`);
+        if (customerData.phone) messageParts.push(`  Teléfono: ${customerData.phone}`);
+        if (customerData.address) messageParts.push(`  Dirección: ${customerData.address}, ${customerData.city}, ${customerData.region}`);
+        if (customerData.paymentMethod) {
+            let paymentMethodText = '';
+            if (customerData.paymentMethod === 'contra-entrega') paymentMethodText = 'Contra Entrega';
+            else if (customerData.paymentMethod === 'transferencia') paymentMethodText = 'Transferencia Bancaria';
+            else if (customerData.paymentMethod === 'tarjeta-visa-izipay') paymentMethodText = 'Tarjeta (Izipay)';
+            messageParts.push(`  Método de Pago: ${paymentMethodText}`);
+        }
+        if (customerData.comments) messageParts.push(`  Comentarios: _${customerData.comments}_`);
+    }
+
+    messageParts.push(`\n*Productos:*\n`);
+
+    let productsTotal = 0; 
+    window.cart.forEach((item, index) => { // Referencia explícita a window.cart
+        messageParts.push(`*${index + 1}. ${item.name}*`);
+        const options = [];
+        if (item.model && item.model.toLowerCase() !== "unico" && item.model !== "no seleccionado") { options.push(item.model); }
+        if (item.color && item.color.toLowerCase() !== "unico" && item.color !== "no seleccionado") { options.push(item.color); }
+        if (item.size && item.size.toLowerCase() !== "unico" && item.size !== "no seleccionado") { options.push(item.size); }
+        if (options.length > 0) { messageParts.push(`  Opciones: _${options.join(' - ')}_`); }
+        messageParts.push(`  Cantidad: ${item.quantity} | Precio Unitario: *${window.formatCurrency(item.price)}*`);
+        productsTotal += item.price * item.quantity;
+    });
+
+    // Añadir Costo de Envío al mensaje si aplica
+    if (shippingCost > 0) {
+        messageParts.push(`\nSubtotal Productos: ${window.formatCurrency(productsTotal)}`);
+        messageParts.push(`Costo de Envío: ${window.formatCurrency(shippingCost)}`);
+    } else {
+        messageParts.push(`Costo de Envío: Gratuito`);
+    }
+
+    const finalOrderTotal = productsTotal + shippingCost; 
+    messageParts.push(`\n💰 *Total a pagar: ${window.formatCurrency(finalOrderTotal)}*`); 
+    messageParts.push(`\n¡Gracias por tu pedido!`);
+
+    return messageParts.join('\n');
+};
+
+
+// --- Event Listeners Globales (DOMContentLoaded para la carga inicial) ---
+document.addEventListener("DOMContentLoaded", () => {
+    // console.log('DOMContentLoaded: Selectores al inicio - cartIcon:', cartIcon, 'cartDropdown:', cartDropdown, 'cartListBody:', cartListBody); // Debug
+
+    window.loadCart(); // Llama a la función global loadCart
+    window.renderCart(); // Llama a la función global renderCart
+
+    // Delegación de eventos para los botones de eliminar del carrito (más eficiente)
+    if (cartListBody) {
+        // console.log('DOMContentLoaded: Intentando agregar click listener a cartListBody.'); // Debug
+        cartListBody.addEventListener("click", (event) => {
+            // console.log('Clic detectado en cartListBody:', event.target); // Debug
+
+            const deleteButton = event.target.closest('.borrar');
+
+            if (deleteButton) {
+                // console.log('Clic en botón borrar reconocido.'); // Debug
+                event.preventDefault();
+
+                const id = deleteButton.dataset.id;
+                const model = deleteButton.dataset.model;
+                const color = deleteButton.dataset.color;
+                const size = deleteButton.dataset.size;
+
+                // console.log('Datos del producto a eliminar (desde data-attributes):', { id, model, color, size }); // Debug
+                
+                removeFromCart(id, model, color, size); // Llama a la función interna removeFromCart
+            } else {
+                // console.log('Clic no fue en un botón borrar.'); // Debug
+            }
+        });
+    } else {
+        // console.log('DOMContentLoaded: cartListBody no se encontró, no se pudo agregar el click listener.'); // Debug
+    }
+
+    if (clearCartBtn) {
+        // console.log('DOMContentLoaded: Agregando click listener a clearCartBtn.'); // Debug
+        clearCartBtn.addEventListener("click", window.clearCart); // Llama a la función global clearCart
+    } else {
+        // console.log('DOMContentLoaded: clearCartBtn no se encontró.'); // Debug)
+    }
+
+    // El botón "Comprar" en el dropdown del carrito AHORA REDIRIGE a FCompra.html
+    // La lógica de WhatsApp para el pedido final se maneja en FCompra.js.
+    if (checkoutBtnDropdown) {
+        // console.log('DOMContentLoaded: Agregando click listener a checkoutBtnDropdown.'); // Debug
+        checkoutBtnDropdown.addEventListener("click", () => {
+            if (window.cart.length === 0) {
+                alert("❌ Tu carrito está vacío. Añade productos antes de finalizar la compra.");
+                return;
+            }
+            window.location.href = "FCompra.html"; // Redirige a la página de finalizar compra
+        });
+    } else {
+        // console.log('DOMContentLoaded: checkoutBtnDropdown no se encontró.'); // Debug
+    }
 });
