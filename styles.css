@@ -1121,7 +1121,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .menu-label img {
-        width: 30px; /* Tamaño del icono de menú hamburguesa */
+        width: 40px; /* Tamaño del icono de menú hamburguesa */
         height: auto;
     }
 
