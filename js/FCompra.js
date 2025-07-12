@@ -16,21 +16,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const CONFIRM_PROMPT_CHECKOUT = "\n\n¿Deseas enviar este pedido con tus datos de contacto por WhatsApp para confirmar tu compra?";
     const DUMMY_IZIPAY_LINK = "https://example.com/izipay-secure-payment-page"; // REEMPLAZAR CON LINK REAL DE IZIPAY
 
-    // --- Funciones de Utilidad y Renderizado Específicas de Checkout ---
-
     /**
      * Renderiza el resumen de los productos del carrito en la tabla de checkout.
      * Calcula y muestra el subtotal, costo de envío y total final.
+     * @returns {object} Un objeto con los totales calculados: { subtotal, shipping, finalTotal }.
      */
     const renderCheckoutSummary = () => {
         // Validación de que window.loadCart exista (desde cart.js)
         if (typeof window.loadCart !== 'function') {
-            console.error("renderCheckoutSummary: window.loadCart no está definido. Asegúrate de que js/cart.js esté cargado ANTES de js/checkout.js.");
-            if (checkoutItemList) { // Si el elemento existe, mostrar un mensaje de error claro al usuario
+            console.error("renderCheckoutSummary: window.loadCart no está definido. Asegúrate de que js/cart.js esté cargado ANTES de js/checkout.js (o js/FCompra.js).");
+            if (checkoutItemList) {
                 checkoutItemList.innerHTML = '<tr><td colspan="3" class="empty-cart-message" style="color: red;">Error: No se pudo cargar la funcionalidad del carrito. Recargue la página.</td></tr>';
             }
-            if (placeOrderBtn) placeOrderBtn.disabled = true; // Deshabilitar botón para evitar acciones
-            return;
+            if (placeOrderBtn) placeOrderBtn.disabled = true;
+            return { subtotal: 0, shipping: 0, finalTotal: 0 }; // Return default values on error
         }
         
         window.loadCart(); // Carga el carrito global de cart.js (ahora sabemos que existe)
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!checkoutItemList || !checkoutSubtotal || !checkoutShipping || !checkoutFinalTotal) {
             console.error("renderCheckoutSummary: Uno o más selectores DOM para el resumen de checkout no se encontraron. Verifique los IDs en checkout.html. Elementos faltantes:", { checkoutItemList, checkoutSubtotal, checkoutShipping, checkoutFinalTotal });
             if (placeOrderBtn) placeOrderBtn.disabled = true;
-            return;
+            return { subtotal: 0, shipping: 0, finalTotal: 0 }; // Return default values on error
         }
 
         checkoutItemList.innerHTML = ''; // Limpiar lista antes de renderizar
@@ -79,17 +78,19 @@ document.addEventListener("DOMContentLoaded", () => {
         checkoutSubtotal.textContent = window.formatCurrency(currentSubtotal);
         checkoutShipping.textContent = window.formatCurrency(shippingCost);
         checkoutFinalTotal.textContent = window.formatCurrency(finalTotal);
-
+        
         // Actualizar estado del botón de pedido basado en si hay ítems en el carrito (redundante pero seguro)
         if (window.cart && window.cart.length === 0) {
             if (placeOrderBtn) placeOrderBtn.disabled = true;
         }
+        // CORRECTION: Return the calculated totals
+        return { subtotal: currentSubtotal, shipping: shippingCost, finalTotal: finalTotal }; 
     };
 
     // --- Lógica para mostrar/ocultar nota de Izipay ---
     const togglePaymentNote = () => {
         // Verificación defensiva de elementos DOM
-        if (!checkoutForm || !paymentNote) {
+        if (!checkoutForm || !paymentNote) { 
             // console.warn("togglePaymentNote: Formulario o nota de pago no encontrados."); // Debug
             return; 
         }
@@ -157,11 +158,16 @@ document.addEventListener("DOMContentLoaded", () => {
             // --- Generar Mensaje de WhatsApp Completo ---
             // Asegúrate de que getWhatsAppOrderMessage exista (desde cart.js)
             if (typeof window.getWhatsAppOrderMessage !== 'function') {
-                console.error("getWhatsAppOrderMessage no está definido. Asegúrate de que js/cart.js esté cargado ANTES de js/checkout.js.");
+                console.error("getWhatsAppOrderMessage no está definido. Asegúrate de que js/cart.js esté cargado ANTES de js/checkout.js (o js/FCompra.js).");
                 alert("Error al procesar el pedido. Funcionalidad de carrito no disponible.");
                 return;
             }
-            const orderSummaryMessage = window.getWhatsAppOrderMessage(customerData);
+            
+            // CORRECTION: Call renderCheckoutSummary() to get the latest totals
+            const { shipping: calculatedShipping } = renderCheckoutSummary(); // Extract shipping cost
+
+            // Pass customerData AND calculatedShipping to getWhatsAppOrderMessage
+            const orderSummaryMessage = window.getWhatsAppOrderMessage(customerData, calculatedShipping);
 
             // 3. Confirmar la compra antes de enviar el mensaje final a WhatsApp o redirigir a Izipay
             if (confirm(orderSummaryMessage + CONFIRM_PROMPT_CHECKOUT)) {
