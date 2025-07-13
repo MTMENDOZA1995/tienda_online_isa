@@ -1154,23 +1154,35 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     /* Contenido principal del encabezado (portada) */
+    /* Contenido principal del encabezado (portada) */
     .header-content {
         flex-direction: column;
         text-align: center;
-        padding: 45px 18px;
+        padding: 30px 15px; /* **REDUCIDO:** Padding vertical y horizontal */
     }
 
     .header-txt,
     .header-img {
         flex-basis: 100%; 
         margin-right: 0;
-        margin-bottom: 28px;
+        margin-bottom: 2px; /* **REDUCIDO:** Margen inferior */
+    }
+    /* Reducir tamaños de fuente dentro de header-txt para que se ajusten al espacio */
+    .header-txt h1 {
+        font-size: 38px; /* Reducido tamaño de título */
+        margin-bottom: 20px;
+    }
+    .header-txt p {
+        font-size: 15px; /* Reducido tamaño de párrafo */
+        margin-bottom: 20px;
     }
 
+
     .butons {
-        margin-bottom: 45px;
+        margin-bottom: 35px; /* **REDUCIDO:** Margen inferior */
         justify-content: center;
     }
+
 
     /* --- OFERTAS: Contenedores más pequeños y horizontales (2 en 2 si es posible) --- */
     .oferts {
@@ -1806,6 +1818,5 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
     /* ... (resto de estilos para 480px) ... */
 }
-
 
 
