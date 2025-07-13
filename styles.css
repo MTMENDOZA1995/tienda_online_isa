@@ -1421,41 +1421,102 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
     /* --- OFERTAS: Una columna por oferta (Apiladas verticalmente) para móviles --- */
     /* --- OFERTAS: Ahora una columna, pero el contenido interno horizontal --- */
+/* ========================== SECCIÓN DE PROMOCIONES ========================== */
+
     .oferts {
-        padding: 40px 0; /* **REDUCIDO:** Padding vertical */
-        gap: 12px; /* **REDUCIDO:** Gap */
+        padding: 48px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        background-color: #f9f9f9;
     }
+
     .oferts h2 {
-        font-size: 20px; /* **REDUCIDO:** Tamaño de título */
-        margin-bottom: 15px; /* **REDUCIDO:** Margen */
+        font-size: 26px;
+        color: #1e1e1e; /* Negro profesional, no puro (mejor para pantallas) */
+        font-weight: 700;
+        margin-bottom: 14px;
+        text-align: center;
+        letter-spacing: 0.4px;
     }
-    .oferts .offer-cards-grid {
-        flex-direction: column; /* **CLAVE: Ahora una columna completa de tarjetas** */
-        align-items: center; /* Centra las tarjetas apiladas */
-        gap: 12px; /* Espacio entre tarjetas apiladas */
-        max-width: 400px; /* **REDUCIDO:** Ancho máximo del grupo de ofertas */
+
+    /* Contenedor de tarjetas */
+    .offer-cards-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        width: 100%;
+        max-width: 440px;
     }
+
+    /* Tarjeta individual */
     .ofert-item {
-        flex-basis: 100%; /* Ocupa todo el ancho */
-        max-width: 350px; /* **REDUCIDO:** Ancho máximo por tarjeta */
-        padding: 10px 12px; /* **REDUCIDO:** Padding interno */
-        flex-direction: row; /* **CLAVE: MANTIENE HORIZONTAL INTERNO** (texto e imagen lado a lado) */
-        text-align: left;
-        gap: 8px; /* **REDUCIDO:** Espacio interno */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        padding: 16px 18px;
+        width: 100%;
+        max-width: 400px;
+        gap: 14px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .ofert-txt h3 {
-        font-size: 14px; /* **REDUCIDO:** Tamaño de fuente */
+
+    .ofert-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     }
-    .ofert-txt a {
-        font-size: 11px; /* **REDUCIDO:** Tamaño de fuente */
-    }
+
+    /* Imagen dentro de la tarjeta */
     .ofert-img {
-        min-width: 45px; /* **REDUCIDO:** min-width */
-        max-width: 55px; /* **REDUCIDO:** max-width */
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+
     .ofert-img img {
+        max-width: 100%;
         max-height: 100%;
+        object-fit: contain;
     }
+
+    /* Contenido textual */
+    .ofert-txt {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ofert-txt h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #f0eeee; /* Gris oscuro: elegante y fácil de leer */
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .ofert-txt a {
+        font-size: 13px;
+        font-weight: 500;
+        color: #6cc82a; /* Verde corporativo moderno */
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .ofert-txt a:hover {
+        color: #4da313; /* Tono más oscuro al pasar el mouse */
+        text-decoration: underline;
+    }
+
 
     /* --- PRODUCTOS: Dos por fila para móviles --- */
     .products-grid {
@@ -1836,5 +1897,6 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
     /* ... (resto de estilos para 480px) ... */
 }
+
 
 
