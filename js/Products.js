@@ -15,6 +15,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // ¡IMPORTANTE! 'price' y 'originalPrice' deben ser números para permitir cálculos.
     // El formato de moneda 'S/.' se aplica solo en la visualización.
     const allProducts = [
+
+        {
+            id: 20,
+            name: "Peine Quita Nudos para Perros y Gatos",
+            description: "Peine Quita Nudos para Perros y Gatos elimina enredos, nudos y pelo muerto de forma rápida y segura. Ideal para mascotas de pelo medio y largo.",
+            price: 12.30,          // ¡Número!
+            originalPrice: 41.00, // ¡Número!
+            discount: "70% DES.",
+            images: { // Agrupación de imágenes en un objeto
+                main: "productos/dj44-bu01s1.jpg",
+                extra1: "productos/dj44-bu01s1.jpg",
+                extra2: "productos/dj44-bu01s.jpg",
+                extra3: "productos/dj44-bu02s.jpg"
+            },
+            code: "dj44-bu01s-dj44-bu02s",
+            stock: 3,
+            category: "Mascotas", // Usar siempre la misma capitalización para la categoría
+            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
+            additionalInfo: "Fabricado con materiales ecológicos.",
+            models: ["Unico"],
+            colors: ["Azul", "Rosado"],
+            sizes: ["Unico"]
+        },
         {
             id: 19,
             name: "Pulsera Bluelory Acero Inox. Unisex",
