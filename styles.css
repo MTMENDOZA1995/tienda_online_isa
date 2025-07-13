@@ -1253,6 +1253,50 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
 
     /* ... (resto de .product-detail, footer, testimonial, search-bar para 991px) ... */
+    /* --- TESTIMONIALS SECTION --- */
+    .testimonial-section {
+        padding: 35px 0; /* Reducido padding vertical */
+        text-align: center;
+        background-color: #f9f9f9;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .testimonial-section h2 {
+        font-size: 24px; /* Ajustado tamaño de título */
+        margin-bottom: 25px; /* Reducido margen */
+        text-align: center;
+    }
+
+    .testimonial-content {
+        flex-direction: column; /* Apila los testimonios en columna */
+        align-items: center; /* Centra los testimonios apilados */
+        gap: 15px; /* Espacio entre tarjetas apiladas */
+        max-width: 700px; /* Reducido ancho máximo del contenedor general de testimonios */
+    }
+
+    .testimonial-card { 
+        flex-basis: 95%; /* Ocupa casi todo el ancho disponible */
+        max-width: 400px; /* **CLAVE: Reducido ancho máximo para cada tarjeta de testimonio** */
+        padding: 18px; /* **REDUCIDO: Padding interno de las tarjetas** */
+        min-height: 180px; /* **REDUCIDO: Altura mínima** */
+    }
+    .testimonial-card blockquote p {
+        font-size: 14px; /* **REDUCIDO: Tamaño de fuente del testimonio** */
+        margin-bottom: 10px; /* Ajustado margen */
+    }
+    .testimonial-card blockquote footer {
+        font-size: 13px; /* **REDUCIDO: Tamaño de fuente del autor** */
+        margin-top: 6px; /* Ajustado margen */
+    }
+    .testimonial-card img {
+        width: 70px; /* **REDUCIDO: Tamaño de la imagen de estrellas** */
+        margin-top: 12px; /* Ajustado margen */
+    }
+
+
+    /* ... (resto de .product-detail, footer, testimonial, search-bar para 991px) ... */
+    /* Aquí van los demás estilos de 991px que no son de testimonial */
     .product-detail { 
         flex-direction: column;
         align-items: center;
@@ -1263,7 +1307,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     .product-images-container,
     .product-info-detail {
         flex-basis: 100%;
-        max-width: 500px; 
+        max-width: 550px; 
     }
 
     .footer-content {
@@ -1281,16 +1325,8 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     .social-icons {
         justify-content: center;
     }
+    /* El testimonial-content y testimonial-card original dentro de este media query es ahora parte del ajuste específico de testimonios */
 
-    .testimonial-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .testimonial-card {
-        flex-basis: 95%;
-        max-width: 480px; 
-    }
 }
 
 /* Media Query para la mayoría de los Smartphones (hasta 768px de ancho) */
@@ -1511,24 +1547,30 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
         font-size: 11px;
     }
 
+     /* --- TESTIMONIALS SECTION --- */
     .testimonial-section {
-        padding: 40px 0;
+        padding: 30px 0; /* **REDUCIDO: Padding aún más pequeño** */
     }
     .testimonial-section h2 {
-        font-size: 24px;
+        font-size: 22px; /* **REDUCIDO: Título más pequeño** */
+        margin-bottom: 20px;
+    }
+    .testimonial-content {
+        gap: 10px; /* **REDUCIDO: Gap más pequeño** */
+        max-width: 600px; /* **REDUCIDO: Ancho máximo** */
     }
     .testimonial-card {
-        padding: 20px;
-        min-height: 180px;
+        padding: 15px; /* **REDUCIDO: Padding interno más pequeño** */
+        min-height: 150px; /* **REDUCIDO: Altura mínima más pequeña** */
     }
     .testimonial-card blockquote p {
-        font-size: 14px;
+        font-size: 13px; /* **REDUCIDO: Texto más pequeño** */
     }
     .testimonial-card blockquote footer {
-        font-size: 13px;
+        font-size: 12px; /* **REDUCIDO: Autor más pequeño** */
     }
     .testimonial-card img {
-        width: 80px;
+        width: 60px; /* **REDUCIDO: Estrellas más pequeñas** */
     }
 
     .search-input {
@@ -1735,4 +1777,35 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     .footer-bottom p {
         font-size: 12px;
     }
+
+        /* --- TESTIMONIALS SECTION --- */
+    .testimonial-section {
+        padding: 20px 0; /* **REDUCIDO: Padding muy pequeño** */
+    }
+    .testimonial-section h2 {
+        font-size: 18px; /* **REDUCIDO: Título muy pequeño** */
+        margin-bottom: 15px;
+    }
+    .testimonial-content {
+        gap: 8px; /* **REDUCIDO: Gap muy pequeño** */
+        max-width: 400px; /* **REDUCIDO: Ancho máximo muy pequeño** */
+    }
+    .testimonial-card {
+        padding: 10px; /* **REDUCIDO: Padding muy pequeño** */
+        min-height: 120px; /* **REDUCIDO: Altura mínima muy pequeña** */
+    }
+    .testimonial-card blockquote p {
+        font-size: 12px; /* **REDUCIDO: Texto muy pequeño** */
+    }
+    .testimonial-card blockquote footer {
+        font-size: 11px; /* **REDUCIDO: Autor muy pequeño** */
+    }
+    .testimonial-card img {
+        width: 50px; /* **REDUCIDO: Estrellas muy pequeñas** */
+    }
+
+    /* ... (resto de estilos para 480px) ... */
 }
+
+
+
