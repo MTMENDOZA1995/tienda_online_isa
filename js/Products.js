@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice: 41.00, // ¡Número!
             discount: "70% DES.",
             images: { // Agrupación de imágenes en un objeto
-                main: "productos/dj44-bu01s1.jpg",
+                main: "productos/dj44-bu01s0.jpg",
                 extra1: "productos/dj44-bu01s1.jpg",
                 extra2: "productos/dj44-bu01s.jpg",
                 extra3: "productos/dj44-bu02s.jpg"
