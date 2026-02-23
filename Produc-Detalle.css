@@ -753,6 +753,7 @@ h1, h2, h3, h4 {
     line-height: 1.5;
     margin-bottom: 10px;
     color: #444;
+    white-space: pre-line;
 }
 
 /* Product specific information (category, code, stock) */
