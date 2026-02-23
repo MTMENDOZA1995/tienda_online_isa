@@ -1814,31 +1814,50 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 
 /* ================= RESPONSIVE ================= */
 
+/* ================= RESPONSIVE (CELULARES) ================= */
+
 @media (max-width: 768px) {
+    
+    .shipping-policy-section {
+        padding: 40px 15px; /* Reducimos el espacio exterior */
+    }
 
     .shipping-card {
-        padding: 30px 20px;
-        border-radius: 16px;
+        padding: 30px 20px; /* Ajustamos la caja principal para que no se coma el espacio de lectura */
+        border-radius: 18px;
     }
 
     .shipping-title {
-        font-size: 18px;
+        font-size: 26px; /* Hacemos el título más pequeño para que no ocupe demasiadas líneas */
+        margin-bottom: 15px;
     }
 
     .shipping-intro {
-        font-size: 10px;
+        font-size: 14px; /* Letra un poco más compacta */
+        margin-bottom: 35px; /* Reducimos el espacio en blanco vacío */
     }
 
     .shipping-block {
-        padding: 12px;
+        padding: 20px 15px; /* Hacemos que los bloques internos encajen mejor */
+        margin-bottom: 30px;
     }
 
     .shipping-block h2 {
-        font-size: 12px;
+        font-size: 18px; /* Subtítulos adaptados al tamaño de pantalla */
+    }
+
+    .shipping-block ul {
+        padding-left: 15px; /* Menos sangría para aprovechar el ancho de la pantalla */
     }
 
     .shipping-block ul li {
-        font-size: 10px;
+        font-size: 14px;
     }
 
+    .shipping-contact {
+        margin-top: 35px;
+        padding: 20px 15px; /* Hacemos la caja de contacto final más compacta */
+        font-size: 14px;
+    }
 }
+
