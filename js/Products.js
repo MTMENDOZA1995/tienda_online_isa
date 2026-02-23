@@ -17,12 +17,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const allProducts = [
 
         {
+            id: 21,
+            name: "Aretes Rosa",
+            description: "Aretes de diseño elegante, fabricados en acero inoxidable de alta calidad.",    
+            originalPrice: 13.00, // ¡Númer
+            discountPercent: 70,
+            images: { // Agrupación de imágenes en un objeto
+                main: "productos/ISA-0000040-1.jpg",
+                extra1: "productos/ISA-0000040-2.jpg",
+                extra2: "",
+                extra3: ""
+            },
+            code: "ISA-0000040",
+            stock: 1,
+            category: "joyeria", // Usar siempre la misma capitalización para la categoría
+            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
+            additionalInfo: "Fabricado con materiales ecológicos.",
+            models: ["Unico"],
+            colors: ["Plateado"],
+            sizes: ["Unico"]
+        },
+        {
             id: 20,
             name: "Peine Quita Nudos para Perros y Gatos",
             description: "Peine Quita Nudos para Perros y Gatos elimina enredos, nudos y pelo muerto de forma rápida y segura. Ideal para mascotas de pelo medio y largo.",
-            price: 12.30,          // ¡Número!
             originalPrice: 41.00, // ¡Número!
-            discount: "70% DES.",
+            discountPercent: 70,
             images: { // Agrupación de imágenes en un objeto
                 main: "productos/dj44-bu01s0.jpg",
                 extra1: "productos/dj44-bu01s1.jpg",
@@ -42,9 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 19,
             name: "Pulsera Bluelory Acero Inox. Unisex",
             description: "Pulsera Bluelory Acero Inox. Unisex, Negro-Dorado. Elegante y duradera para cualquier ocasión.",
-            price: 5.70,          // ¡Número!
             originalPrice: 19.00, // ¡Número!
-            discount: "70% DES.",
+            discountPercent: 70,
             images: { // Agrupación de imágenes en un objeto
                 main: "productos/ISA-0000030.jpg",
                 extra1: "productos/ISA-0000030-1.jpg",
@@ -64,12 +83,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 18,
             name: "Pulsera uniendo Corazones Parejas",
             description: "Pulsera uniendo Corazones Parejas",
-            price: 2.70,
             originalPrice: 9.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000029.jpg",
-                extra1: "productos/ISA-0000029.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000029-1.jpg",
                 extra3: "productos/ISA-0000029-2.jpg"
             },
@@ -86,14 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 17,
             name: "Pulsera Multicapa Punk Unisex",
             description: "Pulsera Multicapa Punk Unisex",
-            price: 1.80,
             originalPrice: 6.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/123175043.jpg",
-                extra1: "productos/123175043.jpg",
+                extra1: "",
                 extra2: "productos/123175043-1.jpg",
-                extra3: "productos/123175043-1.jpg"
+                extra3: ""
             },
             code: "123175043",
             stock: 1,
@@ -108,14 +125,13 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 16,
             name: "Pulsera Vintage de Cuero Hombre",
             description: "Pulsera Vintage de Cuero Hombre",
-            price: 4.80,
             originalPrice: 24.00,
-            discount: "80% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000028.png",
-                extra1: "productos/ISA-0000028.png",
-                extra2: "productos/ISA-0000028.png",
-                extra3: "productos/ISA-0000028.png",
+                extra1: "",
+                extra2: "",
+                extra3: "",
             },
             code: "ISA-0000028",
             stock: 3,
@@ -130,14 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 15,
             name: "Pulsera Cáñamo Unisex - Marron",
             description: "Pulsera Cáñamo Unisex - Marron",
-            price: 3.90,
             originalPrice: 13.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/D1166.jpg",
-                extra1: "productos/D1166.jpg",
+                extra1: "",
                 extra2: "productos/D1166-1.jpg",
-                extra3: "productos/D1166-1.jpg"
+                extra3: ""
             },
             code: "D1166",
             stock: 4,
@@ -152,9 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 14,
             name: "Pulsera Punk de Caucho Hombre",
             description: "Pulsera Punk de Caucho Hombre",
-            price: 3.90,
             originalPrice: 13.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000027.jpg",
                 extra1: "productos/ISA-0000027-1.jpg",
@@ -174,12 +188,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 13,
             name: "Llaveros Avengers",
             description: "Llavero coleccionable Casco de Locky, Guante de Tahnos, Hombre Araña",
-            price: 6.90,
             originalPrice: 23.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000024.jpg",
-                extra1: "productos/ISA-0000024.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000025.jpg",
                 extra3: "productos/ISA-0000026.jpg"
             },
@@ -196,12 +209,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 12,
             name: "Llaveros Pokemon",
             description: "Llavero coleccionable Pikachu y Psydock",
-            price: 19.20,
             originalPrice: 64.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000020.jpg",
-                extra1: "productos/ISA-0000020.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000020-1.jpg",
                 extra3: "productos/ISA-0000020-2.jpg"
             },
@@ -218,9 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 11,
             name: "Tazos pokemon - Unidades",
             description: "Tazos pokemon - Unidades",
-            price: 0.90,
             originalPrice: 3.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000018.png",
                 extra1: "productos/ISA-0000018-1.png",
@@ -240,12 +251,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 10,
             name: "Pila 12V 23A",
             description: "Pila 12V 23A",
-            price: 1.80,
             originalPrice: 6.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000017.jpg",
-                extra1: "productos/ISA-0000017.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000017-1.jpg",
                 extra3: "productos/ISA-0000017-2.jpg"
             },
@@ -262,9 +272,8 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 9,
             name: "Sensor Luz Led Armario",
             description: "Sensor Luz Led Armario",
-            price: 3.60,
             originalPrice: 12.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000016.jpg",
                 extra1: "productos/ISA-0000016-1.jpg",
@@ -284,12 +293,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 8,
             name: "Par de Dedales Gamer Basicos",
             description: "Par de Dedales Gamer Basicos",
-            price: 2.40,
             originalPrice: 8.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000013.jpg",
-                extra1: "productos/ISA-0000013.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000013-1.jpg",
                 extra3: "productos/ISA-0000013-2.jpg"
             },
@@ -306,12 +314,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 7,
             name: "Par de Dedales Gamer FingerTips",
             description: "Par de Dedales Gamer FingerTips",
-            price: 6.00,
-            originalPrice: 20.00,
+            discountPercent: 70,
             discount: "70% DES.",
             images: {
                 main: "productos/ISA-0000012.jpg",
-                extra1: "productos/ISA-0000012.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000012-1.jpg",
                 extra3: "productos/ISA-0000012-2.jpg"
             },
@@ -328,9 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 6,
             name: "Par de Dedales Gamer Fibra Electrica ",
             description: "Par de Dedales Gamer Fibra Electrica ",
-            price: 3.90,
             originalPrice: 13.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000011.jpg",
                 extra1: "productos/ISA-0000011-1.jpg",
@@ -350,14 +356,13 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 5,
             name: "Case Funda de silicona Poco X3 GT",
             description: "Case Funda de silicona Poco X3 GT",
-            price: 7.20,
             originalPrice: 24.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000010.jpg",
-                extra1: "productos/ISA-0000010.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000010-1.jpg",
-                extra3: "productos/ISA-0000010-1.jpg"
+                extra3: ""
             },
             code: "ISA-0000010",
             stock: 1,
@@ -372,14 +377,13 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 4,
             name: "Case Funda de silicona Umidigi Bison",
             description: "Case Funda de silicona Umidigi Bison",
-            price: 7.50,
             originalPrice: 25.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000009.jpg",
-                extra1: "productos/ISA-0000009.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000009-1.jpg",
-                extra3: "productos/ISA-0000009-1.jpg"
+                extra3: ""
             },
             code: "ISA-0000009",
             stock: 3,
@@ -394,20 +398,20 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 3,
             name: "Auriculares Samsung Alambricos AKG",
             description: "Auriculares Samsung Alambricos AKG",
-            price: 10.50,
             originalPrice: 35.00,
+            discountPercent: 70,
             discount: "70% DES.",
             images: {
                 main: "productos/ISA-0000008.jpg",
-                extra1: "productos/ISA-0000008.jpg",
+                extra1: "",
                 extra2: "productos/ISA-0000008-1.jpg",
-                extra3: "productos/ISA-0000008-1.jpg"
+                extra3: ""
             },
             code: "ISA-0000008",
             stock: 1,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio. ",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: "",
+            additionalInfo: "",
             models: ["Alambricos AKG"],
             colors: ["Blanco"],
             sizes: ["Unico "]
@@ -415,15 +419,14 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: 2,
             name: "Vidrio Templado +Prot. Camara - Redmi Note 10S 5G-4G, Note 10 Pro, Poco F3, Poco M3, Note 9 Pro",
-            description: "Vidrio Templado +Prot. Camara - note 10S 5G-4G",
-            price: 5.70,
+            description: "Vidrio Templado + Prot. Camara",
             originalPrice: 19.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/ISA-0000002.jpg",
-                extra1: "productos/ISA-0000002.jpg",
-                extra2: "productos/ISA-0000002.jpg",
-                extra3: "productos/ISA-0000002.Jpg"
+                extra1: "",
+                extra2: "",
+                extra3: ""
             },
             code: "ISA-0000002-3-4-5-6-7",
             stock: 12,
@@ -438,20 +441,19 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 1,
             name: "Vidrio Templado - Umidigi A9 Pro",
             description: "Vidrio Templado Umidigi A9 Pro",
-            price: 6.00,
             originalPrice: 20.00,
-            discount: "70% DES.",
+            discountPercent: 70,
             images: {
                 main: "productos/2433101.jpg",
-                extra1: "productos/2433101.jpg",
-                extra2: "productos/2433101.jpg",
-                extra3: "productos/2433101.jpg"
+                extra1: "",
+                extra2: "",
+                extra3: ""
             },
             code: "2433101",
             stock: 2,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: "",
+            additionalInfo: "",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -482,37 +484,65 @@ document.addEventListener("DOMContentLoaded", () => {
      * @returns {string} HTML de la tarjeta de producto.
      */
     const createProductCardHTML = (product) => {
-        // Decide qué precio mostrar y cómo
-        let priceDisplayHTML = '';
-        if (product.originalPrice && product.price < product.originalPrice) {
-            // Producto con descuento
-            priceDisplayHTML = `
-                <s class="product-price-original">${formatPrice(product.originalPrice)}</s>
-                <span class="product-price-offer">${formatPrice(product.price)}</span>
-            `;
-        } else {
-            // Producto sin descuento (solo precio normal)
-            priceDisplayHTML = `<span class="product-price-normal">${formatPrice(product.price)}</span>`;
-        }
 
-        // Determina si mostrar la etiqueta de descuento
-        const discountTagHTML = product.discount ? `<div class="discount-tag">${product.discount}</div>` : "";
+        const original = Number(product.originalPrice) || 0;
+        const discount = Number(product.discountPercent) || 0;
+
+        let finalPrice = original;
+        let priceDisplayHTML = '';
+        let discountTagHTML = '';
+
+        const hasValidDiscount = discount > 0 && discount < 100;
+
+        if (hasValidDiscount) {
+
+            finalPrice = Number((original * (1 - discount / 100)).toFixed(2));
+
+            // Guardamos precio calculado para carrito
+            product.price = finalPrice;
+
+            priceDisplayHTML = `
+                <s class="product-price-original">${formatPrice(original)}</s>
+                <span class="product-price-offer">${formatPrice(finalPrice)}</span>
+            `;
+
+            discountTagHTML = `
+                <div class="discount-tag">${discount}% OFF</div>
+            `;
+
+        } else {
+
+            product.price = original;
+
+            priceDisplayHTML = `
+                <span class="product-price-normal">${formatPrice(original)}</span>
+            `;
+        }
 
         return `
             ${discountTagHTML}
-            <img src="${product.images.main}" alt="${product.name}" loading="lazy" class="product-image">
+            <img src="${product.images?.main || "imagenes/default.jpg"}" 
+                alt="${product.name}" 
+                loading="lazy" 
+                class="product-image">
+
             <div class="product-info">
                 <h3 class="product-title">${product.name}</h3>
                 <p class="product-description">${product.description}</p>
+
                 <p class="price">
                     ${priceDisplayHTML}
                 </p>
-                <a href="product-detail.html" class="btn-3 add-to-cart-btn" data-product-id="${product.id}">
+
+                <a href="product-detail.html" 
+                class="btn-3 add-to-cart-btn" 
+                data-product-id="${product.id}">
                     Ver detalles
                 </a>
             </div>
         `;
     };
+
 
     /**
      * Renderiza un conjunto de productos en el DOM.
@@ -640,5 +670,6 @@ document.addEventListener("DOMContentLoaded", () => {
     attachProductDetailListeners();
 
 });
+
 
 
