@@ -1822,25 +1822,23 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .shipping-title {
-        font-size: 26px;
-    }
-
-    .shipping-intro {
-        font-size: 14px;
-    }
-
-    .shipping-block {
-        padding: 18px;
-    }
-
-    .shipping-block h2 {
         font-size: 18px;
     }
 
+    .shipping-intro {
+        font-size: 10px;
+    }
+
+    .shipping-block {
+        padding: 12px;
+    }
+
+    .shipping-block h2 {
+        font-size: 12px;
+    }
+
     .shipping-block ul li {
-        font-size: 14px;
+        font-size: 10px;
     }
 
 }
-
-
