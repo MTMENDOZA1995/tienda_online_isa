@@ -1799,6 +1799,12 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     line-height: 1.7;
 }
 
+.shipping-block p {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 14px;
+    line-height: 1.7;
+}
 /* ===== CONTACTO FINAL ===== */
 
 .shipping-contact {
@@ -1851,6 +1857,10 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .shipping-block ul li {
+        font-size: 10px;
+    }
+
+    .shipping-block p {
         font-size: 10px;
     }
 
