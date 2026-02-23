@@ -1819,7 +1819,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
 @media (max-width: 768px) {
     
     .shipping-policy-section {
-        padding: 40px 15px; /* Reducimos el espacio exterior */
+        padding: 80px 15px; /* Reducimos el espacio exterior */
     }
 
     .shipping-card {
@@ -1828,13 +1828,13 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .shipping-title {
-        font-size: 26px; /* Hacemos el título más pequeño para que no ocupe demasiadas líneas */
+        font-size: 18px; /* Hacemos el título más pequeño para que no ocupe demasiadas líneas */
         margin-bottom: 15px;
     }
 
     .shipping-intro {
-        font-size: 14px; /* Letra un poco más compacta */
-        margin-bottom: 35px; /* Reducimos el espacio en blanco vacío */
+        font-size: 10px; /* Letra un poco más compacta */
+        margin-bottom: 25px; /* Reducimos el espacio en blanco vacío */
     }
 
     .shipping-block {
@@ -1843,7 +1843,7 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .shipping-block h2 {
-        font-size: 18px; /* Subtítulos adaptados al tamaño de pantalla */
+        font-size: 13px; /* Subtítulos adaptados al tamaño de pantalla */
     }
 
     .shipping-block ul {
@@ -1851,13 +1851,13 @@ h1, h2, h3, h4 { /* Consolidated heading styles */
     }
 
     .shipping-block ul li {
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .shipping-contact {
         margin-top: 35px;
         padding: 20px 15px; /* Hacemos la caja de contacto final más compacta */
-        font-size: 14px;
+        font-size: 10px;
     }
 }
 
