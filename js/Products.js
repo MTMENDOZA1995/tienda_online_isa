@@ -453,7 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
             stock: 2,
             category: "Celulares",
             shippingPolicy: "",
-            additionalInfo: "",
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
