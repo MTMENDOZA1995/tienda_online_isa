@@ -507,7 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             discountTagHTML = `
-                <div class="discount-tag">${discount}% OFF</div>
+                <div class="discount-tag">${discount}% Des.</div>
             `;
 
         } else {
