@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (productStockElem) productStockElem.textContent = `Stock: ${product.stock > 0 ? product.stock : 'Agotado'}`;
         if (productCodeElem) productCodeElem.textContent = `Código: ${product.code || "N/A"}`;
         if (productCategoryElem) productCategoryElem.textContent = `Categoría: ${product.category || "N/A"}`;
-        if (productShippingElem) productShippingElem.textContent = `Política de Envío: ${product.shippingPolicy || "Consulte políticas de envío."}`;
+        if (productShippingElem) productShippingElem.textContent = `Características: ${product.shippingPolicy || "Consulte caracteriticas del producto."}`;
         if (productAdditionalInfoElem) productAdditionalInfoElem.textContent = `Información Adicional: ${product.additionalInfo || "No hay información adicional."}`;
 
         // --- Lógica de Precios ---
