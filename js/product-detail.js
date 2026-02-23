@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (productCodeElem) productCodeElem.textContent = ` ${product.code || "N/A"}`;
         if (productCategoryElem) productCategoryElem.textContent = ` ${product.category || "N/A"}`;
         if (productShippingElem) productShippingElem.textContent = ` ${product.shippingPolicy || "Consulte caracteriticas del producto."}`;
-        if (productAdditionalInfoElem) productAdditionalInfoElem.textContent = ` ${product.additionalInfo || "No hay información adicional."}`;
+        if (productAdditionalInfoElem) productAdditionalInfoElem.innerHTML = ` ${product.additionalInfo || "No hay información adicional."}`;
 
         // --- Lógica de Precios ---
         let finalPrice = product.originalPrice;
