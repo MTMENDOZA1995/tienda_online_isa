@@ -90,12 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // --- Asignación de Contenido de Texto ---
         if (productNameElem) productNameElem.textContent = product.name || "Producto sin nombre";
         if (productDescriptionElem) productDescriptionElem.textContent = product.description || "Sin descripción disponible.";
-        if (productStockElem) productStockElem.textContent = `Stock: ${product.stock > 0 ? product.stock : 'Agotado'}`;
-        if (productCodeElem) productCodeElem.textContent = `Código: ${product.code || "N/A"}`;
-        if (productCategoryElem) productCategoryElem.textContent = `Categoría: ${product.category || "N/A"}`;
-        if (productShippingElem) productShippingElem.textContent = `Características: ${product.shippingPolicy || "Consulte caracteriticas del producto."}`;
-        if (productAdditionalInfoElem) productAdditionalInfoElem.textContent = `Información Adicional: ${product.additionalInfo || "No hay información adicional."}`;
-
+        if (productStockElem) productStockElem.textContent = ` ${product.stock > 0 ? product.stock : 'Agotado'}`;
+        if (productCodeElem) productCodeElem.textContent = ` ${product.code || "N/A"}`;
+        if (productCategoryElem) productCategoryElem.textContent = ` ${product.category || "N/A"}`;
+        if (productShippingElem) productShippingElem.textContent = ` ${product.shippingPolicy || "Consulte caracteriticas del producto."}`;
+        if (productAdditionalInfoElem) productAdditionalInfoElem.textContent = ` ${product.additionalInfo || "No hay información adicional."}`;
+        
         // --- Lógica de Precios ---
         if (productPriceOldElem) {
             if (product.originalPrice && product.originalPrice > product.price) {
