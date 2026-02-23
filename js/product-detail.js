@@ -95,33 +95,44 @@ document.addEventListener("DOMContentLoaded", () => {
         if (productCategoryElem) productCategoryElem.textContent = ` ${product.category || "N/A"}`;
         if (productShippingElem) productShippingElem.textContent = ` ${product.shippingPolicy || "Consulte caracteriticas del producto."}`;
         if (productAdditionalInfoElem) productAdditionalInfoElem.textContent = ` ${product.additionalInfo || "No hay información adicional."}`;
-        
+
         // --- Lógica de Precios ---
-        if (productPriceOldElem) {
-            if (product.originalPrice && product.originalPrice > product.price) {
+        let finalPrice = product.originalPrice;
+
+        // Si hay descuento, calcular precio automáticamente
+        if (product.originalPrice && product.discountPercent > 0) {
+
+            finalPrice = product.originalPrice * (1 - product.discountPercent / 100);
+
+            // Precio original tachado
+            if (productPriceOldElem) {
                 productPriceOldElem.textContent = formatCurrency(product.originalPrice);
                 productPriceOldElem.style.display = 'inline';
-            } else {
-                productPriceOldElem.style.display = 'none'; // Ocultar si no hay precio original o no es un descuento
             }
-        }
 
-        if (productPriceElem) { // Este es el precio de oferta
-            productPriceElem.textContent = formatCurrency(product.price);
-            productPriceElem.style.display = 'inline';
-        }
+            // Precio con descuento
+            if (productPriceElem) {
+                productPriceElem.textContent = formatCurrency(finalPrice);
+                productPriceElem.style.display = 'inline';
+            }
 
-        // Asegúrate de ocultar priceS si hay precio de oferta, o mostrarlo si no hay precio original
-        if (productPriceSElem) {
-            if (!product.originalPrice || product.originalPrice <= product.price) {
-                // Si no hay precio original o el precio actual no es menor, entonces el precio actual es el "normal"
-                productPriceSElem.textContent = formatCurrency(product.price);
-                productPriceSElem.style.display = 'inline';
-                if (productPriceElem) productPriceElem.style.display = 'none'; // Oculta el precio de oferta si no hay tal
-            } else {
+            // Ocultar precio normal
+            if (productPriceSElem) {
                 productPriceSElem.style.display = 'none';
             }
+
+        } else {
+
+            // Si NO hay descuento
+            if (productPriceSElem) {
+                productPriceSElem.textContent = formatCurrency(product.originalPrice);
+                productPriceSElem.style.display = 'inline';
+            }
+
+            if (productPriceElem) productPriceElem.style.display = 'none';
+            if (productPriceOldElem) productPriceOldElem.style.display = 'none';
         }
+
 
         // --- Gestión de Imágenes ---
         if (mainImageElem) {
