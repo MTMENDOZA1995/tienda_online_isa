@@ -17,9 +17,55 @@ document.addEventListener("DOMContentLoaded", () => {
     const allProducts = [
 
         {
+            id: 22,
+            name: "Guantes Peluche Garra de Gato",
+            description: "Ideales para días fríos, disfraces o para quienes aman los accesorios únicos y adorables.",
+            originalPrice: 24.00, // ¡Númer
+            discountPercent: 70,
+            images: { // Agrupación de imágenes en un objeto
+                main: "productos/ISA-0000061.jpg",
+                extra1: "productos/ISA-0000061-1.jpg",
+                extra2: "productos/ISA-0000062.jpg",
+                extra3: ""
+            },
+            code: "ISA-0000061-62",
+            stock: 1,
+            category: "Ropa", // Usar siempre la misma capitalización para la categoría
+            shippingPolicy: `• Material: Poliéster, lana de coral.
+                            • Género: Mujeres
+                            • Incluye: 2 unidades`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            models: ["Unico"],
+            colors: ["Crema","Plomo"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 22,
+            name: "Collar Bluelory de la Suerte para Pareja",
+            description: "Símbolo especial de unión, protección y buena fortuna para compartir en pareja",
+            originalPrice: 27.00, // ¡Númer
+            discountPercent: 70,
+            images: { // Agrupación de imágenes en un objeto
+                main: "productos/ISA-0000041.jpg",
+                extra1: "productos/ISA-0000041-1.jpg",
+                extra2: "productos/ISA-0000042.jpg",
+                extra3: "productos/ISA-0000041-2.jpg"
+            },
+            code: "ISA-0000041-42",
+            stock: 1,
+            category: "joyeria", // Usar siempre la misma capitalización para la categoría
+            shippingPolicy: `• Material: Acero Inoxidable.
+                            • Género: Unisex
+                            • Incluye: 1 unidad`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            models: ["Unico"],
+            colors: ["Rosa - Mujer","Oscuro - Hombre"],
+            sizes: ["Unico"]
+        },
+        {
             id: 21,
             name: "Aretes Rosa",
-            description: "Aretes de diseño elegante, fabricados en acero inoxidable de alta calidad.",    
+            description: "Aretes de diseño elegante, fabricados en acero inoxidable de alta calidad.",
             originalPrice: 13.00, // ¡Númer
             discountPercent: 70,
             images: { // Agrupación de imágenes en un objeto
@@ -31,8 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000040",
             stock: 1,
             category: "joyeria", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Acero Inoxidable.
+                            • Género: Mujeres`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Plateado"],
             sizes: ["Unico"]
@@ -52,8 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "dj44-bu01s-dj44-bu02s",
             stock: 3,
             category: "Mascotas", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: PVC y Acero Inox.
+                            • Género: Macotas`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Azul", "Rosado"],
             sizes: ["Unico"]
@@ -73,8 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000030",
             stock: 5,
             category: "Pulseras", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Acero Inoxidable.
+                            • Género: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Dorado", "Negro"],
             sizes: ["Unico"]
@@ -94,8 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000029",
             stock: 6,
             category: "Pulseras",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Aleación de Cu.
+                            • Género: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -115,8 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "123175043",
             stock: 1,
             category: "Pulseras",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Cuero Sintético.
+                            • Género: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -136,8 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000028",
             stock: 3,
             category: "Pulseras",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Cuero Sintético.
+                            • Género: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -149,16 +201,17 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice: 13.00,
             discountPercent: 70,
             images: {
-                main: "productos/D1166.jpg",
-                extra1: "",
+                main: "productos/D1166-2.jpg",
+                extra1: "productos/D1166.jpg",
                 extra2: "productos/D1166-1.jpg",
                 extra3: ""
             },
             code: "D1166",
             stock: 4,
             category: "Pulseras",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Cuero Sintetico.
+                            • Género: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -178,8 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000027",
             stock: 4,
             category: "Pulseras",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Caucho.
+                            • Genero: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -199,8 +253,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000024-25-26",
             stock: 3,
             category: "Coleccion",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Aleación de Cu.
+                            • Genero: Unisex`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Hombre Araña", "Casco de Locky", "Guante de Tahnos"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -220,8 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000020-21",
             stock: 2,
             category: "Coleccion",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con PVC de alta calidad, resistente al desgaste y fácil de limpiar, con un diseño detallado que representa fielmente a tus Pokémon.",
+            shippingPolicy: `• Material: PVC.`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Pikachu", "Psydock"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -236,13 +291,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 main: "productos/ISA-0000018.png",
                 extra1: "productos/ISA-0000018-1.png",
                 extra2: "productos/ISA-0000018-2.png",
-                extra3: "productos/ISA-0000018-3.png"
+                extra3: "productos/ISA-0000018-4.jpeg"
             },
             code: "ISA-0000018",
             stock: 124,
             category: "Coleccion",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio. ",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: PVC.
+                            • Generación: 1
+                            • Originales: No
+                            • Incluye: 1 unidad`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            models: ["Unico"],
             models: ["Aleatorio"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -262,8 +321,12 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000017",
             stock: 28,
             category: "Tecnologia",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+             shippingPolicy: `• Material: Batería Alcalina
+                            • Recargable: No
+                            • Voltaje: 12V
+                            • Modelo: A23`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            models: ["Unico"],
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -283,8 +346,12 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000016",
             stock: 20,
             category: "Tecnologia",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Carcasa ABS.
+                            • Batería: Pila 12V 23A - No incluye
+                            • Interruptor automatico: No
+                            • Color de Luz: Blanco Frío`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            models: ["Unico"],
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -304,29 +371,12 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000013",
             stock: 13,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio. ",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Fibra de carbono.
+                            • Transpirables a prueba de sudor: Si
+                            • Antidelizantes: Si
+                            • Incluye: 2 unidades`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
-            colors: ["Unico"],
-            sizes: ["Unico"]
-        },
-        {
-            id: 7,
-            name: "Par de Dedales Gamer FingerTips",
-            description: "Par de Dedales Gamer FingerTips",
-            discountPercent: 70,
-            discount: "70% DES.",
-            images: {
-                main: "productos/ISA-0000012.jpg",
-                extra1: "",
-                extra2: "productos/ISA-0000012-1.jpg",
-                extra3: "productos/ISA-0000012-2.jpg"
-            },
-            code: "ISA-0000012",
-            stock: 2,
-            category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -346,8 +396,11 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000011",
             stock: 3,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Fibra de carbono.
+                            • Transpirables a prueba de sudor: Si
+                            • Antidelizantes: Si
+                            • Incluye: 2 unidades`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Azul", "Rojo", "Morado"],
             sizes: ["Unico"]
@@ -367,8 +420,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000010",
             stock: 1,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio. ",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Silicona.`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -388,8 +441,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000009",
             stock: 3,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio.",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Silicona`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["MD1", "MD2"],
             colors: ["Unico"],
             sizes: ["Unico "]
@@ -410,8 +463,9 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000008",
             stock: 1,
             category: "Celulares",
-            shippingPolicy: "",
-            additionalInfo: "",
+            shippingPolicy: `• Conector Analógico: Puerto Jack de 3.5 mm.
+                            • Microfono: Si.`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Alambricos AKG"],
             colors: ["Blanco"],
             sizes: ["Unico "]
@@ -431,8 +485,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000002-3-4-5-6-7",
             stock: 12,
             category: "Celulares",
-            shippingPolicy: "Envío gratuito en compras superiores a S/. 25.00; para montos menores, el costo es de S/. 5. Entrega en 1 día hábil dentro de la provincia de Cajamarca. También puedes recoger tu pedido sin costo en nuestro almacén (Jr. Belaunde Terry C-10 - Mollepampa Alta). Para otras provincias, el envío se realiza por agencia con pago contra entrega (1 a 3 días hábiles). Actualmente, no ofrecemos entregas a domicilio. ",
-            additionalInfo: "Fabricado con materiales ecológicos.",
+            shippingPolicy: `• Material: Película de Vidrio.`,
+            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["10S-4G", "Note 10S-5G", " Note 10 Pro", "Poco F3", "Poco M3", "Note 9 Pro"],
             colors: ["Unico"],
             sizes: ["Unico "]
@@ -452,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "2433101",
             stock: 2,
             category: "Celulares",
-            shippingPolicy: "",
+            shippingPolicy: `• Material: Película de Vidrio.`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
@@ -670,6 +724,4 @@ document.addEventListener("DOMContentLoaded", () => {
     attachProductDetailListeners();
 
 });
-
-
 
