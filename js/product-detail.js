@@ -4,246 +4,305 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Selectores del DOM ---
     const productNameElem = document.getElementById("product-name");
     const productDescriptionElem = document.getElementById("product-description");
-    const productPriceElem = document.getElementById("product-price"); // Precio de oferta/principal
-    const productPriceOldElem = document.getElementById("product-price-old"); // Precio tachado
-    const productPriceSElem = document.getElementById("product-priceS"); // Precio normal (sin descuento)
+    const productPriceElem = document.getElementById("product-price"); 
+    const productPriceOldElem = document.getElementById("product-price-old"); 
+    const productPriceSElem = document.getElementById("product-priceS"); 
     const productStockElem = document.getElementById("product-stock");
     const productCodeElem = document.getElementById("product-code");
     const productCategoryElem = document.getElementById("product-category");
     const productShippingElem = document.getElementById("product-shipping");
     const productAdditionalInfoElem = document.getElementById("product-additional-info");
-    const mainImageElem = document.getElementById("main-product-image"); // Usando el ID del HTML mejorado
-    const thumbnailContainer = document.querySelector(".thumbnail-images"); // Contenedor de miniaturas
-    const modelSelect = document.getElementById("product-model"); // Usando el ID del HTML mejorado
-    const colorSelect = document.getElementById("product-color"); // Usando el ID del HTML mejorado
-    const sizeSelect = document.getElementById("product-size");   // Usando el ID del HTML mejorado
-    const addToCartDetailBtn = document.querySelector(".add-to-cart-btn-detail"); // Botón de agregar al carrito
-    const productQuantityInput = document.getElementById("product-quantity"); // Input de cantidad
+    
+    // Galería
+    const mainImageElem = document.getElementById("main-product-image"); 
+    const thumbnailContainer = document.getElementById("thumbnail-container"); 
+    const discountBadge = document.getElementById("detail-discount-badge");
+
+    // Variantes (Nuevos contenedores de Píldoras)
+    const modelContainer = document.getElementById("product-model-container"); 
+    const colorContainer = document.getElementById("product-color-container"); 
+    const sizeContainer = document.getElementById("product-size-container"); 
+    
+    // Controles de Cantidad
+    const qtyInput = document.getElementById("product-quantity"); 
+    const btnMinus = document.querySelector(".minus-btn");
+    const btnPlus = document.querySelector(".plus-btn");
+
+    // Botón de compra
+    const addToCartDetailBtn = document.getElementById("add-to-cart-btn");
+
+    // Variable global para controlar el stock actual en la vista
+    let currentMaxStock = 0;
 
     // --- Funciones de Utilidad ---
 
-    /**
-     * Formatea un número a la moneda local (S/.).
-     * @param {number} amount El monto a formatear.
-     * @returns {string} El monto formateado como cadena de moneda.
-     */
     const formatCurrency = (amount) => {
-        if (typeof amount !== 'number' || isNaN(amount)) {
-            console.warn("Intento de formatear un valor no numérico:", amount);
-            return "S/. 0.00"; // Devuelve un valor por defecto seguro
-        }
+        if (typeof amount !== 'number' || isNaN(amount)) return "S/. 0.00";
         return new Intl.NumberFormat('es-PE', {
             style: 'currency',
-            currency: 'PEN', // PEN para Sol peruano
+            currency: 'PEN', 
             minimumFractionDigits: 2,
         }).format(amount);
     };
 
     /**
-     * Renderiza las opciones de un selector (modelo, color, tamaño).
-     * @param {HTMLElement} selectElement El elemento <select> del DOM.
-     * @param {Array<string>} optionsArray El array de opciones (ej. product.models).
-     * @param {string} placeholder Texto si no hay opciones o es 'Unico'.
+     * Renderiza las opciones como botones "Píldora" en lugar de un <select>
      */
-    const renderSelectOptions = (selectElement, optionsArray, placeholder = "No disponible") => {
-        if (!selectElement) return; // Asegurarse de que el elemento existe
+    const renderPillOptions = (container, optionsArray) => {
+        if (!container) return;
+        container.innerHTML = ''; 
+        
+        const parentGroup = container.closest('.option-group');
 
-        selectElement.innerHTML = ''; // Limpiar opciones existentes
-
+        // Si no hay opciones o solo dice "Unico", ocultamos el bloque completo
         if (!optionsArray || optionsArray.length === 0 || (optionsArray.length === 1 && optionsArray[0].toLowerCase() === "unico")) {
-            const option = document.createElement("option");
-            option.value = "";
-            option.textContent = placeholder;
-            option.disabled = true; // Hacer la opción "No disponible" no seleccionable
-            option.selected = true; // Seleccionarla por defecto
-            selectElement.appendChild(option);
-            selectElement.style.display = 'none'; // Ocultar el select si no es relevante
-            selectElement.closest('.options-selector').querySelector(`label[for="${selectElement.id}"]`).style.display = 'none'; // Ocultar también la etiqueta
-        } else {
-            selectElement.style.display = 'block'; // Mostrar el select
-            selectElement.closest('.options-selector').querySelector(`label[for="${selectElement.id}"]`).style.display = 'block'; // Mostrar la etiqueta
-            optionsArray.forEach(optionValue => {
-                const option = document.createElement("option");
-                option.value = optionValue;
-                option.textContent = optionValue;
-                selectElement.appendChild(option);
-            });
-        }
-    };
-
-    /**
-     * Muestra la información del producto en la página de detalles.
-     */
-    const displayProductDetails = () => {
-        // Usar "selectedProductDetail" como la clave del localStorage
-        const product = JSON.parse(localStorage.getItem("selectedProductDetail"));
-
-        if (!product) {
-            console.error("No se encontró el producto en localStorage.");
-            // Manejo de error: redirigir o mostrar un mensaje amistoso
-            if (productNameElem) productNameElem.textContent = "Producto no encontrado";
-            // Opcional: Redirigir al inicio o a la página de productos
-            // window.location.href = "productos.html";
+            parentGroup.style.display = 'none';
+            container.dataset.selectedValue = "Unico"; // Valor por defecto silencioso
             return;
         }
 
-        // --- Asignación de Contenido de Texto ---
-        if (productNameElem) productNameElem.textContent = product.name || "Producto sin nombre";
-        if (productDescriptionElem) productDescriptionElem.textContent = product.description || "Sin descripción disponible.";
-        if (productStockElem) productStockElem.textContent = ` ${product.stock > 0 ? product.stock : 'Agotado'}`;
-        if (productCodeElem) productCodeElem.textContent = ` ${product.code || "N/A"}`;
-        if (productCategoryElem) productCategoryElem.textContent = ` ${product.category || "N/A"}`;
-        if (productShippingElem) productShippingElem.textContent = ` ${product.shippingPolicy || "Consulte caracteriticas del producto."}`;
-        if (productAdditionalInfoElem) productAdditionalInfoElem.innerHTML = ` ${product.additionalInfo || "No hay información adicional."}`;
+        parentGroup.style.display = 'block';
+        container.dataset.selectedValue = ""; // Resetea el valor seleccionado
 
-        // --- Lógica de Precios ---
-        let finalPrice = product.originalPrice;
+        optionsArray.forEach(optionValue => {
+            const btn = document.createElement("button");
+            btn.className = "option-pill";
+            btn.textContent = optionValue;
+            
+            btn.addEventListener("click", () => {
+                // Quitar clase active de todos los hermanos
+                container.querySelectorAll(".option-pill").forEach(p => p.classList.remove("active"));
+                // Añadir clase active al clickeado
+                btn.classList.add("active");
+                // Guardar el valor en el dataset del contenedor para usarlo al añadir al carrito
+                container.dataset.selectedValue = optionValue;
+            });
+            
+            container.appendChild(btn);
+        });
+    };
 
-        // Si hay descuento, calcular precio automáticamente
-        if (product.originalPrice && product.discountPercent > 0) {
+    // --- Inicialización de Acordeones (Descripción / Envío) ---
+    const initAccordions = () => {
+        document.querySelectorAll(".accordion-header").forEach(header => {
+            header.addEventListener("click", () => {
+                const item = header.closest(".accordion-item");
+                const body = item.querySelector(".accordion-body");
+                
+                // Alternar clase 'open' para rotar la flecha
+                item.classList.toggle("open");
+                
+                // Mostrar u ocultar el contenido
+                if (item.classList.contains("open")) {
+                    body.style.display = "block";
+                } else {
+                    body.style.display = "none";
+                }
+            });
+        });
+    };
 
-            finalPrice = product.originalPrice * (1 - product.discountPercent / 100);
+    // --- Lógica Principal ---
+    const displayProductDetails = () => {
+        const product = JSON.parse(localStorage.getItem("selectedProductDetail"));
 
-            // Precio original tachado
-            if (productPriceOldElem) {
-                productPriceOldElem.textContent = formatCurrency(product.originalPrice);
-                productPriceOldElem.style.display = 'inline';
+        if (!product) {
+            if (productNameElem) productNameElem.textContent = "Producto no encontrado";
+            if (addToCartDetailBtn) {
+                addToCartDetailBtn.disabled = true;
+                addToCartDetailBtn.textContent = "No disponible";
+                addToCartDetailBtn.style.backgroundColor = "#ccc";
             }
-
-            // Precio con descuento
-            if (productPriceElem) {
-                productPriceElem.textContent = formatCurrency(finalPrice);
-                productPriceElem.style.display = 'inline';
-            }
-
-            // Ocultar precio normal
-            if (productPriceSElem) {
-                productPriceSElem.style.display = 'none';
-            }
-
-        } else {
-
-            // Si NO hay descuento
-            if (productPriceSElem) {
-                productPriceSElem.textContent = formatCurrency(product.originalPrice);
-                productPriceSElem.style.display = 'inline';
-            }
-
-            if (productPriceElem) productPriceElem.style.display = 'none';
-            if (productPriceOldElem) productPriceOldElem.style.display = 'none';
+            return;
         }
 
+        // 1. Textos Generales
+        if (productNameElem) productNameElem.textContent = product.name;
+        if (productDescriptionElem) productDescriptionElem.textContent = product.description;
+        if (productCodeElem) productCodeElem.textContent = product.code || "N/A";
+        if (productCategoryElem) productCategoryElem.textContent = product.category || "Categoría";
+        if (productShippingElem) productShippingElem.textContent = product.shippingPolicy || "Consulte características.";
+        if (productAdditionalInfoElem) productAdditionalInfoElem.innerHTML = product.additionalInfo || "<li>No hay información adicional.</li>";
+        
+        // Stock Global
+        currentMaxStock = product.stock || 0;
+        if (productStockElem) productStockElem.textContent = currentMaxStock;
 
-        // --- Gestión de Imágenes ---
+        // 2. Precios y Descuentos
+        let finalPrice = product.originalPrice;
+
+        if (product.originalPrice && product.discountPercent > 0) {
+            finalPrice = product.originalPrice * (1 - product.discountPercent / 100);
+
+            if (productPriceOldElem) productPriceOldElem.textContent = formatCurrency(product.originalPrice);
+            if (productPriceElem) productPriceElem.textContent = formatCurrency(finalPrice);
+            
+            if (discountBadge) {
+                discountBadge.textContent = `-${product.discountPercent}%`;
+                discountBadge.style.display = 'block';
+            }
+        } else {
+            if (productPriceElem) productPriceElem.textContent = formatCurrency(product.originalPrice);
+            if (productPriceOldElem) productPriceOldElem.style.display = 'none';
+            if (discountBadge) discountBadge.style.display = 'none';
+        }
+
+        // 3. Galería de Imágenes (Carrusel)
         if (mainImageElem) {
             mainImageElem.src = product.images?.main || "imagenes/default.jpg";
-            mainImageElem.alt = product.name || "Imagen del producto";
         }
 
         if (thumbnailContainer) {
-            thumbnailContainer.innerHTML = ''; // Limpiar miniaturas existentes
-            const allProductImages = [
+            thumbnailContainer.innerHTML = ''; 
+            const allImages = [
                 product.images?.main,
                 product.images?.extra1,
                 product.images?.extra2,
                 product.images?.extra3
-            ].filter(img => img); // Filtra cualquier imagen nula o indefinida
+            ].filter(Boolean); // Elimina vacíos/nulos
 
-            allProductImages.forEach((imgSrc, index) => {
-                const thumbnailImg = document.createElement("img");
-                thumbnailImg.src = imgSrc;
-                thumbnailImg.alt = `${product.name} - Vista ${index + 1}`;
-                thumbnailImg.classList.add("thumbnail");
-                thumbnailImg.dataset.full = imgSrc; // Usar data-full para la imagen principal
+            allImages.forEach((imgSrc, index) => {
+                const img = document.createElement("img");
+                img.src = imgSrc;
+                img.alt = `Vista ${index + 1}`;
+                
+                if (index === 0) img.classList.add("active");
 
-                // Activar la primera miniatura por defecto
-                if (index === 0) {
-                    thumbnailImg.classList.add("active-thumbnail");
-                }
-
-                thumbnailImg.addEventListener("click", function() {
-                    mainImageElem.src = this.dataset.full;
-                    // Eliminar clase activa de todas las miniaturas y añadirla a la clicada
-                    document.querySelectorAll(".thumbnail").forEach(t => t.classList.remove("active-thumbnail"));
-                    this.classList.add("active-thumbnail");
+                img.addEventListener("click", () => {
+                    // Cambia la imagen grande
+                    mainImageElem.style.opacity = 0.5; // Efecto sutil
+                    setTimeout(() => {
+                        mainImageElem.src = imgSrc;
+                        mainImageElem.style.opacity = 1;
+                    }, 150);
+                    
+                    // Actualiza el borde verde
+                    thumbnailContainer.querySelectorAll("img").forEach(i => i.classList.remove("active"));
+                    img.classList.add("active");
                 });
-                thumbnailContainer.appendChild(thumbnailImg);
+                
+                thumbnailContainer.appendChild(img);
             });
         }
 
-        // --- Renderizar Selectores de Opciones (Modelo, Color, Tamaño) ---
-        renderSelectOptions(modelSelect, product.models, "Selecciona un modelo");
-        renderSelectOptions(colorSelect, product.colors, "Selecciona un color");
-        renderSelectOptions(sizeSelect, product.sizes, "Selecciona un tamaño");
+        // 4. Renderizar Variantes (Píldoras)
+        renderPillOptions(modelContainer, product.models);
+        renderPillOptions(colorContainer, product.colors);
+        renderPillOptions(sizeContainer, product.sizes);
 
-        // --- Cantidad y Botón de Carrito ---
-        if (productQuantityInput) {
-            productQuantityInput.value = 1;
-            productQuantityInput.min = 1;
-            productQuantityInput.max = product.stock > 0 ? product.stock : 1;
-            productQuantityInput.disabled = product.stock === 0; // Deshabilitar si no hay stock
+        // 5. Configurar Botón y Controles de Cantidad
+        if (currentMaxStock === 0) {
+            if (qtyInput) qtyInput.value = 0;
+            if (btnMinus) btnMinus.disabled = true;
+            if (btnPlus) btnPlus.disabled = true;
+            if (addToCartDetailBtn) {
+                addToCartDetailBtn.disabled = true;
+                addToCartDetailBtn.textContent = "Agotado";
+                addToCartDetailBtn.style.backgroundColor = "#ccc";
+            }
+        } else {
+            if (qtyInput) qtyInput.value = 1;
         }
-
-        if (addToCartDetailBtn) {
-            addToCartDetailBtn.disabled = product.stock === 0;
-            addToCartDetailBtn.textContent = product.stock === 0 ? "Agotado" : "Agregar al Carrito";
-        }
+        
+        // Inicializar interactividad de los acordeones
+        initAccordions();
     };
 
-    // --- Inicialización ---
-    displayProductDetails(); // Muestra los detalles al cargar la página
+    // --- Manejo de Controles de Cantidad (+ / -) ---
+    if (btnMinus && btnPlus && qtyInput) {
+        btnMinus.addEventListener("click", () => {
+            let currentValue = parseInt(qtyInput.value) || 1;
+            if (currentValue > 1) {
+                qtyInput.value = currentValue - 1;
+            }
+        });
 
-    // --- Lógica del botón "Agregar al Carrito" en la página de detalles ---
+        btnPlus.addEventListener("click", () => {
+            let currentValue = parseInt(qtyInput.value) || 1;
+            if (currentValue < currentMaxStock) {
+                qtyInput.value = currentValue + 1;
+            } else {
+                // Alerta nativa ligera si intenta superar el stock
+                alert(`Solo hay ${currentMaxStock} unidades disponibles.`);
+            }
+        });
+    }
+
+    // --- Ejecutar al cargar la vista ---
+    displayProductDetails(); 
+
+    // --- Lógica del Botón "Agregar al Carrito" Fijo ---
     if (addToCartDetailBtn) {
         addToCartDetailBtn.addEventListener("click", () => {
-            const product = JSON.parse(localStorage.getItem("selectedProductDetail")); // Recargar el producto por si acaso
-            if (!product) {
-                alert("❌ No se pudo agregar el producto. Información no disponible.");
-                return;
+            const product = JSON.parse(localStorage.getItem("selectedProductDetail"));
+            if (!product || product.stock === 0) return;
+
+            const quantity = parseInt(qtyInput?.value) || 1;
+            const selectedModel = modelContainer?.dataset.selectedValue;
+            const selectedColor = colorContainer?.dataset.selectedValue;
+            const selectedSize = sizeContainer?.dataset.selectedValue;
+
+            // Validaciones (Verifica si el bloque está visible y no se ha seleccionado nada)
+            if (modelContainer.closest('.option-group').style.display !== 'none' && !selectedModel) {
+                alert("❌ Por favor, selecciona un modelo."); return;
+            }
+            if (colorContainer.closest('.option-group').style.display !== 'none' && !selectedColor) {
+                alert("❌ Por favor, selecciona un color."); return;
+            }
+            if (sizeContainer.closest('.option-group').style.display !== 'none' && !selectedSize) {
+                alert("❌ Por favor, selecciona un tamaño."); return;
             }
 
-            const quantity = parseInt(productQuantityInput?.value, 10);
-            const selectedModel = modelSelect?.value;
-            const selectedColor = colorSelect?.value;
-            const selectedSize = sizeSelect?.value;
-
-            // Validaciones básicas
-            if (isNaN(quantity) || quantity <= 0 || quantity > product.stock) {
-                alert(`❌ Cantidad inválida. Por favor, ingresa un número entre 1 y ${product.stock}.`);
-                return;
-            }
-            if (product.models && product.models.length > 0 && product.models[0].toLowerCase() !== "unico" && !selectedModel) {
-                alert("❌ Por favor, selecciona un modelo.");
-                return;
-            }
-            if (product.colors && product.colors.length > 0 && product.colors[0].toLowerCase() !== "unico" && !selectedColor) {
-                alert("❌ Por favor, selecciona un color.");
-                return;
-            }
-            if (product.sizes && product.sizes.length > 0 && product.sizes[0].toLowerCase() !== "unico" && !selectedSize) {
-                alert("❌ Por favor, selecciona un tamaño.");
-                return;
+            // Calcular el precio final de nuevo para seguridad
+            let finalPrice = product.originalPrice;
+            if (product.discountPercent > 0) {
+                finalPrice = product.originalPrice * (1 - product.discountPercent / 100);
             }
 
-            // Crear el objeto para añadir al carrito
+            // Objeto a enviar al carrito
             const itemToAdd = {
                 id: product.id,
                 name: product.name,
-                price: product.price, // Usar el precio numérico
-                image: product.images?.main || "imagenes/default-image.jpg",
+                price: Number(finalPrice.toFixed(2)), 
+                image: product.images?.main || "imagenes/default.jpg",
                 quantity: quantity,
-                model: selectedModel || "Unico", // Usar "Unico" si no aplica
+                model: selectedModel || "Unico",
                 color: selectedColor || "Unico",
                 size: selectedSize || "Unico",
-                maxStock: product.stock // Para referencia en el carrito (evitar sobrepasar el stock)
+                maxStock: product.stock
             };
 
-            // Llama a la función global para agregar al carrito (definida en cart.js)
-            if (typeof addToCart !== 'undefined') { // Verifica si la función existe
+            // Enviar a cart.js
+            if (typeof addToCart !== 'undefined') {
                 addToCart(itemToAdd);
+                
+                // Efecto visual de botón exitoso
+                const originalText = addToCartDetailBtn.textContent;
+                addToCartDetailBtn.textContent = "¡Agregado!";
+                addToCartDetailBtn.style.backgroundColor = "#2e7d32"; // Un verde más oscuro
+                setTimeout(() => {
+                    addToCartDetailBtn.textContent = originalText;
+                    addToCartDetailBtn.style.backgroundColor = ""; // Regresa al normal
+                }, 1500);
+                
             } else {
-                console.error("Función addToCart no definida. Asegúrate de cargar cart.js.");
-                alert("Producto agregado (pero la función del carrito no está disponible).");
+                console.error("No se detectó cart.js cargado.");
+            }
+        });
+    }
+    
+    // --- Lógica Botón de Favorito Flotante ---
+    const detailFavBtn = document.querySelector(".detail-fav-btn");
+    if(detailFavBtn) {
+        detailFavBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-regular')) {
+                icon.classList.replace('fa-regular', 'fa-solid');
+                icon.style.color = '#ff2a00';
+            } else {
+                icon.classList.replace('fa-solid', 'fa-regular');
+                icon.style.color = '';
             }
         });
     }
