@@ -2,145 +2,118 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | IMPORTACIONES SOSTENIBLES & ATRACTIVAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Catálogo de Productos | INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    
     <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="Productos.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="Productos.css"> 
 </head>
-<body>
+<body class="app-body">
 
-    <header class="header">
-        <div class="menu container">
-            <a href="index.html" class="logo" aria-label="Ir a la página principal de Importaciones Sostenibles y Atractivas">
-                <img src="imagenes/logo.png" alt="Logo de Importaciones Sostenibles y Atractivas">
-                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATRACTIVAS</span>
+    <header class="app-top-header" style="padding-bottom: 0; padding-top: 10px;">
+        <div class="header-main-row" style="padding: 0 15px;">
+            <a href="index.html" class="menu-icon" style="color: white; text-decoration: none;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
             </a>
+            
+            <a href="index.html" class="app-logo-center">
+                <img src="imagenes/logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text"></span>
+            </a>
+            
+            <div class="cart-icon-top">
+                <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                <span class="cart-badge">0</span>
+            </div>
+        </div>
+        
+        <div class="header-search-row" style="padding: 0 15px 12px 15px;">
+            <div class="app-search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar productos...">
+                <i class="fa-solid fa-camera camera-icon"></i>
+            </div>
+        </div>
 
-            <input type="checkbox" id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
-            <label for="menu-toggle" class="menu-label">
-                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú de hamburguesa">
-            </label>
-
-            <nav class="navbar" id="main-navigation" aria-label="Menú de navegación principal">
-                <ul>
-                    <li><a href="index.html">INICIO</a></li>
-                    <li><a href="Productos.html" aria-current="page">PRODUCTOS</a></li> 
-                    <li><a href="subastas.html">SUBASTAS</a></li>
-                    <li><a href="barter.html">TRUEQUE</a></li>
-                    <li><a href="blog.html">BLOG CORPORATIVO</a></li> </ul>
-            </nav>
-
-            <div class="cart-container">
-                <ul class="submenu">
-                    <li>
-                        <img id="cart-icon" src="imagenes/car.png" alt="Icono de carrito de compras">
-                        <div id="cart-dropdown" class="cart-dropdown" role="complementary" aria-labelledby="cart-icon">
-                            <h4>Productos en el carrito</h4>
-                            <table id="cart-list">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Accion</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-list-body">
-                                    <tr>
-                                        <td colspan="5" class="empty-cart-message">El carrito está vacío.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p id="cart-total">Total: S/. 0.00</p>
-                            <button id="clear-cart-btn" class="btn-3">Vaciar Carrito</button>
-                            <button id="checkout-btn-dropdown" class="btn-3 checkout-btn-dropdown-style" style="display:none;">Finalizar Compra 🛍️</button>
-                        </div>
-                    </li>
-                </ul>
+        <div class="category-filter-chips" style="position: static; top: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 0; background-color: #fff; padding: 12px 0;">
+            <div class="chips-container" id="category-chips">
+                <button class="chip active" data-category="all">Todas</button>
+                <button class="chip" data-category="celulares">Celulares</button>
+                <button class="chip" data-category="tecnologia">Tecnología</button>
+                <button class="chip" data-category="mascotas">Mascotas</button>
+                <button class="chip" data-category="joyeria">Joyería</button>
+                <button class="chip" data-category="ropa">Ropa</button>
+                <button class="chip" data-category="coleccion">Colección</button>
+                <button class="chip" data-category="pulseras">Pulseras</button>
+                <button class="chip" data-category="llaveros">Llaveros</button>
             </div>
         </div>
     </header>
 
-    <section class="category-filter container">
-        <label for="category-select">Filtrar por Categoría:</label>
-        <select id="category-select" aria-label="Seleccionar categoría para filtrar productos">
-            <option value="all">Todos</option> 
-            <option value="celulares">Art. Celulares</option>
-            <option value="cocina">Art. Cocina</option>
-            <option value="mascotas">Art. Mascotas</option>
-            <option value="medida">Art. Medida</option>
-            <option value="cerraduras">Cerraduras</option>
-            <option value="coleccion">Colección</option>
-            <option value="cosmeticos">Cosméticos</option>
-            <option value="credenciales">Credenciales</option>
-            <option value="joyeria">Joyería</option>
-            <option value="llaveros">Llaveros</option>
-            <option value="pulseras">Pulseras</option>
-            <option value="reloj">Reloj</option>
-            <option value="ropa">Ropa</option>
-            <option value="tecnologia">Tecnología</option>
-            </select>
-    </section>
-
-    <main class="products-section container">
-        <h1 class="page-title">Nuestros Productos</h1> <div class="products-grid" id="product-list">
+    <main class="app-main-content">
+        
+        <section class="app-section" style="background: transparent; padding-top: 15px; padding-bottom: 40px;">
+            <div class="section-header" style="margin-bottom: 10px;">
+                <h2 style="font-size: 14px; color: #666; font-weight: 500;">Mostrando resultados</h2>
             </div>
-        <button class="btn-2 load-more-btn" id="load-more-products">Cargar más productos</button>
+            
+            <div class="products-grid-vertical" id="product-list">
+                </div>
+            
+            <div id="loading-spinner" style="display: none; text-align: center; padding: 20px; color: #6cc82a;">
+                <i class="fa-solid fa-spinner fa-spin fa-2xl"></i>
+            </div>
+        </section>
+
+        <section class="app-trust-section">
+            <div class="trust-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <p>Compra Segura</p>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-box-open"></i>
+                <p>Devoluciones</p>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-headset"></i>
+                <p>Centro de Ayuda</p>
+            </div>
+        </section>
+
+        <footer class="app-footer-lite">
+            <p>INNOVACIÓN SOSTENIBLE & ARTÍCULOS</p>
+            <div class="footer-links-lite">
+                <a href="#">Términos</a>
+                <a href="#">Privacidad</a>
+                <a href="#">Políticas</a>
+            </div>
+        </footer>
     </main>
 
-  <!-- =============  FOOTER  ============= -->
-    <footer class="footer">
-        <div class="footer-content container">
-            <div class="footer-links">
-                <h3>Sobre Nosotros</h3>
-                <ul>
-                    <li><a href="nosotros.html">Nuestra Historia</a></li>
-                    <li><a href="mision.html">Misión y Visión</a></li>
-                    <li><a href="politicas.html">Políticas de la Tienda</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Servicio al Cliente</h3>
-                <ul>
-                    <li><a href="devoluciones.html">Devoluciones y Reembolsos</a></li>
-                    <li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>
-                    <li><a href="metodos-pago.html">Métodos de Pago</a></li> 
-                    <li><a href="envio.html">Envío</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Síguenos</h3>
-                <ul class="social-icons">
-                    <li><a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
-                    <li><a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17-17 11.6 2.2.1 4.4-.6 6-2C3 15.5 3 13.1 3 11.5c0-1.4.5-2.8 1.4-4S6.9 6 8.5 6c1.6 0 3.3.9 4.3 2.1l-.8-2.6h3.6s2.3.6 2.8 1.6l-.3 1.2c-.3.4-.6.8-.9 1.2z"/></svg></a></li>
-                    <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37a4 4 0 1 1-7.25-.09c.39-1.92 2.3-3.06 4.32-3.06h.03a4 4 0 0 1 4.14 4.14v.03a4 4 0 0 1-3.06 4.32c-1.92.39-3.06 2.3-3.06 4.32z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a></li>
-                    <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
-                    <li><a href="#" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17.5c-1.3-.8-1.5-2.2-.6-3.4L4.8 11a4 4 0 0 1 4-2c1.7 0 3.2.7 4 1.8L16.2 8a4 4 0 0 1 4 2c0 1.7-.7 3.2-1.8 4L19 16.2a4 4 0 0 1-4 2c-1.7 0-3.2-.7-4-1.8L7.8 18a4 4 0 0 1-4-2c0-1.7.7-3.2 1.8-4L2.5 17.5z"/><path d="M12 2L10 6 12 10 14 6Z"/><circle cx="12" cy="12" r="10"/></svg></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 IMPORTACIONES SOSTENIBLES & ATRACTIVAS. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
+    <nav class="app-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Productos.html" class="nav-item active">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Buscar</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Mis Pedidos</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Mi Cuenta</span>
+        </a>
+    </nav>
 
     <script src="js/cart.js" defer></script>
-     <script src="js/menu.js" defer></script> 
     <script src="js/Products.js" defer></script>
-   
+    <script src="js/search.js" defer></script>
 </body>
 </html>
-
-
-    
-    
