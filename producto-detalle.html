@@ -2,150 +2,153 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del Producto | IMPORTACIONES SOSTENIBLES & ATRACTIVAS</title>
-     <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="Produc-Detalle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Detalles del Producto | INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    
+    <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="Produc-Detalle.css"> 
 </head>
-<body>
+<body class="app-body">
 
-    <header class="header">
-        <div class="menu container">
-            <a href="index.html" class="logo" aria-label="Ir a la página principal de Importaciones Sostenibles y Atractivas">
-                <img src="imagenes/logo.png" alt="Logo de Importaciones Sostenibles y Atractivas">
-                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATRACTIVAS</span>
-            </a>
-            <input type="checkbox" id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
-            <label for="menu-toggle" class="menu-label">
-                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú de hamburguesa">
-            </label>
-            <nav class="navbar" id="main-navigation" aria-label="Menú de navegación principal">
-                <ul>
-                    <li><a href="index.html">INICIO</a></li>
-                    <li><a href="Productos.html">PRODUCTOS</a></li>
-                    <li><a href="subastas.html">SUBASTAS</a></li>
-                    <li><a href="barter.html">TRUEQUE</a></li>
-                    <li><a href="blog.html">BLOG CORPORATIVO</a></li> </ul>
-            </nav>
+    <header class="app-top-header detail-header">
+        <div class="header-main-row" style="margin-bottom: 0;">
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
             
-            <div class="cart-container">
-                <ul class="submenu">
-                    <li>
-                        <img id="cart-icon" src="imagenes/car.png" alt="Icono de carrito de compras">
-                        <div id="cart-dropdown" class="cart-dropdown" role="complementary" aria-labelledby="cart-icon">
-                            <h4>Productos en el carrito</h4>
-                            <table id="cart-list">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-list-body"></tbody> </table>
-                            <p id="cart-total">Total: S/. 0.00</p>
-                            <button id="clear-cart-btn" class="btn-3">Vaciar Carrito</button>
-                            <button id="checkout-btn-dropdown" class="btn-3 checkout-btn-dropdown-style" style="display:none;">Finalizar Compra 🛍️</button>
-                        </div>
-                    </li>
-                </ul>
+            <div class="header-actions" style="display:flex; gap:15px; align-items:center;">
+                <a href="Productos.html" style="color: white;"><i class="fa-solid fa-magnifying-glass fa-lg"></i></a>
+                <a href="index.html" style="color: white;"><i class="fa-solid fa-house fa-lg"></i></a>
+                
+                <div class="cart-icon-top">
+                    <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                    <span class="cart-badge">0</span>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="product-detail container">
-        <div class="product-images-container"> <img id="main-product-image" src="" alt="Imagen principal del producto" loading="lazy"> <div class="thumbnail-images">
+    <main class="app-main-content product-detail-main" style="padding-bottom: 80px;">
+        
+        <section class="detail-image-section">
+            <div class="main-image-wrapper">
+                <span class="discount-badge detail-badge" id="detail-discount-badge" style="display: none;"></span>
+                
+                <img id="main-product-image" src="imagenes/default.jpg" alt="Producto">
+                
+                <button class="favorite-btn detail-fav-btn" aria-label="Agregar a favoritos"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            
+            <div class="thumbnail-images" id="thumbnail-container">
                 </div>
-        </div>
-        
-        <div class="product-info-detail"> <h2 id="product-name">Cargando...</h2>
-            <p id="product-description">Descripción...</p>
+        </section>
 
-            <div class="product-meta-info"> <p><strong>Categoría:</strong> <span id="product-category"></span></p>
-                <p><strong>Código:</strong> <span id="product-code"></span></p>
-                <p><strong>Stock Disponible:</strong> <span id="product-stock"></span></p>
+        <section class="detail-info-section">
+            <h3 class="brand-name" id="product-category" style="font-size: 13px; margin-bottom: 5px;">Categoría</h3>
+            <h1 class="detail-product-title" id="product-name">Cargando producto...</h1>
+            
+            <div class="detail-price-box">
+                <s class="price-normal" id="product-price-old" style="font-size: 14px;"></s>
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                    <span class="price-offer" id="product-price" style="font-size: 26px;">S/ 0.00</span>
+                    <span id="product-priceS" style="display:none; color:#6cc82a; font-weight:bold; font-size: 14px;"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-options-section">
+            
+            <div class="option-group" id="model-group">
+                <label>Modelo:</label>
+                <div class="pill-selector" id="product-model-container">
+                    </div>
             </div>
 
-            <div class="price-display">
-                <p><s id="product-price-old"></s></p> <p><span id="product-price"></span></p> <p><span id="product-priceS"></span></p> </div>
-        
-            <div class="options-selector"> <label for="product-model">Modelo:</label>
-                <select id="product-model"> </select>
+            <div class="option-group" id="color-group">
+                <label>Color:</label>
+                <div class="pill-selector" id="product-color-container">
+                    </div>
             </div>
 
-            <div class="options-selector">
-                <label for="product-color">Color:</label>
-                <select id="product-color"> </select>
+            <div class="option-group" id="size-group">
+                <label>Tamaño:</label>
+                <div class="pill-selector" id="product-size-container">
+                    </div>
             </div>
 
-            <div class="options-selector">
-                <label for="product-size">Tamaño:</label>
-                <select id="product-size"> </select>
+            <div class="option-group quantity-group">
+                <label>Cantidad:</label>
+                <div class="quantity-selector">
+                    <button class="qty-btn minus-btn">-</button>
+                    <input type="number" id="product-quantity" value="1" min="1" readonly>
+                    <button class="qty-btn plus-btn">+</button>
+                </div>
+                <span class="stock-info">Stock: <b id="product-stock">0</b> unidades</span>
             </div>
 
-            <div class="options-selector">
-                <label for="product-quantity">Cantidad:</label>
-                <input type="number" id="product-quantity" min="1" value="1"> </div>
+        </section>
 
-             <div class="shipping-info"> <h3>Características</h3>
-                <p id="product-shipping"></p>
+        <section class="detail-description-section">
+            
+            <div class="accordion-item open">
+                <div class="accordion-header">
+                    <h3>Descripción</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="accordion-body">
+                    <p id="product-description">Cargando descripción...</p>
+                    <p style="margin-top: 10px; font-size: 12px; color: #888;">Código: <span id="product-code"></span></p>
+                </div>
             </div>
 
-            <div class="additional-info-section"> <h3>Información Adicional</h3>
-                <p id="product-additional-info"></p>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h3>Características</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="accordion-body" style="display: none;">
+                    <p id="product-shipping" style="white-space: pre-line;"></p>
+                </div>
             </div>
 
-            <button class="add-to-cart-btn-detail" id="add-to-cart-btn">Agregar al carrito</button>
-        </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <h3>Información Adicional</h3>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="accordion-body" style="display: none;">
+                    <ul id="product-additional-info" style="padding-left: 20px; font-size: 13px; color: #555;"></ul>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="app-trust-section" style="margin-top: 15px;">
+            <div class="trust-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <p>Compra Segura</p>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-box-open"></i>
+                <p>Devoluciones</p>
+            </div>
+            <div class="trust-item">
+                <i class="fa-solid fa-truck-fast"></i>
+                <p>Envíos a todo el país</p>
+            </div>
+        </section>
+
     </main>
 
-  <!-- =============  FOOTER  ============= -->
-    <footer class="footer">
-        <div class="footer-content container">
-            <div class="footer-links">
-                <h3>Sobre Nosotros</h3>
-                <ul>
-                    <li><a href="nosotros.html">Nuestra Historia</a></li>
-                    <li><a href="mision.html">Misión y Visión</a></li>
-                    <li><a href="politicas.html">Políticas de la Tienda</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Servicio al Cliente</h3>
-                <ul>
-                    <li><a href="devoluciones.html">Devoluciones y Reembolsos</a></li>
-                    <li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>
-                    <li><a href="metodos-pago.html">Métodos de Pago</a></li> 
-                    <li><a href="envio.html">Envío</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Síguenos</h3>
-                <ul class="social-icons">
-                    <li><a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
-                    <li><a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17-17 11.6 2.2.1 4.4-.6 6-2C3 15.5 3 13.1 3 11.5c0-1.4.5-2.8 1.4-4S6.9 6 8.5 6c1.6 0 3.3.9 4.3 2.1l-.8-2.6h3.6s2.3.6 2.8 1.6l-.3 1.2c-.3.4-.6.8-.9 1.2z"/></svg></a></li>
-                    <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37a4 4 0 1 1-7.25-.09c.39-1.92 2.3-3.06 4.32-3.06h.03a4 4 0 0 1 4.14 4.14v.03a4 4 0 0 1-3.06 4.32c-1.92.39-3.06 2.3-3.06 4.32z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a></li>
-                    <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
-                    <li><a href="#" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17.5c-1.3-.8-1.5-2.2-.6-3.4L4.8 11a4 4 0 0 1 4-2c1.7 0 3.2.7 4 1.8L16.2 8a4 4 0 0 1 4 2c0 1.7-.7 3.2-1.8 4L19 16.2a4 4 0 0 1-4 2c-1.7 0-3.2-.7-4-1.8L7.8 18a4 4 0 0 1-4-2c0-1.7.7-3.2 1.8-4L2.5 17.5z"/><path d="M12 2L10 6 12 10 14 6Z"/><circle cx="12" cy="12" r="10"/></svg></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 IMPORTACIONES SOSTENIBLES & ATRACTIVAS. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <div class="sticky-buy-bar">
+        <button class="buy-btn btn-secondary" onclick="window.history.back();">Volver</button>
+        <button class="buy-btn btn-primary" id="add-to-cart-btn">Agregar al carrito</button>
+    </div>
 
     <script src="js/cart.js" defer></script>
     <script src="js/product-detail.js" defer></script>
-    <script src="js/menu.js" defer></script> 
-    
 </body>
 </html>
