@@ -108,7 +108,9 @@ body.app-body {
 
 .camera-icon { 
     color: #050505 !important; 
-    cursor: pointer; 
+    cursor: pointer;
+    margin-left: 10px; /* Esto lo separa del input (el texto) */
+    padding-right: 5px; /* Esto evita que toque el borde derecho del contenedor */
 }
 
 /* --- 2. ACCESOS RÁPIDOS (BURBUJAS CIRCULARES SUPERIORES) --- */
