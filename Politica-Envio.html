@@ -2,206 +2,104 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | IMPORTACIONES SOSTENIBLES & ATRACTIVAS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Políticas de Envío | Importaciones Sostenibles</title>
+    
     <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
-
-    <link rel="stylesheet" href="Productos.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="Politica-Envio.css">
 </head>
-<body>
+<body class="app-body">
 
-    <header class="header">
-        <div class="menu container">
-            <a href="index.html" class="logo" aria-label="Ir a la página principal de Importaciones Sostenibles y Atractivas">
-                <img src="imagenes/logo.png" alt="Logo de Importaciones Sostenibles y Atractivas">
-                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES & ATRACTIVAS</span>
-            </a>
-
-            <input type="checkbox" id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
-            <label for="menu-toggle" class="menu-label">
-                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú de hamburguesa">
-            </label>
-
-            <nav class="navbar" id="main-navigation" aria-label="Menú de navegación principal">
-                <ul>
-                    <li><a href="index.html">INICIO</a></li>
-                    <li><a href="Productos.html" aria-current="page">PRODUCTOS</a></li> 
-                    <li><a href="subastas.html">SUBASTAS</a></li>
-                    <li><a href="barter.html">TRUEQUE</a></li>
-                    <li><a href="blog.html">BLOG CORPORATIVO</a></li> </ul>
-            </nav>
-
-            <div class="cart-container">
-                <ul class="submenu">
-                    <li>
-                        <img id="cart-icon" src="imagenes/car.png" alt="Icono de carrito de compras">
-                        <div id="cart-dropdown" class="cart-dropdown" role="complementary" aria-labelledby="cart-icon">
-                            <h4>Productos en el carrito</h4>
-                            <table id="cart-list">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Accion</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-list-body">
-                                    <tr>
-                                        <td colspan="5" class="empty-cart-message">El carrito está vacío.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p id="cart-total">Total: S/. 0.00</p>
-                            <button id="clear-cart-btn" class="btn-3">Vaciar Carrito</button>
-                            <button id="checkout-btn-dropdown" class="btn-3 checkout-btn-dropdown-style" style="display:none;">Finalizar Compra 🛍️</button>
-                        </div>
-                    </li>
-                </ul>
+    <header class="app-top-header detail-header">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
+            
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;" aria-label="Volver atrás">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            
+            <div style="color: white; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-truck-fast"></i> Envíos y Entregas
             </div>
+            
         </div>
     </header>
 
+    <main class="app-main-content" style="padding-top: 15px;">
+        
+        <section class="checkout-section" style="margin: 0 15px 20px 15px;">
+            
+            <div class="checkout-section-header">
+                <h3 style="font-size: 16px;"><i class="fa-solid fa-box-open" style="color: #6cc82a; margin-right: 8px;"></i> Política de Envío</h3>
+            </div>
+            
+            <p style="font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 20px;">
+                Nos esforzamos por brindarte la mejor experiencia de compra, asegurando que tus productos lleguen de manera rápida, segura y confiable.
+            </p>
 
-<!-- =============  POLÍTICAS DE DESPACHO Y ENTREGA  ============= -->
+            <div style="margin-bottom: 25px;">
+                <h4 style="font-size: 13px; font-weight: 600; color: #222; margin-bottom: 10px;">
+                    <i class="fas fa-map-marker-alt" style="color: #6cc82a; width: 15px;"></i> 1. Provincia de Cajamarca
+                </h4>
+                <ul style="padding-left: 25px; font-size: 12px; color: #555; line-height: 1.6;">
+                    <li style="margin-bottom: 8px;"><strong>Despacho Gratis:</strong> En compras mayores a S/ 30.00.</li>
+                    <li style="margin-bottom: 8px;"><strong>Despacho Regular:</strong> Tarifa de S/ 5.00 por compras menores a S/ 30.00.</li>
+                    <li><strong>Retiro en Almacén:</strong> Gratis en Jr. Belaunde Terry C-10 – Mollepampa Alta.</li>
+                </ul>
+            </div>
 
-    <section class="shipping-policy-section">
-        <div class="container shipping-container">
+            <div style="margin-bottom: 25px;">
+                <h4 style="font-size: 13px; font-weight: 600; color: #222; margin-bottom: 10px;">
+                    <i class="fas fa-route" style="color: #6cc82a; width: 15px;"></i> 2. Nivel Nacional
+                </h4>
+                <ul style="padding-left: 25px; font-size: 12px; color: #555; line-height: 1.6;">
+                    <li style="margin-bottom: 8px;"><strong>Agencia (Pago en Destino):</strong> 1 a 3 días hábiles. El envío se paga al recoger.</li>
+                    <li><strong>Olva Express a Domicilio:</strong> 5 a 7 días hábiles. Tarifa base desde S/ 25.00 según peso/volumen.</li>
+                </ul>
+            </div>
 
-            <div class="shipping-card">
+            <div style="margin-bottom: 20px;">
+                <h4 style="font-size: 13px; font-weight: 600; color: #222; margin-bottom: 10px;">
+                    <i class="fas fa-circle-exclamation" style="color: #6cc82a; width: 15px;"></i> 3. Consideraciones
+                </h4>
+                <ul style="padding-left: 25px; font-size: 12px; color: #555; line-height: 1.6;">
+                    <li style="margin-bottom: 5px;">Tiempos en días hábiles (lunes a sábados, sin feriados).</li>
+                    <li style="margin-bottom: 5px;">El plazo empieza desde la confirmación del pago.</li>
+                    <li>Presentar DNI físico al recibir o recoger.</li>
+                </ul>
+            </div>
 
-                <h1 class="shipping-title">Políticas de Envío y Entrega</h1>
-
-                <p class="shipping-intro">
-                    En nuestra tienda, nos esforzamos por brindarte la mejor experiencia de compra,
-                    asegurando que tus productos lleguen de manera rápida, segura y confiable.
-                    A continuación, te detallamos nuestras modalidades y tarifas de envío:
+            <div style="background-color: #f5fcf0; border-left: 3px solid #6cc82a; padding: 12px; border-radius: 4px; margin-top: 15px;">
+                <p style="font-size: 11px; color: #444; font-weight: 500; line-height: 1.5;">
+                    Para consultas sobre el estado de tu pedido o cobertura, contáctanos a través de nuestros canales oficiales. ¡Gracias por elegirnos!
                 </p>
-
-                <!-- CAJAMARCA -->
-                <div class="shipping-block">
-                    <h2><i class="fas fa-map-marker-alt"></i> 1. Envíos dentro de la Provincia de Cajamarca</h2>
-                    <p>Pensando en tu comodidad, te ofrecemos tres opciones para recibir tus compras:</p>
-
-                    <ul>
-                        <li>
-                            <strong>Despacho a Domicilio Gratis:</strong>
-                            Envío gratuito en compras mayores a <strong>S/ 30.00</strong>.
-                        </li>
-
-                        <li>
-                            <strong>Despacho a Domicilio Regular:</strong>
-                            Por compras menores a S/ 30.00, el delivery tiene una tarifa de <strong>S/ 5.00</strong>.
-                        </li>
-
-                        <li>
-                            <strong>Retiro en Almacén:</strong>
-                            Compra online y recoge gratis en Jr. Belaunde Terry C-10 – Mollepampa Alta.
-                            Te notificaremos cuando tu pedido esté listo para ser recogido.
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- NACIONAL -->
-                <div class="shipping-block">
-                    <h2><i class="fas fa-truck"></i> 2. Envíos a Nivel Nacional</h2>
-                    <p>
-                        Llegamos a todo el Perú a través de nuestros operadores logísticos de confianza.
-                        Puedes elegir la modalidad que mejor se adapte a ti:
-                    </p>
-
-                    <ul>
-                        <li>
-                            <strong>Envío con Retiro en Agencia (Pago en Destino):</strong>
-                            Envío por agencia terrestre con tiempo estimado de 1 a 3 días hábiles.
-                            El costo de envío se paga contra entrega directamente en la agencia de tu ciudad.
-                        </li>
-
-                        <li>
-                            <strong>Despacho a Domicilio vía Olva Express:</strong>
-                            Recibe tu pedido en casa en un plazo estimado de 5 a 7 días hábiles.
-                            Tarifa base desde <strong>S/ 25.00</strong>, pudiendo variar según peso y volumen del producto.
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- CONSIDERACIONES -->
-                <div class="shipping-block">
-                    <h2><i class="fas fa-info-circle"></i> 3. Consideraciones Generales</h2>
-
-                    <ul>
-                        <li>Los tiempos de entrega se calculan en días hábiles (lunes a sabados, excluyendo feriados).</li>
-                        <li>El plazo empieza a contar desde la confirmación del pago.</li>
-                        <li>La persona que reciba o recoja el producto deberá presentar su DNI físico.</li>
-                        <li>La empresa no se responsabiliza por retrasos atribuibles a la empresa de transporte o factores externos.</li>
-                    </ul>
-                </div>
-
-                <!-- CONTACTO -->
-                <div class="shipping-contact">
-                    <p>
-                       Para consultas sobre el estado de tu pedido, cobertura de envío o información adicional,
-                        contáctanos a través de nuestros canales oficiales.
-                    </p>
-                    <strong>¡Gracias por elegir Importaciones Sostenibles & Atractivas!</strong>
-                </div>
-
             </div>
 
-        </div>
-    </section>
+        </section>
+        
+    </main>
 
-
-
-  <!-- =============  FOOTER  ============= -->
-    <footer class="footer">
-        <div class="footer-content container">
-            <div class="footer-links">
-                <h3>Sobre Nosotros</h3>
-                <ul>
-                    <li><a href="nosotros.html">Nuestra Historia</a></li>
-                    <li><a href="mision.html">Misión y Visión</a></li>
-                    <li><a href="politicas.html">Políticas de la Tienda</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Servicio al Cliente</h3>
-                <ul>
-                    <li><a href="devoluciones.html">Devoluciones y Reembolsos</a></li>
-                    <li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>
-                    <li><a href="metodos-pago.html">Métodos de Pago</a></li> 
-                    <li><a href="envio.html">Envío</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Síguenos</h3>
-                <ul class="social-icons">
-                    <li><a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
-                    <li><a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17-17 11.6 2.2.1 4.4-.6 6-2C3 15.5 3 13.1 3 11.5c0-1.4.5-2.8 1.4-4S6.9 6 8.5 6c1.6 0 3.3.9 4.3 2.1l-.8-2.6h3.6s2.3.6 2.8 1.6l-.3 1.2c-.3.4-.6.8-.9 1.2z"/></svg></a></li>
-                    <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37a4 4 0 1 1-7.25-.09c.39-1.92 2.3-3.06 4.32-3.06h.03a4 4 0 0 1 4.14 4.14v.03a4 4 0 0 1-3.06 4.32c-1.92.39-3.06 2.3-3.06 4.32z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a></li>
-                    <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
-                    <li><a href="#" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17.5c-1.3-.8-1.5-2.2-.6-3.4L4.8 11a4 4 0 0 1 4-2c1.7 0 3.2.7 4 1.8L16.2 8a4 4 0 0 1 4 2c0 1.7-.7 3.2-1.8 4L19 16.2a4 4 0 0 1-4 2c-1.7 0-3.2-.7-4-1.8L7.8 18a4 4 0 0 1-4-2c0-1.7.7-3.2 1.8-4L2.5 17.5z"/><path d="M12 2L10 6 12 10 14 6Z"/><circle cx="12" cy="12" r="10"/></svg></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 IMPORTACIONES SOSTENIBLES & ATRACTIVAS. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
+    <nav class="app-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Productos.html" class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Buscar</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Mis Pedidos</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Mi Cuenta</span>
+        </a>
+    </nav>
 
     <script src="js/cart.js" defer></script>
-     <script src="js/menu.js" defer></script> 
-    <script src="js/Products.js" defer></script>
-   
 </body>
 </html>
-
