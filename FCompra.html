@@ -4,199 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Finaliza tu compra en Importaciones Sostenibles & Atractivas. Revisa tu pedido y completa tus datos.">
-    <meta name="keywords" content="finalizar compra, checkout, carrito, pedido, tienda online">
-    <title>Finalizar Compra | IMPORTACIONES SOSTENIBLES & ATRACTIVAS</title>
-    <link rel="icon" href="imagenes/logo.png" type="image/x-icon"> 
-
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="FCompra.css"> 
+    <title>Finalizar Compra | Importaciones Sostenibles</title>
     
+    <link rel="icon" href="imagenes/logo.png" type="image/x-icon"> 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="FCompra.css"> 
 </head>
-<body>
+<body class="app-body">
 
-    <header class="header">
-        <div class="menu container">
-            <a href="index.html" class="logo" aria-label="Ir a la página principal de Importaciones Sostenibles y Atractivas">
-                <img src="imagenes/logo.png" alt="Logo de la tienda Importaciones Sostenibles y Atractivas" loading="lazy">
-                <span class="store-name">IMPORTACIONES<br>SOSTENIBLES &amp; ATRACTIVAS</span>
-            </a>
-
-            <input type="checkbox" id="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
-            <label for="menu-toggle" class="menu-label">
-                <img src="imagenes/menu.png" class="menu-icono" alt="Ícono de menú de hamburguesa" loading="lazy">
-            </label>
-
-            <nav class="navbar" id="main-navigation" aria-label="Menú de navegación principal">
-                <ul>
-                    <li><a href="index.html">INICIO</a></li>
-                    <li><a href="Productos.html">PRODUCTOS</a></li>
-                    <li><a href="subastas.html">SUBASTAS</a></li>
-                    <li><a href="barter.html">TRUEQUE</a></li>
-                    <li><a href="blog.html">BLOG CORPORATIVO</a></li> </ul>
-                </ul>
-            </nav>
-            
-            <div class="cart-container">
-                <ul class="submenu">
-                    <li>
-                        <img id="cart-icon" src="imagenes/car.png" alt="Icono de carrito de compras" loading="lazy">
-                        <div id="cart-dropdown" class="cart-dropdown" role="complementary" aria-labelledby="cart-icon">
-                            <h4>Productos en el carrito</h4>
-                            <table id="cart-list">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-list-body"></tbody>
-                            </table>
-                            <p id="cart-total">Total: S/. 0.00</p>
-                            <button id="clear-cart-btn" class="btn-3">Vaciar Carrito</button>
-                            <button id="checkout-btn-dropdown" class="btn-3 checkout-btn-dropdown-style">Finalizar Compra 🛍️</button> 
-                        </div>
-                    </li>
-                </ul>
+    <header class="app-top-header checkout-header" style="padding-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;" aria-label="Volver atrás">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            <div style="color: white; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-lock"></i>
+                Pago Seguro
             </div>
         </div>
     </header>
 
-    <main class="checkout-main container">
-        <h1 class="checkout-title">Finalizar Compra</h1>
+    <main class="app-main-content checkout-main" style="padding-bottom: 80px;">
+        
+        <section class="checkout-section">
+            <div class="checkout-section-header">
+                <h3><i class="fa-solid fa-bag-shopping" style="color: #6cc82a; margin-right: 8px;"></i> Resumen de tu Pedido</h3>
+            </div>
+            
+            <div class="checkout-order-items" id="checkout-item-list">
+                <div style="text-align: center; padding: 20px; color: #888; font-size: 12px;">Cargando productos...</div>
+            </div>
 
-        <div class="checkout-content">
-            <section class="order-summary">
-                <h2>Resumen de tu Pedido</h2>
-                <div class="order-items-scroll">
-                    <table class="order-items-table">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cant.</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody id="checkout-item-list">
-                            </tbody>
-                    </table>
+            <div class="checkout-totals">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="checkout-subtotal">S/ 0.00</span>
                 </div>
-                <div class="order-total-summary">
-                    <p>Subtotal: <span id="checkout-subtotal">S/. 0.00</span></p>
-                    <p>Envío: <span id="checkout-shipping">S/. 0.00</span></p>
-                    <p class="final-total">Total: <span id="checkout-final-total">S/. 0.00</span></p>
+                <div class="total-row">
+                    <span>Envío</span>
+                    <span id="checkout-shipping">S/ 5.00</span>
                 </div>
-            </section>
+                <div class="total-row final">
+                    <span>Total a Pagar</span>
+                    <span id="checkout-final-total" style="color: #6cc82a;">S/ 0.00</span>
+                </div>
+            </div>
+        </section>
 
-            <section class="customer-payment-details">
-                <h2>Datos de Contacto y Envío</h2>
-                <form id="checkout-form" class="checkout-form">
+        <section class="checkout-section">
+            <div class="checkout-section-header">
+                <h3><i class="fa-solid fa-location-dot" style="color: #6cc82a; margin-right: 8px;"></i> Entrega y Contacto</h3>
+            </div>
+            
+            <form id="checkout-form" class="app-form">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="full-name" name="fullName" required placeholder="Ej. Juan Pérez">
+                </div>
+                
+                <div class="form-row-2">
                     <div class="form-group">
-                        <label for="full-name">Nombre Completo:</label>
-                        <input type="text" id="full-name" name="fullName" required placeholder="Ej. Juan Pérez">
+                        <label>Teléfono</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej. 987654321">
                     </div>
                     <div class="form-group">
-                        <label for="email">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" required placeholder="Ej. tu@example.com">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required placeholder="tu@correo.com">
                     </div>
-                    <div class="form-group">
-                        <label for="phone">Teléfono / WhatsApp:</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="Ej. +51 987 654 321">
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Dirección de Envío:</label>
-                        <input type="text" id="address" name="address" required placeholder="Ej. Av. Principal 123">
-                    </div>
-                    <div class="form-group">
-                        <label for="city">Ciudad:</label>
-                        <input type="text" id="city" name="city" required placeholder="Ej. Cajamarca">
-                    </div>
-                    <div class="form-group">
-                        <label for="region">Región / Departamento:</label>
-                        <input type="text" id="region" name="region" required placeholder="Ej. Cajamarca">
-                    </div>
-                    <div class="form-group">
-                        <label for="postal-code">Código Postal (opcional):</label>
-                        <input type="text" id="postal-code" name="postalCode" placeholder="Ej. 06001">
-                    </div>
+                </div>
 
-                    <h2 class="payment-title">Método de Pago</h2>
-                    <div class="form-group payment-method">
-                        <label>
-                            <input type="radio" name="paymentMethod" value="contra-entrega" checked>
-                            Pago Contra Entrega (Efectivo)
-                        </label>
-                        <label>
-                            <input type="radio" name="paymentMethod" value="transferencia">
-                            Yape (Te contactaremos para detalles)
-                        </label>
-                        <label>
-                            <input type="radio" name="paymentMethod" value="tarjeta-visa-izipay">
-                            <i class="fab fa-cc-visa"></i> Tarjeta de Crédito / Débito (Vía Izipay Seguro)
-                        </label>
-                    </div>
-                    <p class="payment-note" style="display:none;">
-                        <i class="fas fa-info-circle"></i> Serás redirigido/a a la plataforma segura de Izipay para completar el pago con tu tarjeta.
-                    </p>
+                <div class="form-group">
+                    <label>Dirección de Entrega</label>
+                    <input type="text" id="address" name="address" required placeholder="Ej. Av. Principal 123, Dpto 4">
+                </div>
 
-                    <div class="form-group comments-group">
-                        <label for="comments">Comentarios Adicionales (opcional):</label>
-                        <textarea id="comments" name="comments" rows="3" placeholder="Ej. Dejar el paquete con el portero, etc."></textarea>
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>Departamento</label>
+                        <select id="region" name="region" required class="app-select-input">
+                            <option value="">Selecciona...</option>
+                            <option value="cajamarca">Cajamarca</option>
+                            <option value="lima">Lima</option>
+                            <option value="otros">Otras regiones</option>
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label>Ciudad / Distrito</label>
+                        <input type="text" id="city" name="city" required placeholder="Ciudad">
+                    </div>
+                </div>
 
-                    <button type="submit" id="place-order-btn" class="btn-3 place-order-btn">Realizar Pedido</button>
-                    <p class="terms-privacy-text">Al hacer clic en "Realizar Pedido", aceptas nuestros <a href="terminos.html" target="_blank">Términos y Condiciones</a> y nuestra <a href="privacidad.html" target="_blank">Política de Privacidad</a>.</p>
-                </form>
-            </section>
+                <div class="form-group">
+                    <label>Comentarios adicionales (Opcional)</label>
+                    <textarea id="comments" name="comments" rows="2" placeholder="Ej. Dejar en recepción..."></textarea>
+                </div>
+            </form>
+        </section>
+
+        <section class="checkout-section">
+            <div class="checkout-section-header">
+                <h3><i class="fa-regular fa-credit-card" style="color: #6cc82a; margin-right: 8px;"></i> Método de Pago</h3>
+            </div>
+
+            <div class="payment-methods-container">
+                <label class="payment-option">
+                    <div class="payment-radio">
+                        <input type="radio" name="paymentMethod" value="contra-entrega" checked>
+                        <div class="radio-custom"></div>
+                    </div>
+                    <div class="payment-details">
+                        <span class="payment-name">Pago Contra Entrega</span>
+                        <span class="payment-desc">Paga en efectivo al recibir tu pedido.</span>
+                    </div>
+                    <i class="fa-solid fa-hand-holding-dollar payment-icon"></i>
+                </label>
+
+                <label class="payment-option">
+                    <div class="payment-radio">
+                        <input type="radio" name="paymentMethod" value="yape">
+                        <div class="radio-custom"></div>
+                    </div>
+                    <div class="payment-details">
+                        <span class="payment-name">Yape / Plin</span>
+                        <span class="payment-desc">Transferencia rápida y segura.</span>
+                    </div>
+                    <i class="fa-solid fa-mobile-screen payment-icon"></i>
+                </label>
+
+                <label class="payment-option">
+                    <div class="payment-radio">
+                        <input type="radio" name="paymentMethod" value="tarjeta">
+                        <div class="radio-custom"></div>
+                    </div>
+                    <div class="payment-details">
+                        <span class="payment-name">Tarjeta Débito / Crédito</span>
+                        <span class="payment-desc">Vía pasarela segura Izipay.</span>
+                    </div>
+                    <div class="card-icons">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                    </div>
+                </label>
+            </div>
+        </section>
+        
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 11px; color: #888;">
+            <i class="fa-solid fa-lock" style="color:#6cc82a;"></i> Tus datos están protegidos y encriptados.
         </div>
+
     </main>
 
-    <footer class="footer">
-        <div class="footer-content container">
-            <div class="footer-links">
-                <h3>Sobre Nosotros</h3>
-                <ul>
-                    <li><a href="nosotros.html">Nuestra Historia</a></li>
-                    <li><a href="mision.html">Misión y Visión</a></li>
-                    <li><a href="politicas.html">Políticas de la Tienda</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Servicio al Cliente</h3>
-                <ul>
-                    <li><a href="devoluciones.html">Devoluciones y Reembolsos</a></li>
-                    <li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>
-                    <li><a href="metodos-pago.html">Métodos de Pago</a></li> 
-                    <li><a href="envio.html">Envío</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-links">
-                <h3>Síguenos</h3>
-                <ul class="social-icons">
-                    <li><a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
-                    <li><a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17-17 11.6 2.2.1 4.4-.6 6-2C3 15.5 3 13.1 3 11.5c0-1.4.5-2.8 1.4-4S6.9 6 8.5 6c1.6 0 3.3.9 4.3 2.1l-.8-2.6h3.6s2.3.6 2.8 1.6l-.3 1.2c-.3.4-.6.8-.9 1.2z"/></svg></a></li>
-                    <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37a4 4 0 1 1-7.25-.09c.39-1.92 2.3-3.06 4.32-3.06h.03a4 4 0 0 1 4.14 4.14v.03a4 4 0 0 1-3.06 4.32c-1.92.39-3.06 2.3-3.06 4.32z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a></li>
-                    <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li>
-                    <li><a href="#" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube"><path d="M2.5 17.5c-1.3-.8-1.5-2.2-.6-3.4L4.8 11a4 4 0 0 1 4-2c1.7 0 3.2.7 4 1.8L16.2 8a4 4 0 0 1 4 2c0 1.7-.7 3.2-1.8 4L19 16.2a4 4 0 0 1-4 2c-1.7 0-3.2-.7-4-1.8L7.8 18a4 4 0 0 1-4-2c0-1.7.7-3.2 1.8-4L2.5 17.5z"/><path d="M12 2L10 6 12 10 14 6Z"/><circle cx="12" cy="12" r="10"/></svg></a></li>
-                </ul>
-            </div>
+    <div class="sticky-buy-bar">
+        <div style="display: flex; flex-direction: column; justify-content: center; flex: 0.5;">
+            <span style="font-size: 10px; color: #888;">Total a Pagar</span>
+            <span id="sticky-final-total" style="font-size: 16px; font-weight: 700; color: #333;">S/ 0.00</span>
         </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 IMPORTACIONES SOSTENIBLES & ATRACTIVAS. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+        <button class="buy-btn btn-primary" id="place-order-btn" style="flex: 1; border: none;">Confirmar Compra</button>
+    </div>
 
     <script src="js/cart.js" defer></script>
     <script src="js/FCompra.js" defer></script> 
-    <script src="js/menu.js" defer></script> 
-    
 </body>
 </html>
