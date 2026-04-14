@@ -1,28 +1,25 @@
-// js/products.js
+// js/Products.js
 
 document.addEventListener("DOMContentLoaded", () => {
     // --- Selectores del DOM ---
-    // Usamos los IDs y clases que hemos estandarizado en HTML y CSS
-    const productListContainer = document.querySelector("#product-list"); // Contenedor de la cuadrícula de productos
-    const categorySelect = document.getElementById("category-select");   // Selector de categorías
-    const loadMoreBtn = document.getElementById("load-more-products"); // Botón "Cargar más" (si existe en tu HTML)
+    const productListContainer = document.querySelector("#product-list"); 
+    const loadingSpinner = document.getElementById("loading-spinner"); // Spinner de carga (si existe)
+    const categoryChips = document.querySelectorAll(".chip"); // Nuevos chips de categorías
 
     // Configuración para la carga de productos
-    const PRODUCTS_PER_LOAD = 10; // Cantidad inicial de productos y a cargar por clic
-    let currentProductIndex = 0; // Índice para controlar la paginación de productos visibles
+    const PRODUCTS_PER_LOAD = 10; // Cantidad de productos a cargar por vez
+    let currentProductIndex = 0; 
+    let isLoading = false; // Variable de control para el scroll infinito
 
     // --- Datos de productos ---
-    // ¡IMPORTANTE! 'price' y 'originalPrice' deben ser números para permitir cálculos.
-    // El formato de moneda 'S/.' se aplica solo en la visualización.
     const allProducts = [
-
         {
-            id: 22,
+            id: 23,
             name: "Guantes Peluche Garra de Gato",
             description: "Ideales para días fríos, disfraces o para quienes aman los accesorios únicos y adorables.",
-            originalPrice: 24.00, // ¡Númer
+            originalPrice: 24.00, 
             discountPercent: 70,
-            images: { // Agrupación de imágenes en un objeto
+            images: { 
                 main: "productos/ISA-0000061.jpg",
                 extra1: "productos/ISA-0000061-1.jpg",
                 extra2: "productos/ISA-0000062.jpg",
@@ -30,10 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             code: "ISA-0000061-62",
             stock: 1,
-            category: "Ropa", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: `• Material: Poliéster, lana de coral.
-                            • Género: Mujeres
-                            • Incluye: 2 unidades`,
+            category: "Ropa", 
+            shippingPolicy: `• Material: Poliéster, lana de coral.\n• Género: Mujeres\n• Incluye: 2 unidades`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Crema","Plomo"],
@@ -43,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 22,
             name: "Collar Bluelory de la Suerte para Pareja",
             description: "Símbolo especial de unión, protección y buena fortuna para compartir en pareja",
-            originalPrice: 27.00, // ¡Númer
+            originalPrice: 27.00, 
             discountPercent: 70,
-            images: { // Agrupación de imágenes en un objeto
+            images: { 
                 main: "productos/ISA-0000041.jpg",
                 extra1: "productos/ISA-0000041-1.jpg",
                 extra2: "productos/ISA-0000042.jpg",
@@ -53,10 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             code: "ISA-0000041-42",
             stock: 1,
-            category: "joyeria", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: `• Material: Acero Inoxidable.
-                            • Género: Unisex
-                            • Incluye: 1 unidad`,
+            category: "Joyeria", 
+            shippingPolicy: `• Material: Acero Inoxidable.\n• Género: Unisex\n• Incluye: 1 unidad`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Rosa - Mujer","Oscuro - Hombre"],
@@ -66,9 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 21,
             name: "Aretes Rosa",
             description: "Aretes de diseño elegante, fabricados en acero inoxidable de alta calidad.",
-            originalPrice: 13.00, // ¡Númer
+            originalPrice: 13.00, 
             discountPercent: 70,
-            images: { // Agrupación de imágenes en un objeto
+            images: { 
                 main: "productos/ISA-0000040-1.jpg",
                 extra1: "productos/ISA-0000040-2.jpg",
                 extra2: "",
@@ -76,9 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             code: "ISA-0000040",
             stock: 1,
-            category: "joyeria", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: `• Material: Acero Inoxidable.
-                            • Género: Mujeres`,
+            category: "Joyeria", 
+            shippingPolicy: `• Material: Acero Inoxidable.\n• Género: Mujeres`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Plateado"],
@@ -87,10 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: 20,
             name: "Peine Quita Nudos para Perros y Gatos",
-            description: "Peine Quita Nudos para Perros y Gatos elimina enredos, nudos y pelo muerto de forma rápida y segura. Ideal para mascotas de pelo medio y largo.",
-            originalPrice: 41.00, // ¡Número!
+            description: "Peine Quita Nudos para Perros y Gatos elimina enredos, nudos y pelo muerto de forma rápida y segura.",
+            originalPrice: 41.00, 
             discountPercent: 70,
-            images: { // Agrupación de imágenes en un objeto
+            images: { 
                 main: "productos/dj44-bu01s0.jpg",
                 extra1: "productos/dj44-bu01s1.jpg",
                 extra2: "productos/dj44-bu01s.jpg",
@@ -98,9 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             code: "dj44-bu01s-dj44-bu02s",
             stock: 3,
-            category: "Mascotas", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: `• Material: PVC y Acero Inox.
-                            • Género: Macotas`,
+            category: "Mascotas", 
+            shippingPolicy: `• Material: PVC y Acero Inox.\n• Género: Macotas`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Azul", "Rosado"],
@@ -109,10 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: 19,
             name: "Pulsera Bluelory Acero Inox. Unisex",
-            description: "Pulsera Bluelory Acero Inox. Unisex, Negro-Dorado. Elegante y duradera para cualquier ocasión.",
-            originalPrice: 19.00, // ¡Número!
+            description: "Pulsera Bluelory Acero Inox. Unisex, Negro-Dorado.",
+            originalPrice: 19.00, 
             discountPercent: 70,
-            images: { // Agrupación de imágenes en un objeto
+            images: { 
                 main: "productos/ISA-0000030.jpg",
                 extra1: "productos/ISA-0000030-1.jpg",
                 extra2: "productos/ISA-0000030-2.jpg",
@@ -120,9 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             code: "ISA-0000030",
             stock: 5,
-            category: "Pulseras", // Usar siempre la misma capitalización para la categoría
-            shippingPolicy: `• Material: Acero Inoxidable.
-                            • Género: Unisex`,
+            category: "Pulseras", 
+            shippingPolicy: `• Material: Acero Inoxidable.\n• Género: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Dorado", "Negro"],
@@ -143,8 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000029",
             stock: 6,
             category: "Pulseras",
-            shippingPolicy: `• Material: Aleación de Cu.
-                            • Género: Unisex`,
+            shippingPolicy: `• Material: Aleación de Cu.\n• Género: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
@@ -165,8 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "123175043",
             stock: 1,
             category: "Pulseras",
-            shippingPolicy: `• Material: Cuero Sintético.
-                            • Género: Unisex`,
+            shippingPolicy: `• Material: Cuero Sintético.\n• Género: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
@@ -187,8 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000028",
             stock: 3,
             category: "Pulseras",
-            shippingPolicy: `• Material: Cuero Sintético.
-                            • Género: Unisex`,
+            shippingPolicy: `• Material: Cuero Sintético.\n• Género: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
@@ -209,8 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "D1166",
             stock: 4,
             category: "Pulseras",
-            shippingPolicy: `• Material: Cuero Sintetico.
-                            • Género: Unisex`,
+            shippingPolicy: `• Material: Cuero Sintetico.\n• Género: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
@@ -231,8 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000027",
             stock: 4,
             category: "Pulseras",
-            shippingPolicy: `• Material: Caucho.
-                            • Genero: Unisex`,
+            shippingPolicy: `• Material: Caucho.\n• Genero: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Unico"],
@@ -253,8 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000024-25-26",
             stock: 3,
             category: "Coleccion",
-            shippingPolicy: `• Material: Aleación de Cu.
-                            • Genero: Unisex`,
+            shippingPolicy: `• Material: Aleación de Cu.\n• Genero: Unisex`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Hombre Araña", "Casco de Locky", "Guante de Tahnos"],
             colors: ["Unico"],
@@ -296,12 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000018",
             stock: 124,
             category: "Coleccion",
-            shippingPolicy: `• Material: PVC.
-                            • Generación: 1
-                            • Originales: No
-                            • Incluye: 1 unidad`,
+            shippingPolicy: `• Material: PVC.\n• Generación: 1\n• Originales: No\n• Incluye: 1 unidad`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
-            models: ["Unico"],
             models: ["Aleatorio"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -321,12 +301,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000017",
             stock: 28,
             category: "Tecnologia",
-             shippingPolicy: `• Material: Batería Alcalina
-                            • Recargable: No
-                            • Voltaje: 12V
-                            • Modelo: A23`,
+             shippingPolicy: `• Material: Batería Alcalina\n• Recargable: No\n• Voltaje: 12V\n• Modelo: A23`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
-            models: ["Unico"],
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -346,12 +322,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000016",
             stock: 20,
             category: "Tecnologia",
-            shippingPolicy: `• Material: Carcasa ABS.
-                            • Batería: Pila 12V 23A - No incluye
-                            • Interruptor automatico: No
-                            • Color de Luz: Blanco Frío`,
+            shippingPolicy: `• Material: Carcasa ABS.\n• Batería: Pila 12V 23A - No incluye\n• Color de Luz: Blanco Frío`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
-            models: ["Unico"],
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -371,12 +343,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000013",
             stock: 13,
             category: "Celulares",
-            shippingPolicy: `• Material: Fibra de carbono.
-                            • Transpirables a prueba de sudor: Si
-                            • Antidelizantes: Si
-                            • Incluye: 2 unidades`,
+            shippingPolicy: `• Material: Fibra de carbono.\n• Incluye: 2 unidades`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
-            models: ["Unico"],
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -396,10 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000011",
             stock: 3,
             category: "Celulares",
-            shippingPolicy: `• Material: Fibra de carbono.
-                            • Transpirables a prueba de sudor: Si
-                            • Antidelizantes: Si
-                            • Incluye: 2 unidades`,
+            shippingPolicy: `• Material: Fibra de carbono.\n• Incluye: 2 unidades`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Unico"],
             colors: ["Azul", "Rojo", "Morado"],
@@ -453,7 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
             description: "Auriculares Samsung Alambricos AKG",
             originalPrice: 35.00,
             discountPercent: 70,
-            discount: "70% DES.",
             images: {
                 main: "productos/ISA-0000008.jpg",
                 extra1: "",
@@ -463,8 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000008",
             stock: 1,
             category: "Celulares",
-            shippingPolicy: `• Conector Analógico: Puerto Jack de 3.5 mm.
-                            • Microfono: Si.`,
+            shippingPolicy: `• Conector Analógico: Puerto Jack de 3.5 mm.`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
             models: ["Alambricos AKG"],
             colors: ["Blanco"],
@@ -472,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: 2,
-            name: "Vidrio Templado +Prot. Camara - Redmi Note 10S 5G-4G, Note 10 Pro, Poco F3, Poco M3, Note 9 Pro",
+            name: "Vidrio Templado +Prot. Camara",
             description: "Vidrio Templado + Prot. Camara",
             originalPrice: 19.00,
             discountPercent: 70,
@@ -487,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
             category: "Celulares",
             shippingPolicy: `• Material: Película de Vidrio.`,
             additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
-            models: ["10S-4G", "Note 10S-5G", " Note 10 Pro", "Poco F3", "Poco M3", "Note 9 Pro"],
+            models: ["10S-4G", "Note 10S-5G", " Note 10 Pro"],
             colors: ["Unico"],
             sizes: ["Unico "]
         },
@@ -511,34 +474,53 @@ document.addEventListener("DOMContentLoaded", () => {
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
-        },
+        }
     ];
 
-    let filteredProducts = [...allProducts]; // Copia de los productos para filtrar/mostrar
+    // =========================================================================
+    // INICIO DEL MOTOR DE BÚSQUEDA Y FILTRADO INICIAL
+    // =========================================================================
+    let filteredProducts = [...allProducts]; 
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('q');
+
+    if (searchQuery) {
+        const queryLower = searchQuery.toLowerCase();
+        
+        // Filtra los productos que coincidan en el nombre o la categoría
+        filteredProducts = allProducts.filter(product => 
+            product.name.toLowerCase().includes(queryLower) || 
+            product.category.toLowerCase().includes(queryLower)
+        );
+
+        // Desactiva los botones (chips) de categoría porque estamos en modo búsqueda
+        if (categoryChips.length > 0) {
+            categoryChips.forEach(c => c.classList.remove("active"));
+        }
+        
+        // Rellenar el input visualmente si existe
+        const searchInput = document.querySelector(".app-search-bar input");
+        if (searchInput) {
+            searchInput.value = searchQuery;
+        }
+    }
+    // =========================================================================
+    // FIN DEL MOTOR DE BÚSQUEDA
+    // =========================================================================
 
     // --- Funciones de Utilidad ---
 
-    /**
-     * Formatea un precio a la moneda local (S/.)
-     * @param {number} amount
-     * @returns {string} Precio formateado.
-     */
     const formatPrice = (amount) => {
-        // Asegúrate de que el locale 'es-PE' es el correcto para tu moneda.
         return new Intl.NumberFormat('es-PE', {
             style: 'currency',
-            currency: 'PEN', // PEN para Sol peruano
+            currency: 'PEN', 
             minimumFractionDigits: 2,
         }).format(amount);
     };
 
-    /**
-     * Crea el HTML para una tarjeta de producto individual.
-     * @param {object} product - Objeto producto.
-     * @returns {string} HTML de la tarjeta de producto.
-     */
+    // Generador de HTML para tarjetas estilo App
     const createProductCardHTML = (product) => {
-
         const original = Number(product.originalPrice) || 0;
         const discount = Number(product.discountPercent) || 0;
 
@@ -546,182 +528,183 @@ document.addEventListener("DOMContentLoaded", () => {
         let priceDisplayHTML = '';
         let discountTagHTML = '';
 
-        const hasValidDiscount = discount > 0 && discount < 100;
-
-        if (hasValidDiscount) {
-
+        if (discount > 0 && discount < 100) {
             finalPrice = Number((original * (1 - discount / 100)).toFixed(2));
-
-            // Guardamos precio calculado para carrito
-            product.price = finalPrice;
+            product.price = finalPrice; 
 
             priceDisplayHTML = `
-                <s class="product-price-original">${formatPrice(original)}</s>
-                <span class="product-price-offer">${formatPrice(finalPrice)}</span>
+                <span class="price-normal">${formatPrice(original)}</span>
+                <span class="price-offer">${formatPrice(finalPrice)}</span>
             `;
-
-            discountTagHTML = `
-                <div class="discount-tag">${discount}% Des.</div>
-            `;
+            discountTagHTML = `<span class="discount-badge">-${discount}%</span>`;
 
         } else {
-
             product.price = original;
-
             priceDisplayHTML = `
-                <span class="product-price-normal">${formatPrice(original)}</span>
+                <span class="price-offer">${formatPrice(original)}</span>
             `;
         }
 
         return `
-            ${discountTagHTML}
-            <img src="${product.images?.main || "imagenes/default.jpg"}" 
-                alt="${product.name}" 
-                loading="lazy" 
-                class="product-image">
-
+            <div class="product-image-container">
+                ${discountTagHTML}
+                <img src="${product.images?.main || "imagenes/default.jpg"}" alt="${product.name}" loading="lazy">
+                <button class="favorite-btn" aria-label="Agregar a favoritos"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            
             <div class="product-info">
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-
-                <p class="price">
+                <h3 class="brand-name">${product.category}</h3>
+                <p class="product-name">${product.name}</p>
+                
+                <div class="prices">
                     ${priceDisplayHTML}
-                </p>
-
-                <a href="product-detail.html" 
-                class="btn-3 add-to-cart-btn" 
-                data-product-id="${product.id}">
-                    Ver detalles
-                </a>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="add-btn add-to-cart-btn" data-product-id="${product.id}">Agregar</button>
+                </div>
             </div>
         `;
     };
 
-
-    /**
-     * Renderiza un conjunto de productos en el DOM.
-     * @param {Array<object>} productsToRender - Array de productos a mostrar.
-     * @param {boolean} append - Si es true, añade los productos; si es false, reemplaza la lista.
-     */
+    // Función de renderizado (añade o reemplaza)
     const renderProducts = (productsToRender, append = false) => {
-        if (!productListContainer) {
-            console.error("Contenedor de productos no encontrado (#product-list).");
-            return;
-        }
+        if (!productListContainer) return;
 
         if (!append) {
-            productListContainer.innerHTML = ""; // Limpia la lista antes de volver a cargar
-            currentProductIndex = 0; // Reinicia el índice al filtrar o cargar una nueva lista
+            productListContainer.innerHTML = ""; 
+            currentProductIndex = 0; 
         }
 
         const startIndex = currentProductIndex;
         const endIndex = Math.min(startIndex + PRODUCTS_PER_LOAD, productsToRender.length);
 
-        // Si no hay productos filtrados o ya se cargaron todos
         if (productsToRender.length === 0 && !append) {
-            productListContainer.innerHTML = `<p style="text-align:center; padding: 20px;">No se encontraron productos en esta categoría.</p>`;
-            updateLoadMoreButtonVisibility(0); // Oculta el botón
-            return;
-        } else if (startIndex >= productsToRender.length && append) {
-            // Ya se cargaron todos los productos y se intentó cargar más
-            updateLoadMoreButtonVisibility(productsToRender.length);
+            productListContainer.innerHTML = `
+                <div style="text-align:center; padding: 40px 20px; width:100%; grid-column: 1 / -1;">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 40px; color: #ccc; margin-bottom: 15px;"></i>
+                    <p style="font-size: 14px; color: #666; font-weight: 500;">No encontramos resultados.</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">Intenta con otras palabras o navega por las categorías.</p>
+                    <button class="add-btn" style="width: auto; padding: 8px 20px; margin-top: 15px; background-color: #111;" onclick="window.location.href='Productos.html'">Ver todo el catálogo</button>
+                </div>`;
             return;
         }
 
         for (let i = startIndex; i < endIndex; i++) {
             const product = productsToRender[i];
             const productCard = document.createElement("div");
-            productCard.classList.add("product-card"); // Usando la clase CSS '.product-card'
+            
+            productCard.classList.add("app-product-card"); 
             productCard.setAttribute("data-category", product.category.toLowerCase());
-
             productCard.innerHTML = createProductCardHTML(product);
+            
             productListContainer.appendChild(productCard);
         }
 
-        currentProductIndex = endIndex; // Actualiza el índice para la próxima carga
-        updateLoadMoreButtonVisibility(productsToRender.length);
+        currentProductIndex = endIndex; 
     };
 
-    /**
-     * Actualiza la visibilidad del botón "Cargar más".
-     * @param {number} totalProductsInCurrentFilter - Número total de productos en el filtro actual.
-     */
-    const updateLoadMoreButtonVisibility = (totalProductsInCurrentFilter) => {
-        if (loadMoreBtn) { // Solo si el botón existe en el HTML
-            if (currentProductIndex >= totalProductsInCurrentFilter) {
-                loadMoreBtn.style.display = "none";
-            } else {
-                loadMoreBtn.style.display = "inline-block"; // O "block" o "flex" según tu CSS
-            }
-        }
-    };
-
-    /**
-     * Adjunta el evento de clic a los botones "Ver detalles" utilizando delegación de eventos.
-     * Esto es más eficiente ya que el listener se añade una sola vez al contenedor padre.
-     */
+    // Lógica para botones de las tarjetas
     const attachProductDetailListeners = () => {
         if (!productListContainer) return;
 
         productListContainer.addEventListener("click", (event) => {
             const target = event.target;
-            // Verifica si el clic fue en un botón con la clase 'add-to-cart-btn'
-            // y que esté dentro de una tarjeta de producto.
+            
+            // Clic en "Agregar"
             if (target.classList.contains("add-to-cart-btn")) {
-                event.preventDefault(); // Evita la navegación predeterminada del enlace
-
+                event.preventDefault(); 
                 const productId = parseInt(target.dataset.productId);
                 const selectedProduct = allProducts.find(p => p.id === productId);
 
                 if (selectedProduct) {
-                    // Guardamos los detalles del producto en localStorage
                     localStorage.setItem("selectedProductDetail", JSON.stringify(selectedProduct));
-                    window.location.href = "producto-detalle.html"; // Redirige a la página de detalles
+                    window.location.href = "producto-detalle.html"; 
+                }
+            }
+            
+            // Clic en "Corazón"
+            const favoriteBtn = target.closest('.favorite-btn');
+            if (favoriteBtn) {
+                event.preventDefault();
+                const icon = favoriteBtn.querySelector('i');
+                if (icon.classList.contains('fa-regular')) {
+                    icon.classList.replace('fa-regular', 'fa-solid');
+                    icon.style.color = '#ff2a00';
                 } else {
-                    console.error("Error: Producto no encontrado para el ID:", productId);
-                    alert("Lo sentimos, no se pudo cargar la información de este producto.");
+                    icon.classList.replace('fa-solid', 'fa-regular');
+                    icon.style.color = '';
                 }
             }
         });
     };
 
+    // --- EVENT LISTENERS (Filtros por Chips) ---
+    if (categoryChips.length > 0) {
+        categoryChips.forEach(chip => {
+            chip.addEventListener("click", (e) => {
+                // Al hacer clic en un chip, limpiamos la barra de búsqueda en la URL si existiera
+                if (window.location.search) {
+                    window.history.pushState({}, document.title, window.location.pathname);
+                    const searchInput = document.querySelector(".app-search-bar input");
+                    if(searchInput) searchInput.value = "";
+                }
 
-    // --- Event Listeners ---
+                // Actualiza el aspecto de los chips
+                categoryChips.forEach(c => c.classList.remove("active"));
+                e.target.classList.add("active");
+                
+                // Filtra la lista
+                const selectedCategory = e.target.textContent.toLowerCase();
+                if (selectedCategory === "todas" || selectedCategory === "todos") {
+                    filteredProducts = [...allProducts]; 
+                } else {
+                    filteredProducts = allProducts.filter(product =>
+                        product.category.toLowerCase() === selectedCategory
+                    );
+                }
+                
+                // Vuelve a pintar la cuadrícula desde cero
+                renderProducts(filteredProducts, false); 
+            });
+        });
+    }
 
-    // 🔹 Filtrar productos según la categoría seleccionada
-    if (categorySelect) { // Verifica si el selector existe en esta página
-        categorySelect.addEventListener("change", (e) => {
-            const selectedCategory = e.target.value.toLowerCase(); // Asegura minúsculas para la comparación
-
-            if (selectedCategory === "todos" || selectedCategory === "all") {
-                filteredProducts = [...allProducts]; // Muestra todos los productos
-            } else {
-                // Filtra productos por la categoría seleccionada
-                filteredProducts = allProducts.filter(product =>
-                    product.category.toLowerCase() === selectedCategory
-                );
+    // --- LÓGICA DE SCROLL INFINITO (Intersection Observer) ---
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !isLoading) {
+            if (currentProductIndex < filteredProducts.length) {
+                isLoading = true;
+                if (loadingSpinner) loadingSpinner.style.display = "block";
+                
+                setTimeout(() => {
+                    renderProducts(filteredProducts, true); 
+                    if (loadingSpinner) loadingSpinner.style.display = "none";
+                    isLoading = false;
+                }, 500); 
             }
-            renderProducts(filteredProducts); // Vuelve a renderizar la lista completa
-        });
+        }
+    }, {
+        rootMargin: "0px 0px 200px 0px" 
+    });
+
+    // --- INICIALIZACIÓN ---
+    if (productListContainer) {
+        // Detectar si estamos en el "carrusel horizontal" de index.html
+        if (productListContainer.classList.contains("products-carousel")) {
+            // En el inicio solo mostramos 20 y no activamos scroll infinito
+            renderProducts(filteredProducts.slice(0, 20), false);
+        } else {
+            // En Productos.html (cuadrícula), activamos carga normal y scroll infinito
+            renderProducts(filteredProducts, false);
+            
+            // Le decimos al observador que vigile el final de la página
+            const bottomTrigger = document.querySelector(".app-trust-section") || document.querySelector(".app-footer-lite");
+            if (bottomTrigger) {
+                observer.observe(bottomTrigger);
+            }
+        }
+        
+        attachProductDetailListeners();
     }
-
-    // 🔹 Botón "Cargar Más"
-    if (loadMoreBtn) { // Verifica si el botón existe en esta página
-        loadMoreBtn.addEventListener("click", () => {
-            renderProducts(filteredProducts, true); // Añade más productos a la lista existente
-        });
-    }
-
-    // --- Inicialización ---
-
-    // Cargar productos al cargar la página (todos por defecto)
-    // Se podría detectar si es la página principal (index.html) para cargar solo destacados
-    // o si es productos.html para cargar todo con paginación/filtro.
-    // Aquí asumimos que es una página de productos completa con filtro y carga.
-    renderProducts(filteredProducts);
-
-    // Adjuntar listeners después de que los productos iniciales han sido renderizados
-    attachProductDetailListeners();
-
 });
-
