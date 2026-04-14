@@ -98,7 +98,12 @@ img {
     background-color: transparent;
 }
 .app-search-bar input::placeholder { color: #aaa; }
-.camera-icon { color: #030303 !important; cursor: pointer; }
+.camera-icon { 
+    color: #050505 !important; 
+    cursor: pointer;
+    margin-left: 10px; /* Esto lo separa del input (el texto) */
+    padding-right: 5px; /* Esto evita que toque el borde derecho del contenedor */
+}
 
 
 /* --- 3. FILTRO DE CATEGORÍAS (CHIPS DESLIZABLES) --- */
