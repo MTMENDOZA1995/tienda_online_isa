@@ -478,6 +478,13 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     // =========================================================================
+    // --- NUEVO: EXPORTAR GLOBALMENTE EL CATÁLOGO ---
+    // Con esta única línea, permitimos que FCompra.js lea los productos.
+    // =========================================================================
+    window.allProducts = allProducts;
+
+
+    // =========================================================================
     // INICIO DEL MOTOR DE BÚSQUEDA Y FILTRADO INICIAL
     // =========================================================================
     let filteredProducts = [...allProducts]; 
