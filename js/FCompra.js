@@ -311,23 +311,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     let finalShippingCost = 0;
                     let methodText = "";
 
-                    // NUEVO: Guardamos un código (nacional, cajamarca, almacen) para validar en Paso 3
                     let deliveryCode = method;
 
                     if(method === "almacen") { finalShippingCost = 0; methodText = "Retiro en Almacén (Cajamarca)"; }
                     if(method === "cajamarca") { finalShippingCost = costoCajamarca; methodText = "A Domicilio (Cajamarca)"; }
                     if(method === "nacional") { finalShippingCost = TARIFA_NACIONAL; methodText = "Olva Express (Nacional)"; }
 
+                    // ATENDIDO: Capturamos el DNI del campo con id "email"
                     const checkoutData = {
                         name: document.getElementById('full-name').value.trim(),
                         phone: document.getElementById('phone').value.trim(),
-                        email: document.getElementById('email')?.value.trim() || "",
+                        dni: document.getElementById('email')?.value.trim() || "No especificado",
                         address: addressInput?.value.trim() || "",
                         city: cityInput?.value.trim() || "",
                         notes: document.getElementById('comments')?.value.trim() || "",
                         deliveryType: methodText,
                         shippingCost: finalShippingCost,
-                        deliveryCode: deliveryCode // <--- Lo pasamos por memoria
+                        deliveryCode: deliveryCode
                     };
 
                     localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
@@ -375,15 +375,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const yapeRadio = document.querySelector('input[value="Yape / Plin"]');
 
         if (contraEntregaRadio && checkoutData.deliveryCode === "nacional") {
-            // Deshabilitar opción y volverla gris
-            contraEntregaRadio.disabled = true;
             const optionContainer = contraEntregaRadio.closest('.payment-option');
             if (optionContainer) {
+                // Deshabilitamos haciendo clic no válido y opaco
+                contraEntregaRadio.disabled = true;
                 optionContainer.style.opacity = "0.5";
                 optionContainer.style.cursor = "not-allowed";
                 optionContainer.title = "No disponible para envíos nacionales";
             }
-            // Si por alguna razón estaba pre-seleccionada, forzar cambio a Yape
             if (contraEntregaRadio.checked && yapeRadio) {
                 yapeRadio.checked = true;
             }
@@ -399,6 +398,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 text += `👤 *DATOS DEL CLIENTE*\n`;
                 text += `Nombre: ${checkoutData.name}\n`;
+                // ATENDIDO: Se incluye DNI / CE en el mensaje final de WhatsApp
+                text += `DNI / CE: ${checkoutData.dni}\n`; 
                 text += `Teléfono: ${checkoutData.phone}\n`;
                 if (checkoutData.address) text += `Dirección: ${checkoutData.address}, ${checkoutData.city}\n`;
                 
