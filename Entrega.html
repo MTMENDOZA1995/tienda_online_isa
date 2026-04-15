@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tipo de Entrega | Importaciones Sostenibles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="FCompra.css"> 
+</head>
+<body class="app-body">
+
+    <header class="app-top-header checkout-header">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            <div style="color: white; font-weight: 600; font-size: 15px;">
+                Entrega (2/3)
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main-content checkout-main" style="padding-bottom: 80px;">
+        
+        <form id="delivery-form">
+            <section class="checkout-section">
+                <div class="checkout-section-header">
+                    <h3><i class="fa-solid fa-truck-fast" style="color: #6cc82a; margin-right: 8px;"></i> Elige el tipo de entrega</h3>
+                </div>
+
+                <div class="payment-methods-container" id="delivery-options">
+                    
+                    <label class="payment-option">
+                        <div class="payment-radio">
+                            <input type="radio" name="deliveryMethod" value="almacen" checked>
+                            <div class="radio-custom"></div>
+                        </div>
+                        <div class="payment-details">
+                            <span class="payment-name">Retirar en Almacén</span>
+                            <span class="payment-desc">Jr. Belaunde Terry C-10 Mollepampa Alta, Cajamarca.</span>
+                        </div>
+                        <span style="font-weight: 700; color: #6cc82a; font-size: 13px;">GRATIS</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <div class="payment-radio">
+                            <input type="radio" name="deliveryMethod" value="cajamarca">
+                            <div class="radio-custom"></div>
+                        </div>
+                        <div class="payment-details">
+                            <span class="payment-name">A domicilio (Cajamarca)</span>
+                            <span class="payment-desc">Envío en la ciudad.</span>
+                        </div>
+                        <span id="price-cajamarca" style="font-weight: 700; color: #333; font-size: 13px;">S/ 5.00</span>
+                    </label>
+
+                    <label class="payment-option">
+                        <div class="payment-radio">
+                            <input type="radio" name="deliveryMethod" value="nacional">
+                            <div class="radio-custom"></div>
+                        </div>
+                        <div class="payment-details">
+                            <span class="payment-name">A domicilio (Nacional)</span>
+                            <span class="payment-desc">Olva Express.</span>
+                        </div>
+                        <span style="font-weight: 700; color: #333; font-size: 13px;">S/ 25.00</span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="checkout-section app-form">
+                <div class="checkout-section-header">
+                    <h3><i class="fa-regular fa-address-card" style="color: #6cc82a; margin-right: 8px;"></i> Datos de Contacto</h3>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="full-name" required placeholder="Ej. Juan Pérez">
+                </div>
+                
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="phone" required placeholder="Ej. 987 654 321">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo (Opcional)</label>
+                        <input type="email" id="email" placeholder="tu@gmail.com">
+                    </div>
+                </div>
+
+                <div id="address-container" style="display: none;">
+                    <div class="form-group">
+                        <label>Dirección Exacta</label>
+                        <input type="text" id="address" placeholder="Av. Principal 123, Ref...">
+                    </div>
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Ciudad / Distrito</label>
+                            <input type="text" id="city" placeholder="Ciudad">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notas adicionales</label>
+                    <textarea id="comments" rows="2" placeholder="Ej. Dejar en recepción..."></textarea>
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <div class="sticky-buy-bar">
+        <div style="display: flex; flex-direction: column; justify-content: center; flex: 0.6;">
+            <span style="font-size: 10px; color: #888;">Total (Incluye envío)</span>
+            <span id="sticky-step2-total" style="font-size: 16px; font-weight: 700; color: #222;">S/ 0.00</span>
+        </div>
+        <button class="buy-btn btn-primary" id="btn-ir-a-pagar" style="flex: 1; border: none;">Ir a Pagar</button>
+    </div>
+
+    <script src="js/cart.js" defer></script>
+    <script src="js/FCompra.js" defer></script> 
+</body>
+</html>
