@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pago Seguros | Importaciones Sostenibles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="FCompra.css"> 
+</head>
+<body class="app-body">
+
+    <header class="app-top-header checkout-header">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            <div style="color: white; font-weight: 600; font-size: 15px;">
+                <i class="fa-solid fa-lock"></i> Pago Seguro (3/3)
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main-content checkout-main" style="padding-bottom: 80px;">
+        
+        <section class="checkout-section">
+            <div class="checkout-totals">
+                <div class="total-row">
+                    <span>Subtotal Productos</span>
+                    <span id="final-subtotal">S/ 0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Envío (<span id="final-delivery-type" style="color:#888;">-</span>)</span>
+                    <span id="final-shipping">S/ 0.00</span>
+                </div>
+                <div class="total-row final">
+                    <span>Total a Pagar</span>
+                    <span id="final-total" style="color: #6cc82a; font-size: 18px;">S/ 0.00</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="checkout-section">
+            <div class="checkout-section-header">
+                <h3><i class="fa-regular fa-credit-card" style="color: #6cc82a; margin-right: 8px;"></i> Método de Pago</h3>
+            </div>
+
+            <form id="payment-form" class="payment-methods-container">
+                <label class="payment-option">
+                    <div class="payment-radio">
+                        <input type="radio" name="paymentMethod" value="Yape / Plin" checked>
+                        <div class="radio-custom"></div>
+                    </div>
+                    <div class="payment-details">
+                        <span class="payment-name">Yape / Plin</span>
+                        <span class="payment-desc">Transferencia rápida y sin comisiones.</span>
+                    </div>
+                    <i class="fa-solid fa-mobile-screen payment-icon"></i>
+                </label>
+
+                <label class="payment-option">
+                    <div class="payment-radio">
+                        <input type="radio" name="paymentMethod" value="Contra Entrega">
+                        <div class="radio-custom"></div>
+                    </div>
+                    <div class="payment-details">
+                        <span class="payment-name">Contra Entrega</span>
+                        <span class="payment-desc">Paga en efectivo al recibir (Solo Cajamarca).</span>
+                    </div>
+                    <i class="fa-solid fa-hand-holding-dollar payment-icon"></i>
+                </label>
+
+                <label class="payment-option">
+                    <div class="payment-radio">
+                        <input type="radio" name="paymentMethod" value="Tarjeta (Izipay)">
+                        <div class="radio-custom"></div>
+                    </div>
+                    <div class="payment-details">
+                        <span class="payment-name">Tarjeta Débito/Crédito</span>
+                        <span class="payment-desc">Enlace seguro vía Izipay.</span>
+                    </div>
+                    <div class="card-icons">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                    </div>
+                </label>
+            </form>
+        </section>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 11px; color: #888;">
+            <i class="fa-solid fa-lock" style="color:#6cc82a;"></i> Transacción 100% encriptada.
+        </div>
+
+    </main>
+
+    <div class="sticky-buy-bar">
+        <button class="buy-btn btn-primary" id="btn-procesar-pago" style="width: 100%; border: none;">Pagar S/ 0.00</button>
+    </div>
+
+    <script src="js/cart.js" defer></script>
+    <script src="js/FCompra.js" defer></script> 
+</body>
+</html>
