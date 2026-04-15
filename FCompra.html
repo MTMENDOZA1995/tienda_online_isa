@@ -3,168 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Finalizar Compra | Importaciones Sostenibles</title>
-    
-    <link rel="icon" href="imagenes/logo.png" type="image/x-icon"> 
+    <title>Bolsa de Compras | Importaciones Sostenibles</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
     <link rel="stylesheet" href="FCompra.css"> 
 </head>
 <body class="app-body">
 
-    <header class="app-top-header checkout-header" style="padding-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+    <header class="app-top-header checkout-header">
         <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
-            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;" aria-label="Volver atrás">
+            <button class="menu-icon back-btn" onclick="window.location.href='Productos.html';" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;">
                 <i class="fa-solid fa-arrow-left fa-lg"></i>
             </button>
-            <div style="color: white; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-lock"></i>
-                Pago Seguro
+            <div style="color: white; font-weight: 600; font-size: 15px;">
+                Bolsa de Compras (1/3)
             </div>
         </div>
     </header>
 
     <main class="app-main-content checkout-main" style="padding-bottom: 80px;">
-        
         <section class="checkout-section">
-            <div class="checkout-section-header">
-                <h3><i class="fa-solid fa-bag-shopping" style="color: #6cc82a; margin-right: 8px;"></i> Resumen de tu Pedido</h3>
+            <div class="checkout-order-items" id="step1-item-list">
+                <div style="text-align: center; padding: 20px; color: #888; font-size: 12px;">Cargando...</div>
             </div>
-            
-            <div class="checkout-order-items" id="checkout-item-list">
-                <div style="text-align: center; padding: 20px; color: #888; font-size: 12px;">Cargando productos...</div>
-            </div>
-
             <div class="checkout-totals">
-                <div class="total-row">
-                    <span>Subtotal</span>
-                    <span id="checkout-subtotal">S/ 0.00</span>
-                </div>
-                <div class="total-row">
-                    <span>Envío</span>
-                    <span id="checkout-shipping">S/ 5.00</span>
-                </div>
                 <div class="total-row final">
-                    <span>Total a Pagar</span>
-                    <span id="checkout-final-total" style="color: #6cc82a;">S/ 0.00</span>
+                    <span>Subtotal (Sin envío)</span>
+                    <span id="step1-subtotal" style="color: #6cc82a;">S/ 0.00</span>
                 </div>
-            </div>
-        </section>
-
-        <section class="checkout-section">
-            <div class="checkout-section-header">
-                <h3><i class="fa-solid fa-location-dot" style="color: #6cc82a; margin-right: 8px;"></i> Entrega y Contacto</h3>
-            </div>
-            
-            <form id="checkout-form" class="app-form">
-                <div class="form-group">
-                    <label>Nombre Completo</label>
-                    <input type="text" id="full-name" name="fullName" required placeholder="Ej. Juan Pérez">
-                </div>
-                
-                <div class="form-row-2">
-                    <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="Ej. 987654321">
-                    </div>
-                    <div class="form-group">
-                        <label>Correo Electrónico</label>
-                        <input type="email" id="email" name="email" required placeholder="tu@correo.com">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Dirección de Entrega</label>
-                    <input type="text" id="address" name="address" required placeholder="Ej. Av. Principal 123, Dpto 4">
-                </div>
-
-                <div class="form-row-2">
-                    <div class="form-group">
-                        <label>Departamento</label>
-                        <select id="region" name="region" required class="app-select-input">
-                            <option value="">Selecciona...</option>
-                            <option value="cajamarca">Cajamarca</option>
-                            <option value="lima">Lima</option>
-                            <option value="otros">Otras regiones</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Ciudad / Distrito</label>
-                        <input type="text" id="city" name="city" required placeholder="Ciudad">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Comentarios adicionales (Opcional)</label>
-                    <textarea id="comments" name="comments" rows="2" placeholder="Ej. Dejar en recepción..."></textarea>
-                </div>
-            </form>
-        </section>
-
-        <section class="checkout-section">
-            <div class="checkout-section-header">
-                <h3><i class="fa-regular fa-credit-card" style="color: #6cc82a; margin-right: 8px;"></i> Método de Pago</h3>
-            </div>
-
-            <div class="payment-methods-container">
-                <label class="payment-option">
-                    <div class="payment-radio">
-                        <input type="radio" name="paymentMethod" value="contra-entrega" checked>
-                        <div class="radio-custom"></div>
-                    </div>
-                    <div class="payment-details">
-                        <span class="payment-name">Pago Contra Entrega</span>
-                        <span class="payment-desc">Paga en efectivo al recibir tu pedido.</span>
-                    </div>
-                    <i class="fa-solid fa-hand-holding-dollar payment-icon"></i>
-                </label>
-
-                <label class="payment-option">
-                    <div class="payment-radio">
-                        <input type="radio" name="paymentMethod" value="yape">
-                        <div class="radio-custom"></div>
-                    </div>
-                    <div class="payment-details">
-                        <span class="payment-name">Yape / Plin</span>
-                        <span class="payment-desc">Transferencia rápida y segura.</span>
-                    </div>
-                    <i class="fa-solid fa-mobile-screen payment-icon"></i>
-                </label>
-
-                <label class="payment-option">
-                    <div class="payment-radio">
-                        <input type="radio" name="paymentMethod" value="tarjeta">
-                        <div class="radio-custom"></div>
-                    </div>
-                    <div class="payment-details">
-                        <span class="payment-name">Tarjeta Débito / Crédito</span>
-                        <span class="payment-desc">Vía pasarela segura Izipay.</span>
-                    </div>
-                    <div class="card-icons">
-                        <i class="fa-brands fa-cc-visa"></i>
-                        <i class="fa-brands fa-cc-mastercard"></i>
-                    </div>
-                </label>
             </div>
         </section>
         
-        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 11px; color: #888;">
-            <i class="fa-solid fa-lock" style="color:#6cc82a;"></i> Tus datos están protegidos y encriptados.
+        <div class="section-header" style="margin: 20px 15px 10px 15px;">
+            <h2 style="font-size: 14px; color: #555;">Completa tu pedido con:</h2>
         </div>
-
+        <div class="horizontal-scroll-container" id="recommended-list">
+            <div style="font-size: 11px; color:#888; padding-left: 15px;">Agrega más productos desde el catálogo para obtener envío gratis.</div>
+        </div>
     </main>
 
     <div class="sticky-buy-bar">
         <div style="display: flex; flex-direction: column; justify-content: center; flex: 0.5;">
-            <span style="font-size: 10px; color: #888;">Total a Pagar</span>
-            <span id="sticky-final-total" style="font-size: 16px; font-weight: 700; color: #333;">S/ 0.00</span>
+            <span style="font-size: 10px; color: #888;">Subtotal</span>
+            <span id="sticky-step1-total" style="font-size: 16px; font-weight: 700; color: #333;">S/ 0.00</span>
         </div>
-        <button class="buy-btn btn-primary" id="place-order-btn" style="flex: 1; border: none;">Confirmar Compra</button>
+        <button class="buy-btn btn-primary" id="btn-continuar-compra" style="flex: 1; border: none;">Continuar Compra</button>
     </div>
 
     <script src="js/cart.js" defer></script>
+    <script src="js/Products.js" defer></script>
     <script src="js/FCompra.js" defer></script> 
 </body>
 </html>
