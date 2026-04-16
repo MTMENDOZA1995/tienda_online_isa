@@ -8,27 +8,101 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Ajustes para alinear Logo y Buscador en la misma fila */
+        .app-top-header {
+            padding: 10px 15px;
+        }
+        .header-top-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+        /* El logo a la izquierda */
+        .header-logo-compact {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .header-logo-compact img {
+            height: 35px; /* Ajusta el tamaño según tu logo */
+            width: auto;
+        }
+        /* El buscador toma el resto del espacio */
+        .header-search-form {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .header-search-form i.fa-magnifying-glass {
+            position: absolute;
+            left: 15px;
+            color: #888;
+            font-size: 14px;
+        }
+        .header-search-form input {
+            width: 100%;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 15px 10px 40px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            outline: none;
+        }
+        .header-search-form i.camera-icon {
+            position: absolute;
+            right: 15px;
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Estilos específicos para el badge en la barra inferior */
+        .bottom-cart-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-cart-icon .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: 5px; 
+            background-color: #ff3b30;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 2px solid white; 
+            z-index: 10;
+        }
+    </style>
 </head>
 <body class="app-body">
 
     <header class="app-top-header">
-        <div class="header-main-row">
-            <div class="menu-icon"><i class="fa-solid fa-bars fa-lg"></i></div>
-            <a href="index.html" class="app-logo-center">
-                <img src="imagenes/logo.png" alt="Logo" class="logo-img">
-                <span class="logo-text"></span>
+        <div class="header-top-bar">
+            <a href="index.html" class="header-logo-compact">
+                <img src="imagenes/logo.png" alt="Logo">
             </a>
-            <div class="cart-icon-top">
-                <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                <span class="cart-badge">0</span>
-            </div>
-        </div>
-        <div class="header-search-row">
-            <div class="app-search-bar">
+            
+            <form class="header-search-form" onsubmit="event.preventDefault(); executeMainSearch();">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Buscar Productos...">
+                <input type="text" id="main-search-input" placeholder="Buscar Productos...">
                 <i class="fa-solid fa-camera camera-icon"></i>
-            </div>
+            </form>
         </div>
     </header>
 
@@ -38,7 +112,7 @@
                 <div class="circle-icon"><i class="fa-solid fa-fire"></i></div>
                 <span>Ofertas</span>
             </div>
-            <div class="quick-item">
+            <div class="quick-item" onclick="window.location.href='Ecopoints.html'" style="cursor: pointer;">
                 <div class="circle-icon"><i class="fa-solid fa-leaf"></i></div>
                 <span>EcoPoints</span>
             </div>
@@ -68,7 +142,7 @@
                 <a href="#" class="view-all">Ver todo</a>
             </div>
             <div class="horizontal-scroll-container cards-large">
-                <a href="index.html" class="promo-card">
+                <a href="Ecopoints.html" class="promo-card">
                     <img src="imagenes/ecopoint.png" alt="EcoPoints" loading="lazy">
                 </a>
                 <a href="index.html" class="promo-card">
@@ -80,21 +154,20 @@
             </div>
         </section>
 
-            <section class="app-section">
-                <div class="section-header">
-                    <h2>Recomendados para ti</h2>
+        <section class="app-section">
+            <div class="section-header">
+                <h2>Recomendados para ti</h2>
+            </div>
+            
+            <div class="horizontal-scroll-container products-carousel" id="product-list">
                 </div>
-                
-                <div class="horizontal-scroll-container products-carousel" id="product-list">
-                    </div>
-                
-                <div class="btn-container">
-                    <a href="Productos.html">
-                        <button class="add-btn" id="view-more-catalog-btn">Ver más recomendados</button>
-                    </a>
-                </div>
-            </section>
-
+            
+            <div class="btn-container" style="display: flex; justify-content: center; margin-top: 15px; margin-bottom: 10px;">
+                <a href="Productos.html" style="text-decoration: none;">
+                    <button class="add-btn" id="view-more-catalog-btn" style="width: auto; padding: 10px 25px; font-weight: 600; border-radius: 20px;">Ver más recomendados</button>
+                </a>
+            </div>
+        </section>
 
         <section class="app-trust-section">
             <div class="trust-item">
@@ -130,18 +203,58 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Buscar</span>
         </a>
+        
+        <a href="FCompra.html" class="nav-item bottom-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge" id="bottom-cart-badge">0</span>
+            <span>Bolsa</span>
+        </a>
+
         <a href="index.html" class="nav-item">
             <i class="fa-solid fa-box-archive"></i>
-            <span>Mis Pedidos</span>
+            <span>Pedidos</span>
         </a>
         <a href="index.html" class="nav-item">
             <i class="fa-regular fa-user"></i>
-            <span>Mi Cuenta</span>
+            <span>Cuenta</span>
         </a>
     </nav>
 
     <script src="js/Products.js" defer></script>
     <script src="js/cart.js" defer></script>
     <script src="js/search.js" defer></script>
+    
+    <script>
+        // Función para ejecutar la búsqueda desde el input principal
+        function executeMainSearch() {
+            const query = document.getElementById('main-search-input').value.trim();
+            if (query) {
+                // Guarda la búsqueda en memoria para que Productos.html la atrape
+                localStorage.setItem('globalSearchQuery', query);
+                window.location.href = 'Productos.html?q=' + encodeURIComponent(query);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Reemplazamos la función original de cart.js para actualizar la barra inferior
+            if(typeof window.updateCartBadge === 'function') {
+                const originalUpdate = window.updateCartBadge;
+                window.updateCartBadge = () => {
+                    originalUpdate(); 
+                    const cart = window.appCart || [];
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    const bottomBadge = document.getElementById('bottom-cart-badge');
+                    if (bottomBadge) {
+                        bottomBadge.textContent = totalItems;
+                        if(totalItems > 0) {
+                            bottomBadge.style.transform = 'scale(1.2)';
+                            setTimeout(() => bottomBadge.style.transform = 'scale(1)', 200);
+                        }
+                    }
+                };
+                setTimeout(window.updateCartBadge, 500);
+            }
+        });
+    </script>
 </body>
 </html>
