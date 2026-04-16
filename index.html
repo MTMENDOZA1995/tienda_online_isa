@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    
     <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     
     <style>
-        /* Ajustes para alinear Logo y Buscador en la misma fila */
-        .app-top-header {
-            padding: 10px 15px;
-        }
+        /* CABECERA (HEADER) ALINEADA */
+
         .header-top-bar {
             display: flex;
             align-items: center;
             gap: 15px;
             width: 100%;
         }
-        /* El logo a la izquierda */
         .header-logo-compact {
             display: flex;
             align-items: center;
@@ -28,10 +26,12 @@
             flex-shrink: 0;
         }
         .header-logo-compact img {
-            height: 35px; /* Ajusta el tamaño según tu logo */
+            height: 35px; 
             width: auto;
+            object-fit: contain;
         }
-        /* El buscador toma el resto del espacio */
+        
+        /* BUSCADOR PROFESIONAL TIPO APP */
         .header-search-form {
             flex-grow: 1;
             position: relative;
@@ -43,17 +43,22 @@
             left: 15px;
             color: #888;
             font-size: 14px;
+            pointer-events: none;
         }
         .header-search-form input {
             width: 100%;
             border: none;
             border-radius: 25px;
-            padding: 10px 15px 10px 40px;
+            padding: 10px 40px 10px 38px;
             font-family: 'Poppins', sans-serif;
             font-size: 13px;
             background-color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             outline: none;
+            -webkit-appearance: none;
+        }
+        .header-search-form input[type="search"]::-webkit-search-cancel-button {
+            display: none;
         }
         .header-search-form i.camera-icon {
             position: absolute;
@@ -61,9 +66,10 @@
             color: #888;
             font-size: 14px;
             cursor: pointer;
+            padding: 5px;
         }
 
-        /* Estilos específicos para el badge en la barra inferior */
+        /* BARRA INFERIOR (BOTTOM NAV) & BADGE */
         .bottom-cart-icon {
             position: relative;
             display: flex;
@@ -87,6 +93,12 @@
             padding: 0 4px;
             border: 2px solid white; 
             z-index: 10;
+            transition: transform 0.2s ease;
+        }
+        
+        /* Ocultar elementos dinámicamente durante la búsqueda */
+        .search-active-hide {
+            display: none !important;
         }
     </style>
 </head>
@@ -94,20 +106,27 @@
 
     <header class="app-top-header">
         <div class="header-top-bar">
-            <a href="index.html" class="header-logo-compact">
+            <a href="index.html" class="header-logo-compact" aria-label="Ir al inicio">
                 <img src="imagenes/logo.png" alt="Logo">
             </a>
             
-            <form class="header-search-form" onsubmit="event.preventDefault(); executeMainSearch();">
+            <form class="header-search-form" action="javascript:void(0);" onsubmit="executeMainSearch();">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="main-search-input" placeholder="Buscar Productos...">
+                <input 
+                    type="search" 
+                    id="main-search-input" 
+                    placeholder="Buscar Productos..." 
+                    enterkeyhint="search"
+                    autocomplete="off"
+                >
                 <i class="fa-solid fa-camera camera-icon"></i>
             </form>
         </div>
     </header>
 
-    <main class="app-main-content">
-        <section class="quick-access-scroll">
+    <main class="app-main-content" id="main-content-area">
+        
+        <section class="quick-access-scroll toggleable-section">
             <div class="quick-item">
                 <div class="circle-icon"><i class="fa-solid fa-fire"></i></div>
                 <span>Ofertas</span>
@@ -130,13 +149,13 @@
             </div>
         </section>
 
-        <section class="app-hero-banner">
+        <section class="app-hero-banner toggleable-section">
             <a href="index.html"> 
                 <img src="imagenes/PORTADA1.png" alt="Grandes Ofertas" loading="lazy">
             </a>
         </section>
 
-        <section class="app-section">
+        <section class="app-section toggleable-section">
             <div class="section-header">
                 <h2>Zonas Especiales</h2>
                 <a href="#" class="view-all">Ver todo</a>
@@ -154,22 +173,24 @@
             </div>
         </section>
 
-        <section class="app-section">
+        <section class="app-section" id="results-section">
             <div class="section-header">
-                <h2>Recomendados para ti</h2>
+                <h2 id="dynamic-section-title">Recomendados para ti</h2>
             </div>
             
             <div class="horizontal-scroll-container products-carousel" id="product-list">
                 </div>
             
-            <div class="btn-container" style="display: flex; justify-content: center; margin-top: 15px; margin-bottom: 10px;">
+            <div class="btn-container toggleable-section" style="display: flex; justify-content: center; margin-top: 15px; margin-bottom: 10px;">
                 <a href="Productos.html" style="text-decoration: none;">
-                    <button class="add-btn" id="view-more-catalog-btn" style="width: auto; padding: 10px 25px; font-weight: 600; border-radius: 20px;">Ver más recomendados</button>
+                    <button class="add-btn" style="width: auto; padding: 10px 25px; font-weight: 600; border-radius: 20px;">
+                        Ver más recomendados
+                    </button>
                 </a>
             </div>
         </section>
 
-        <section class="app-trust-section">
+        <section class="app-trust-section toggleable-section">
             <div class="trust-item">
                 <i class="fa-solid fa-shield-halved"></i>
                 <p>Compra Segura</p>
@@ -184,7 +205,7 @@
             </div>
         </section>
 
-        <footer class="app-footer-lite">
+        <footer class="app-footer-lite toggleable-section">
             <p>INNOVACIÓN SOSTENIBLE & ARTÍCULOS</p>
             <div class="footer-links-lite">
                 <a href="#">Términos</a>
@@ -225,18 +246,100 @@
     <script src="js/search.js" defer></script>
     
     <script>
-        // Función para ejecutar la búsqueda desde el input principal
-        function executeMainSearch() {
-            const query = document.getElementById('main-search-input').value.trim();
-            if (query) {
-                // Guarda la búsqueda en memoria para que Productos.html la atrape
-                localStorage.setItem('globalSearchQuery', query);
-                window.location.href = 'Productos.html?q=' + encodeURIComponent(query);
-            }
-        }
-
         document.addEventListener("DOMContentLoaded", () => {
-            // Reemplazamos la función original de cart.js para actualizar la barra inferior
+            const searchInput = document.getElementById('main-search-input');
+            const productList = document.getElementById('product-list');
+            const sectionsToHide = document.querySelectorAll('.toggleable-section');
+            const sectionTitle = document.getElementById('dynamic-section-title');
+
+            // EVENTO 1: Búsqueda en tiempo real mientras el usuario escribe
+            searchInput.addEventListener('input', function(e) {
+                const term = e.target.value.trim().toLowerCase();
+                
+                // Si el buscador está vacío, restauramos el inicio tal como estaba
+                if (term === '') {
+                    window.location.reload(); 
+                    return;
+                }
+
+                // Aseguramos que la BD esté cargada
+                if (window.allProducts && window.allProducts.length > 0) {
+                    
+                    // Ocultamos los banners y botones para que la pantalla parezca un catálogo
+                    sectionsToHide.forEach(el => el.classList.add('search-active-hide'));
+                    sectionTitle.textContent = 'Resultados de búsqueda';
+                    
+                    // Transformamos el carrusel horizontal en una cuadrícula (grid) para ver todo mejor
+                    productList.classList.remove('horizontal-scroll-container', 'products-carousel');
+                    productList.style.display = 'grid';
+                    productList.style.gridTemplateColumns = 'repeat(auto-fill, minmax(130px, 1fr))';
+                    productList.style.gap = '15px';
+                    productList.style.padding = '0 15px';
+
+                    // Buscamos directamente en TODA la base de datos (nunca fallará aunque borres texto)
+                    const results = window.allProducts.filter(p => 
+                        p.name.toLowerCase().includes(term) || 
+                        (p.category && p.category.toLowerCase().includes(term))
+                    );
+
+                    if (results.length === 0) {
+                        // Mensaje si no existe el producto
+                        productList.style.display = 'block';
+                        productList.innerHTML = `
+                            <div style="width: 100%; text-align: center; padding: 40px 20px; color: #888;">
+                                <i class="fa-solid fa-box-open fa-2xl" style="margin-bottom: 15px; color: #ddd;"></i><br>
+                                No encontramos "${term}"
+                            </div>`;
+                    } else {
+                        // Limpiamos y dibujamos las tarjetas de los resultados
+                        productList.innerHTML = '';
+                        results.forEach(rec => {
+                            const originalPrice = rec.originalPrice || 0;
+                            let finalPrice = originalPrice;
+                            let priceHTML = "";
+
+                            if (rec.discountPercent > 0) {
+                                finalPrice = originalPrice * (1 - rec.discountPercent / 100);
+                                priceHTML = `
+                                    <span style="font-size: 10px; color: #999; text-decoration: line-through; display:block;">S/ ${originalPrice.toFixed(2)}</span>
+                                    <span class="price-offer" style="font-size: 13px; color: #d0021b; font-weight: 700;">S/ ${finalPrice.toFixed(2)}</span>
+                                `;
+                            } else {
+                                priceHTML = `
+                                    <span class="price-offer" style="font-size: 13px; color: #6cc82a; font-weight: 700; display:block; margin-top:14px;">S/ ${finalPrice.toFixed(2)}</span>
+                                `;
+                            }
+
+                            const imgSrc = rec.images?.main || "imagenes/default.jpg";
+                            const badgeHTML = rec.discountPercent > 0 ? `<div class="discount-badge" style="font-size: 9px; padding: 2px 4px;">-${rec.discountPercent}%</div>` : '';
+
+                            const card = document.createElement("div");
+                            card.className = "app-product-card";
+                            card.style.cssText = "width: 100%; flex: auto; margin-bottom: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: relative; cursor:pointer;";
+                            
+                            // Clic en el resultado manda al detalle
+                            card.addEventListener("click", () => {
+                                localStorage.setItem("selectedProductDetail", JSON.stringify(rec));
+                                window.location.href = "producto-detalle.html";
+                            });
+
+                            card.innerHTML = `
+                                <div class="product-image-container" style="height: 100px; padding: 5px;">
+                                    ${badgeHTML}
+                                    <img src="${imgSrc}" alt="${rec.name}" style="width:100%; height:100%; object-fit:contain;">
+                                </div>
+                                <div class="product-info" style="padding: 8px;">
+                                    <p class="product-name" style="font-size: 11px; min-height: 28px; line-height: 1.2; margin-bottom: 4px; color:#333;">${rec.name}</p>
+                                    ${priceHTML}
+                                </div>
+                            `;
+                            productList.appendChild(card);
+                        });
+                    }
+                }
+            });
+
+            // Lógica de la burbuja roja del carrito
             if(typeof window.updateCartBadge === 'function') {
                 const originalUpdate = window.updateCartBadge;
                 window.updateCartBadge = () => {
@@ -244,6 +347,7 @@
                     const cart = window.appCart || [];
                     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
                     const bottomBadge = document.getElementById('bottom-cart-badge');
+                    
                     if (bottomBadge) {
                         bottomBadge.textContent = totalItems;
                         if(totalItems > 0) {
@@ -252,9 +356,25 @@
                         }
                     }
                 };
-                setTimeout(window.updateCartBadge, 500);
+                setTimeout(window.updateCartBadge, 300);
             }
         });
+
+        // EVENTO 2: Si el usuario presiona "ENTER" o el botón buscar del teclado
+        function executeMainSearch() {
+            const searchInput = document.getElementById('main-search-input');
+            const query = searchInput.value.trim();
+            
+            searchInput.blur(); // Cierra el teclado del celular
+            
+            if (query) {
+                // Guarda la búsqueda para que Productos.html la procese (opcional si quieren ver el catálogo completo)
+                localStorage.setItem('globalSearchQuery', query);
+                window.location.href = 'Productos.html?q=' + encodeURIComponent(query);
+            } else {
+                window.location.href = 'Productos.html';
+            }
+        }
     </script>
 </body>
 </html>
