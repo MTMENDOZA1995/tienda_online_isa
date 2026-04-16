@@ -9,44 +9,141 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
+    <link rel="stylesheet" href="styles.css"> 
     <link rel="stylesheet" href="Produc-Detalle.css"> 
+    
+    <style>
+        /* ESTILOS DE CABECERA TIPO APP */
+        .header-actions-modern {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        /* Buscador Píldora Funcional y Profesional */
+        .search-pill-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-pill-container i {
+            position: absolute;
+            left: 10px;
+            color: white;
+            font-size: 12px;
+            pointer-events: none;
+        }
+        .search-pill-container input {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px 6px 28px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            outline: none;
+            width: 300px; 
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, width 0.3s;
+            -webkit-appearance: none; /* Elimina estilos base de iOS */
+        }
+        .search-pill-container input[type="search"]::-webkit-search-cancel-button {
+            display: none; /* Oculta la "X" por defecto */
+        }
+        .search-pill-container input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .search-pill-container input:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 190px; /* Se expande suavemente */
+        }
+
+        /* Estilo para el badge en la barra inferior */
+        .bottom-cart-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-cart-icon .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: 5px; 
+            background-color: #ff3b30;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 2px solid white; 
+            z-index: 10;
+        }
+
+        .sticky-buy-bar {
+            bottom: 60px; 
+            border-radius: 15px 15px 0 0; 
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+        }
+        .product-detail-main {
+            padding-bottom: 140px !important; 
+        }
+
+        /* Ocultar elementos dinámicamente durante la búsqueda */
+        .search-active-hide {
+            display: none !important;
+        }
+    </style>
 </head>
 <body class="app-body">
 
     <header class="app-top-header detail-header">
-        <div class="header-main-row" style="margin-bottom: 0;">
-            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer;">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: space-between;">
+            
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; padding: 0;">
                 <i class="fa-solid fa-arrow-left fa-lg"></i>
             </button>
             
-            <div class="header-actions" style="display:flex; gap:15px; align-items:center;">
-                <a href="Productos.html" style="color: white;"><i class="fa-solid fa-magnifying-glass fa-lg"></i></a>
-                <a href="index.html" style="color: white;"><i class="fa-solid fa-house fa-lg"></i></a>
-                
-                <div class="cart-icon-top">
-                    <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                    <span class="cart-badge">0</span>
-                </div>
+            <div class="header-actions-modern">
+                <form class="search-pill-container" action="javascript:void(0);" onsubmit="executeDetailSearch();">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input 
+                        type="search" 
+                        id="detail-search-input" 
+                        placeholder="Buscar Producto..."
+                        enterkeyhint="search"
+                        autocomplete="off"
+                    >
+                </form>
             </div>
+
         </div>
     </header>
 
-    <main class="app-main-content product-detail-main" style="padding-bottom: 80px;">
+    <main class="app-main-content product-detail-main">
         
-        <section class="detail-image-section">
-            <div class="main-image-wrapper">
-                <span class="discount-badge detail-badge" id="detail-discount-badge" style="display: none;"></span>
-                
-                <img id="main-product-image" src="imagenes/default.jpg" alt="Producto">
-                
-                <button class="favorite-btn detail-fav-btn" aria-label="Agregar a favoritos"><i class="fa-regular fa-heart"></i></button>
+        <section class="app-section" id="search-results-section" style="display: none; padding-top: 15px;">
+            <div class="section-header" style="margin-bottom: 15px; padding: 0 15px;">
+                <h2 style="font-size: 15px; color: #333;">Resultados de búsqueda</h2>
             </div>
-            
-            <div class="thumbnail-images" id="thumbnail-container">
+            <div class="products-grid-vertical" id="search-product-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding: 0 15px;">
                 </div>
         </section>
 
-        <section class="detail-info-section">
+        <section class="detail-image-section toggleable-section">
+            <div class="main-image-wrapper">
+                <span class="discount-badge detail-badge" id="detail-discount-badge" style="display: none;"></span>
+                <img id="main-product-image" src="imagenes/default.jpg" alt="Producto">
+                <button class="favorite-btn detail-fav-btn" aria-label="Agregar a favoritos"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="thumbnail-images" id="thumbnail-container"></div>
+        </section>
+
+        <section class="detail-info-section toggleable-section">
             <h3 class="brand-name" id="product-category" style="font-size: 13px; margin-bottom: 5px;">Categoría</h3>
             <h1 class="detail-product-title" id="product-name">Cargando producto...</h1>
             
@@ -59,26 +156,19 @@
             </div>
         </section>
 
-        <section class="detail-options-section">
-            
+        <section class="detail-options-section toggleable-section">
             <div class="option-group" id="model-group">
                 <label>Modelo:</label>
-                <div class="pill-selector" id="product-model-container">
-                    </div>
+                <div class="pill-selector" id="product-model-container"></div>
             </div>
-
             <div class="option-group" id="color-group">
                 <label>Color:</label>
-                <div class="pill-selector" id="product-color-container">
-                    </div>
+                <div class="pill-selector" id="product-color-container"></div>
             </div>
-
             <div class="option-group" id="size-group">
                 <label>Tamaño:</label>
-                <div class="pill-selector" id="product-size-container">
-                    </div>
+                <div class="pill-selector" id="product-size-container"></div>
             </div>
-
             <div class="option-group quantity-group">
                 <label>Cantidad:</label>
                 <div class="quantity-selector">
@@ -88,11 +178,9 @@
                 </div>
                 <span class="stock-info">Stock: <b id="product-stock">0</b> unidades</span>
             </div>
-
         </section>
 
-        <section class="detail-description-section">
-            
+        <section class="detail-description-section toggleable-section">
             <div class="accordion-item open">
                 <div class="accordion-header">
                     <h3>Descripción</h3>
@@ -103,7 +191,6 @@
                     <p style="margin-top: 10px; font-size: 12px; color: #888;">Código: <span id="product-code"></span></p>
                 </div>
             </div>
-
             <div class="accordion-item">
                 <div class="accordion-header">
                     <h3>Características</h3>
@@ -113,7 +200,6 @@
                     <p id="product-shipping" style="white-space: pre-line;"></p>
                 </div>
             </div>
-
             <div class="accordion-item">
                 <div class="accordion-header">
                     <h3>Información Adicional</h3>
@@ -123,10 +209,16 @@
                     <ul id="product-additional-info" style="padding-left: 20px; font-size: 13px; color: #555;"></ul>
                 </div>
             </div>
-
         </section>
 
-        <section class="app-trust-section" style="margin-top: 15px;">
+        <section class="app-section toggleable-section" style="margin-top: 15px; padding: 15px 0; background: white;">
+            <div class="section-header" style="margin: 0 15px 10px 15px;">
+                <h2 style="font-size: 15px; font-weight: 600; color: #333;">Quienes vieron esto también compraron</h2>
+            </div>
+            <div class="horizontal-scroll-container products-carousel" id="recommended-list" style="padding-left: 15px;"></div>
+        </section>
+
+        <section class="app-trust-section toggleable-section" style="margin-top: 15px;">
             <div class="trust-item">
                 <i class="fa-solid fa-shield-halved"></i>
                 <p>Compra Segura</p>
@@ -143,11 +235,159 @@
 
     </main>
 
-    <div class="sticky-buy-bar">
-        <button class="buy-btn btn-primary" id="add-to-cart-btn">Agregar al carrito</button>
+    <div class="sticky-buy-bar toggleable-section">
+        <button class="buy-btn btn-primary" id="add-to-cart-btn" style="background-color: #6cc82a; border: none; box-shadow: 0 4px 10px rgba(108, 200, 42, 0.3);">Agregar al carrito</button>
     </div>
 
+    <nav class="app-bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Productos.html" class="nav-item">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Buscar</span>
+        </a>
+        <a href="FCompra.html" class="nav-item bottom-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge" id="bottom-cart-badge">0</span>
+            <span>Bolsa</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Pedidos</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Cuenta</span>
+        </a>
+    </nav>
+
+    <script src="js/Products.js" defer></script> 
     <script src="js/cart.js" defer></script>
     <script src="js/product-detail.js" defer></script>
+    <script src="js/search.js" defer></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById('detail-search-input');
+            const searchResultsSection = document.getElementById('search-results-section');
+            const searchProductList = document.getElementById('search-product-list');
+            const sectionsToHide = document.querySelectorAll('.toggleable-section');
+
+            // 1. Filtrado en tiempo real
+            searchInput.addEventListener('input', function(e) {
+                const term = e.target.value.trim().toLowerCase();
+                
+                // Si el campo está vacío, restauramos el producto original
+                if (term === '') {
+                    sectionsToHide.forEach(el => el.classList.remove('search-active-hide'));
+                    searchResultsSection.style.display = 'none';
+                    return;
+                }
+
+                // Aseguramos que la base de datos esté lista
+                if (window.allProducts && window.allProducts.length > 0) {
+                    
+                    // Ocultamos todos los detalles y botón de compra
+                    sectionsToHide.forEach(el => el.classList.add('search-active-hide'));
+                    
+                    // Mostramos el contenedor de resultados
+                    searchResultsSection.style.display = 'block';
+
+                    // Buscamos
+                    const results = window.allProducts.filter(p => 
+                        p.name.toLowerCase().includes(term) || 
+                        (p.category && p.category.toLowerCase().includes(term))
+                    );
+
+                    if (results.length === 0) {
+                        searchProductList.style.display = 'block';
+                        searchProductList.innerHTML = `
+                            <div style="width: 100%; text-align: center; padding: 40px 20px; color: #888; grid-column: 1 / -1;">
+                                <i class="fa-solid fa-box-open fa-2xl" style="margin-bottom: 15px; color: #ddd;"></i><br>
+                                No encontramos "${term}"
+                            </div>`;
+                    } else {
+                        searchProductList.innerHTML = '';
+                        results.forEach(rec => {
+                            const originalPrice = rec.originalPrice || 0;
+                            let finalPrice = originalPrice;
+                            let priceHTML = "";
+
+                            if (rec.discountPercent > 0) {
+                                finalPrice = originalPrice * (1 - rec.discountPercent / 100);
+                                priceHTML = `
+                                    <span style="font-size: 10px; color: #999; text-decoration: line-through; display:block;">S/ ${originalPrice.toFixed(2)}</span>
+                                    <span class="price-offer" style="font-size: 13px; color: #d0021b; font-weight: 700;">S/ ${finalPrice.toFixed(2)}</span>
+                                `;
+                            } else {
+                                priceHTML = `
+                                    <span class="price-offer" style="font-size: 13px; color: #6cc82a; font-weight: 700; display:block; margin-top:14px;">S/ ${finalPrice.toFixed(2)}</span>
+                                `;
+                            }
+
+                            const imgSrc = rec.images?.main || "imagenes/default.jpg";
+                            const badgeHTML = rec.discountPercent > 0 ? `<div class="discount-badge" style="font-size: 9px; padding: 2px 4px;">-${rec.discountPercent}%</div>` : '';
+
+                            const card = document.createElement("div");
+                            card.className = "app-product-card";
+                            card.style.cssText = "width: 100%; flex: auto; margin-bottom: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: relative; cursor:pointer;";
+                            
+                            // Clic en la tarjeta abre el detalle recargando la página
+                            card.addEventListener("click", () => {
+                                localStorage.setItem("selectedProductDetail", JSON.stringify(rec));
+                                window.location.reload(); 
+                            });
+
+                            card.innerHTML = `
+                                <div class="product-image-container" style="height: 100px; padding: 5px;">
+                                    ${badgeHTML}
+                                    <img src="${imgSrc}" alt="${rec.name}" style="width:100%; height:100%; object-fit:contain;">
+                                </div>
+                                <div class="product-info" style="padding: 8px;">
+                                    <p class="product-name" style="font-size: 11px; min-height: 28px; line-height: 1.2; margin-bottom: 4px; color:#333;">${rec.name}</p>
+                                    ${priceHTML}
+                                </div>
+                            `;
+                            searchProductList.appendChild(card);
+                        });
+                    }
+                }
+            });
+
+            // 2. Lógica del Badge del carrito (Barra Inferior)
+            if(typeof window.updateCartBadge === 'function') {
+                const originalUpdate = window.updateCartBadge;
+                window.updateCartBadge = () => {
+                    originalUpdate(); 
+                    const cart = window.appCart || [];
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    const bottomBadge = document.getElementById('bottom-cart-badge');
+                    if (bottomBadge) {
+                        bottomBadge.textContent = totalItems;
+                        if(totalItems > 0) {
+                            bottomBadge.style.transform = 'scale(1.2)';
+                            setTimeout(() => bottomBadge.style.transform = 'scale(1)', 200);
+                        }
+                    }
+                };
+                setTimeout(window.updateCartBadge, 500); 
+            }
+        });
+
+        // 3. Si presionan enter o el botón "Buscar" del teclado
+        function executeDetailSearch() {
+            const searchInput = document.getElementById('detail-search-input');
+            const query = searchInput.value.trim();
+            searchInput.blur(); // Oculta el teclado
+            if (query) {
+                localStorage.setItem('globalSearchQuery', query);
+                window.location.href = 'Productos.html?q=' + encodeURIComponent(query);
+            } else {
+                window.location.href = 'Productos.html';
+            }
+        }
+    </script>
 </body>
 </html>
