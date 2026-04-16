@@ -9,36 +9,114 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
+    <link rel="stylesheet" href="styles.css"> 
     <link rel="stylesheet" href="Productos.css"> 
+    
+    <style>
+        /* Ajustes para alinear Logo y Buscador en la misma fila (Igual que index) */
+        .app-top-header {
+            padding: 10px 15px 0 15px; /* Quitamos padding bottom para que los chips peguen bien */
+        }
+        .header-top-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 10px; /* Separación con los chips */
+        }
+        .header-logo-compact {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .header-logo-compact img {
+            height: 35px;
+            width: auto;
+        }
+        .header-search-form {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .header-search-form i.fa-magnifying-glass {
+            position: absolute;
+            left: 15px;
+            color: #888;
+            font-size: 14px;
+        }
+        .header-search-form input {
+            width: 100%;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 15px 10px 40px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            outline: none;
+        }
+        .header-search-form i.camera-icon {
+            position: absolute;
+            right: 15px;
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Estilos del Badge en la barra inferior */
+        .bottom-cart-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-cart-icon .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: 5px;
+            background-color: #ff3b30;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 2px solid white;
+            z-index: 10;
+        }
+        
+        /* Ajuste a los chips para que se vean integrados a la cabecera */
+        .category-filter-chips {
+            position: static; 
+            top: auto; 
+            margin: 0 -15px; /* Para que ocupen todo el ancho de la pantalla */
+            background-color: transparent; 
+            padding: 0 15px 10px 15px;
+        }
+    </style>
 </head>
 <body class="app-body">
 
-    <header class="app-top-header" style="padding-bottom: 0; padding-top: 10px;">
-        <div class="header-main-row" style="padding: 0 15px;">
-            <a href="index.html" class="menu-icon" style="color: white; text-decoration: none;">
-                 <div class="menu-icon"><i class="fa-solid fa-bars fa-lg"></i></div>
+    <header class="app-top-header">
+        <div class="header-top-bar">
+            <a href="index.html" class="header-logo-compact">
+                <img src="imagenes/logo.png" alt="Logo">
             </a>
             
-            <a href="index.html" class="app-logo-center">
-                <img src="imagenes/logo.png" alt="Logo" class="logo-img">
-                <span class="logo-text"></span>
-            </a>
-            
-            <div class="cart-icon-top">
-                <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                <span class="cart-badge">0</span>
-            </div>
-        </div>
-        
-        <div class="header-search-row" style="padding: 0 15px 12px 15px;">
-            <div class="app-search-bar">
+            <div class="header-search-form">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Buscar productos...">
+                <input type="text" id="catalog-search-input" placeholder="Buscar productos...">
                 <i class="fa-solid fa-camera camera-icon"></i>
             </div>
         </div>
 
-        <div class="category-filter-chips" style="position: static; top: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 0; background-color: #fff; padding: 12px 0;">
+        <div class="category-filter-chips">
             <div class="chips-container" id="category-chips">
                 <button class="chip active" data-category="all">Todas</button>
                 <button class="chip" data-category="celulares">Celulares</button>
@@ -102,18 +180,47 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             <span>Buscar</span>
         </a>
+        
+        <a href="FCompra.html" class="nav-item bottom-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge" id="bottom-cart-badge">0</span>
+            <span>Bolsa</span>
+        </a>
+
         <a href="index.html" class="nav-item">
             <i class="fa-solid fa-box-archive"></i>
-            <span>Mis Pedidos</span>
+            <span>Pedidos</span>
         </a>
         <a href="index.html" class="nav-item">
             <i class="fa-regular fa-user"></i>
-            <span>Mi Cuenta</span>
+            <span>Cuenta</span>
         </a>
     </nav>
 
     <script src="js/cart.js" defer></script>
     <script src="js/Products.js" defer></script>
     <script src="js/search.js" defer></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if(typeof window.updateCartBadge === 'function') {
+                const originalUpdate = window.updateCartBadge;
+                window.updateCartBadge = () => {
+                    originalUpdate(); 
+                    const cart = window.appCart || [];
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    const bottomBadge = document.getElementById('bottom-cart-badge');
+                    if (bottomBadge) {
+                        bottomBadge.textContent = totalItems;
+                        if(totalItems > 0) {
+                            bottomBadge.style.transform = 'scale(1.2)';
+                            setTimeout(() => bottomBadge.style.transform = 'scale(1)', 200);
+                        }
+                    }
+                };
+                setTimeout(window.updateCartBadge, 500);
+            }
+        });
+    </script>
 </body>
 </html>
