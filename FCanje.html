@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bolsa de Canje | INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    
+    <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="FCompra.css"> 
+    
+    <style>
+     
+        
+        /* ESTILO ALIEXPRESS (Solo para el carrusel de recomendaciones inferior) */
+        .ecopoint-card .add-btn,
+        .ecopoint-card .redeem-btn,
+        .ecopoint-card .view-options-btn {
+            display: none !important;
+        }
+        .ecopoint-card .product-info {
+            padding-bottom: 15px !important;
+        }
+        .ecopoint-card .eco-title-click::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 5;
+        }
+        .ecopoint-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative; 
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ecopoint-card:active {
+            transform: scale(0.97);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .eco-horizontal-slider {
+            display: flex;
+            gap: 12px;
+            padding: 0 15px 15px 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+        .eco-horizontal-slider::-webkit-scrollbar {
+            display: none; 
+        }
+    </style>
+</head>
+<body class="app-body" style="background-color: #fcfcfc;">
+
+    <header class="app-top-header checkout-header">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0; padding: 0;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            <div style="color: white; font-weight: 600; font-size: 16px; letter-spacing: 0.5px;">
+                <i class="fa-solid fa-gift" style="color: #fcfcfc; margin-right: 5px;"></i> Bolsa de Canje
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main-content checkout-main" style="padding-bottom: 100px; padding-top: 15px;">
+        
+        <section class="checkout-section">
+            <div class="checkout-section-header">
+                <h3>Premios seleccionados</h3>
+            </div>
+            <div id="eco-cart-list-container">
+                </div>
+        </section>
+
+        <section class="checkout-section" id="recommendations-section" style="padding: 0; background: transparent; box-shadow: none; margin-top: 20px;">
+            <div class="section-header" style="margin: 20px 15px 10px 15px;">
+                <h2 style="font-size: 15px; font-weight: 600; color: #333;">Completa tu canje con:</h2>
+            </div>
+            <div class="eco-horizontal-slider" id="recommended-list">
+                </div>
+        </section>
+
+    </main>
+
+    <div class="sticky-buy-bar" style="position: fixed; bottom: 0; width: 100%; max-width: 480px; background: white; padding: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 -4px 15px rgba(0,0,0,0.06); border-radius: 20px 20px 0 0; z-index: 100;">
+        <div style="display: flex; flex-direction: column; justify-content: center; flex: 0.6;">
+            <span style="font-size: 10px; color: #888; text-transform: uppercase; font-weight: 600;">Total a descontar:</span>
+            <span id="sticky-canje-total" style="font-size: 18px; font-weight: 700; color: #6cc82a;">0 pts</span>
+        </div>
+        <button class="buy-btn btn-primary" id="btn-procesar-canje" style="flex: 1; border: none; background-color: #111; color: white; padding: 14px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">Confirmar Canje</button>
+    </div>
+
+    <script src="js/Products.js" defer></script>
+    <script src="js/FCanje.js" defer></script>
+</body>
+</html>
