@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const btnContinuar = document.getElementById("btn-continuar-compra");
         const recommendedList = document.getElementById("recommended-list");
 
+        // --- RENDERIZAR RECOMENDACIONES LIMPIAS ---
         const getRecommendations = () => {
             const catalogDB = window.allProducts || []; 
             if (catalogDB.length === 0) return []; 
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             let activeCategories = [];
             cartIds.forEach(id => {
-                const found = catalogDB.find(p => p.id === id);
+                const found = catalogDB.find(p => String(p.id) === String(id));
                 if (found && !activeCategories.includes(found.category)) {
                     activeCategories.push(found.category);
                 }
@@ -97,85 +98,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 const imgSrc = rec.images?.main || "imagenes/default.jpg";
                 const badgeHTML = rec.discountPercent > 0 ? `<div class="discount-badge" style="font-size: 9px; padding: 2px 4px;">-${rec.discountPercent}%</div>` : '';
 
-                const requiresChoice = (rec.models && rec.models.length > 1) ||
-                                       (rec.colors && rec.colors.length > 1) ||
-                                       (rec.sizes && rec.sizes.length > 1);
-
-                const btnText = requiresChoice ? "Ver opciones" : "+ Agregar";
-                const btnClass = requiresChoice ? "view-options-btn" : "add-rec-btn";
-                const btnBg = requiresChoice ? "#111" : "#6cc82a";
-
                 const card = document.createElement("div");
                 card.className = "app-product-card";
-                card.style.cssText = "width: 120px; flex: 0 0 auto; margin-bottom: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: relative;";
-                
+                card.style.cssText = "width: 135px; flex: 0 0 auto; margin-bottom: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: relative;";
+                card.setAttribute("data-id", rec.id);
+
                 card.innerHTML = `
-                    <div class="product-image-container" style="height: 90px; padding: 5px;">
+                    <div class="product-image-container" style="height: 100px; padding: 5px;">
                         ${badgeHTML}
                         <img src="${imgSrc}" alt="${rec.name}" style="width:100%; height:100%; object-fit:contain;">
                     </div>
                     <div class="product-info" style="padding: 8px;">
-                        <p class="product-name" style="font-size: 10px; min-height: 26px; line-height: 1.2; margin-bottom: 4px;">${rec.name}</p>
+                        <p class="product-name" style="font-size: 11px; min-height: 28px; line-height: 1.2; margin-bottom: 4px;">${rec.name}</p>
                         ${priceHTML}
-                        <button class="add-btn ${btnClass}" data-id="${rec.id}" style="padding: 5px; font-size: 10px; margin-top: 6px; width: 100%; background-color:${btnBg};">${btnText}</button>
                     </div>
                 `;
+                
                 recommendedList.appendChild(card);
-            });
-
-            // 1. Agregar Directo
-            const addButtons = recommendedList.querySelectorAll(".add-rec-btn");
-            addButtons.forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    const productId = parseInt(e.target.getAttribute("data-id"));
-                    const productToUpsell = recomendedProducts.find(p => p.id === productId);
-                    
-                    if (productToUpsell) {
-                        const finalPrice = productToUpsell.discountPercent > 0 ? productToUpsell.originalPrice * (1 - productToUpsell.discountPercent / 100) : productToUpsell.originalPrice;
-                        const defModel = productToUpsell.models && productToUpsell.models.length > 0 ? productToUpsell.models[0] : "Unico";
-                        const defColor = productToUpsell.colors && productToUpsell.colors.length > 0 ? productToUpsell.colors[0] : "Unico";
-                        const defSize = productToUpsell.sizes && productToUpsell.sizes.length > 0 ? productToUpsell.sizes[0] : "Unico";
-
-                        const itemToAdd = {
-                            id: productToUpsell.id,
-                            code: productToUpsell.code || "No especificado",
-                            name: productToUpsell.name,
-                            price: Number(finalPrice.toFixed(2)),
-                            image: productToUpsell.images?.main || "imagenes/default.jpg",
-                            quantity: 1,
-                            model: defModel, color: defColor, size: defSize
-                        };
-                        
-                        if(typeof window.addToCart === 'function') {
-                            window.addToCart(itemToAdd);
-                            
-                            const originalText = e.target.textContent;
-                            e.target.textContent = "¡Listo!";
-                            e.target.style.backgroundColor = "#2e7d32";
-                            setTimeout(() => {
-                                e.target.textContent = originalText;
-                                e.target.style.backgroundColor = "#6cc82a";
-                            }, 1000);
-                            
-                            window.renderCheckoutPage();
-                            renderRecommendationsUI();
-                        }
-                    }
-                });
-            });
-
-            // 2. Ver Opciones
-            const optionButtons = recommendedList.querySelectorAll(".view-options-btn");
-            optionButtons.forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    const productId = parseInt(e.target.getAttribute("data-id"));
-                    const productToView = recomendedProducts.find(p => p.id === productId);
-                    
-                    if (productToView) {
-                        localStorage.setItem("selectedProductDetail", JSON.stringify(productToView));
-                        window.location.href = "producto-detalle.html";
-                    }
-                });
             });
         };
 
@@ -184,7 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!listContainer) return;
 
             if (cart.length === 0) {
-                listContainer.innerHTML = `<div style="text-align:center; padding:30px; color:#888;">Tu bolsa está vacía.</div>`;
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <i class="fa-solid fa-box-open" style="font-size: 50px; color: #ddd; margin-bottom: 15px;"></i>
+                        <h3 style="color: #333; font-size: 15px; margin-bottom: 8px;">Tu bolsa está vacía</h3>
+                        <p style="color: #888; font-size: 12px; margin-bottom: 20px;">Aún no has seleccionado ningún producto.</p>
+                        <button onclick="window.location.href='Productos.html'" style="background-color: #6cc82a; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer;">Explorar Catálogo</button>
+                    </div>
+                `;
                 subtotalElem.textContent = safeFormatCurrency(0);
                 stickyTotal.textContent = safeFormatCurrency(0);
                 btnContinuar.disabled = true;
@@ -205,21 +151,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 const row = document.createElement('div');
                 row.className = 'checkout-item-row';
+                
+                // AQUÍ INTEGRAMOS EL SELECTOR DE CANTIDAD ESTILO PÍLDORA (Como en la foto)
                 row.innerHTML = `
                     <img src="${item.image}" alt="Img">
                     <div class="checkout-item-info">
                         <div class="checkout-item-name">${item.name}</div>
                         ${codeHTML}
                         ${vars.length > 0 ? `<div style="font-size:10px; color:#888; margin-top:2px;">Var: ${vars.join(' - ')}</div>` : ''}
-                        <div style="display:flex; justify-content:space-between; margin-top:5px;">
-                            <span style="font-size:11px; color:#666;">Cant: ${item.quantity}</span>
+                        
+                        <div style="display:flex; justify-content:space-between; margin-top:8px; align-items:center;">
+                            
+                            <div style="display: flex; align-items: center; background: #f4f4f4; border-radius: 15px; padding: 2px;">
+                                <button class="btn-minus" data-index="${index}" style="width: 24px; height: 24px; border-radius: 50%; border: none; background: white; font-weight: bold; color: #333; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">-</button>
+                                <input type="number" value="${item.quantity}" readonly style="width: 30px; text-align: center; border: none; background: transparent; font-size: 12px; font-weight: 600; color: #333; -moz-appearance: textfield;">
+                                <button class="btn-plus" data-index="${index}" style="width: 24px; height: 24px; border-radius: 50%; border: none; background: white; font-weight: bold; color: #333; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">+</button>
+                            </div>
+
                             <span style="font-size:13px; font-weight:600; color:#6cc82a;">${safeFormatCurrency(item.price * item.quantity)}</span>
                         </div>
                     </div>
-                    <button onclick="window.removeFromCart(${index}); setTimeout(() => { window.renderCheckoutPage(); window.renderRecommendationsUI(); }, 50);" style="background:none; border:none; color:#ff3b30; cursor:pointer; padding:5px;"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="window.removeFromCart(${index}); setTimeout(() => { window.renderCheckoutPage(); window.renderRecommendationsUI(); }, 50);" style="background:none; border:none; color:#ff3b30; cursor:pointer; padding:5px; margin-left: 8px;">
+                        <i class="fa-solid fa-trash-can fa-lg"></i>
+                    </button>
                 `;
                 listContainer.appendChild(row);
             });
+
+            // Asignar los eventos de los botones + y -
+            attachQtyEvents();
 
             const sub = getCartSubtotal();
             subtotalElem.textContent = safeFormatCurrency(sub);
@@ -227,6 +187,39 @@ document.addEventListener("DOMContentLoaded", () => {
             
             btnContinuar.disabled = false;
             btnContinuar.style.backgroundColor = "#6cc82a";
+        };
+
+        // Lógica de los botones + y -
+        const attachQtyEvents = () => {
+            const minusButtons = document.querySelectorAll('.btn-minus');
+            const plusButtons = document.querySelectorAll('.btn-plus');
+
+            minusButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.currentTarget.getAttribute('data-index');
+                    if (window.appCart[index].quantity > 1) {
+                        window.appCart[index].quantity -= 1;
+                        localStorage.setItem("appCart", JSON.stringify(window.appCart));
+                        window.renderCheckoutPage();
+                        if(typeof window.updateGlobalCartBadges === 'function') window.updateGlobalCartBadges();
+                    }
+                });
+            });
+
+            plusButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.currentTarget.getAttribute('data-index');
+                    const maxStock = window.appCart[index].maxStock || 10; 
+                    if (window.appCart[index].quantity < maxStock) {
+                        window.appCart[index].quantity += 1;
+                        localStorage.setItem("appCart", JSON.stringify(window.appCart));
+                        window.renderCheckoutPage();
+                        if(typeof window.updateGlobalCartBadges === 'function') window.updateGlobalCartBadges();
+                    } else {
+                        alert(`Stock máximo alcanzado (${maxStock} unidades)`);
+                    }
+                });
+            });
         };
 
         if (btnContinuar) {
@@ -317,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     if(method === "cajamarca") { finalShippingCost = costoCajamarca; methodText = "A Domicilio (Cajamarca)"; }
                     if(method === "nacional") { finalShippingCost = TARIFA_NACIONAL; methodText = "Olva Express (Nacional)"; }
 
-                    // ATENDIDO: Capturamos el DNI del campo con id "email"
                     const checkoutData = {
                         name: document.getElementById('full-name').value.trim(),
                         phone: document.getElementById('phone').value.trim(),
@@ -377,7 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (contraEntregaRadio && checkoutData.deliveryCode === "nacional") {
             const optionContainer = contraEntregaRadio.closest('.payment-option');
             if (optionContainer) {
-                // Deshabilitamos haciendo clic no válido y opaco
                 contraEntregaRadio.disabled = true;
                 optionContainer.style.opacity = "0.5";
                 optionContainer.style.cursor = "not-allowed";
@@ -398,7 +389,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 text += `👤 *DATOS DEL CLIENTE*\n`;
                 text += `Nombre: ${checkoutData.name}\n`;
-                // ATENDIDO: Se incluye DNI / CE en el mensaje final de WhatsApp
                 text += `DNI / CE: ${checkoutData.dni}\n`; 
                 text += `Teléfono: ${checkoutData.phone}\n`;
                 if (checkoutData.address) text += `Dirección: ${checkoutData.address}, ${checkoutData.city}\n`;
@@ -433,12 +423,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.open(whatsappUrl, '_blank');
 
                 window.appCart = [];
+                localStorage.setItem("appCart", "[]"); 
                 localStorage.removeItem("checkoutData");
                 if(typeof window.saveCart === 'function') window.saveCart();
                 
                 alert("¡Procesando pedido! Finaliza tu compra vía WhatsApp.");
                 window.location.replace("index.html"); 
             });
+        }
+    }
+});
+
+// =========================================================
+// INTERCEPTOR GLOBAL DE CLICS (MAGIA ALIEXPRESS)
+// =========================================================
+document.addEventListener("click", (e) => {
+    const card = e.target.closest(".app-product-card");
+    
+    if (card && !card.classList.contains("ecopoint-card")) {
+        e.preventDefault(); 
+        
+        let productId = card.getAttribute("data-id");
+        let productToView = null;
+
+        if (window.allProducts) {
+            if (productId) {
+                productToView = window.allProducts.find(p => String(p.id) === String(productId));
+            }
+
+            if (!productToView) {
+                const nameElement = card.querySelector(".product-name");
+                if (nameElement) {
+                    const productName = nameElement.textContent.trim();
+                    productToView = window.allProducts.find(p => p.name === productName);
+                }
+            }
+
+            if (productToView) {
+                localStorage.setItem("selectedProductDetail", JSON.stringify(productToView));
+                window.location.href = "producto-detalle.html";
+            }
         }
     }
 });
