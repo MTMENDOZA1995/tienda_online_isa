@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EcoPoints | INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="Ecopoints.css"> 
+    
+    <style>
+        /* ESTILOS ESPECÍFICOS PARA ECOPOINTS (Tono Morado/Verde) */
+        
+        /* Cabecera Alineada */
+
+        .header-top-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .header-logo-compact {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .header-logo-compact img {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        /* Buscador Píldora Optimizado */
+        .header-search-form {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .header-search-form i.fa-magnifying-glass {
+            position: absolute;
+            left: 15px;
+            color: #888;
+            font-size: 14px;
+            pointer-events: none;
+        }
+        .header-search-form input {
+            width: 100%;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 40px 10px 38px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            background-color: rgba(255,255,255,0.9);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .header-search-form input[type="search"]::-webkit-search-cancel-button {
+            display: none;
+        }
+        .header-search-form i.camera-icon {
+            position: absolute;
+            right: 15px;
+            color: #6cc82a; 
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Integración de Chips */
+        .category-filter-chips {
+            position: static; 
+            top: auto; 
+            margin: 0 -15px; 
+            background-color: transparent; 
+            padding: 0 15px 10px 15px;
+            box-shadow: none;
+        }
+        .chip.active.eco-chip {
+            background-color: #f4e8ff; 
+            color: #A951F6; 
+            border: 1px solid #A951F6;
+        }
+
+        /* Badge Inferior del Carrito */
+        .bottom-cart-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-cart-icon .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: 5px; 
+            background-color: #A951F6; /* Morado EcoPoints */
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 2px solid white; 
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
+
+        /* Ocultamiento para búsqueda en tiempo real */
+        .search-active-hide {
+            display: none !important;
+        }
+        
+        /* Ajuste de Grid para resultados de búsqueda */
+        .eco-grid-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        /* ==================================================
+           ESTILO ALIEXPRESS: TARJETAS LIMPIAS (SIN BOTONES)
+        ================================================== */
+        
+        /* 1. Ocultamos los botones de Agregar/Canjear */
+        .ecopoint-card .add-btn,
+        .ecopoint-card .redeem-btn,
+        .ecopoint-card .view-options-btn {
+            display: none !important;
+        }
+        
+        /* 2. Ajustamos el padding de la info para que se vea balanceado sin el botón */
+        .ecopoint-card .product-info {
+            padding-bottom: 15px !important;
+        }
+        
+        /* 3. TRUCO PROFESIONAL: Expandimos el área de clic del título 
+           para que cubra TODA la tarjeta blanca. Así, tocar en cualquier 
+           lado lleva al detalle del producto. */
+        .ecopoint-card .eco-title-click::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+        }
+        
+        /* 4. Efecto de hundimiento al tocar la tarjeta (Feedback visual móvil) */
+        .ecopoint-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative; /* Necesario para el truco de clic */
+        }
+        .ecopoint-card:active {
+            transform: scale(0.97);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="app-body">
+
+    <header class="app-top-header eco-header">
+        <div class="header-top-bar">
+            <a href="index.html" class="header-logo-compact" aria-label="Volver al inicio">
+                <img src="imagenes/logo.png" alt="Logo">
+            </a>
+            
+            <form class="header-search-form" action="javascript:void(0);">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input 
+                    type="search" 
+                    id="eco-search-input" 
+                    placeholder="Buscar premios..."
+                    enterkeyhint="search"
+                    autocomplete="off"
+                >
+                <i class="fa-solid fa-camera camera-icon" aria-label="Búsqueda por cámara"></i>
+            </form>
+        </div>
+
+        <div class="category-filter-chips">
+            <div class="chips-container" id="eco-category-chips">
+                <button class="chip active eco-chip" data-category="all">Todos</button>
+                <button class="chip eco-chip" data-category="Celulares">Celulares</button>
+                <button class="chip eco-chip" data-category="Tecnología">Tecnología</button>
+                <button class="chip eco-chip" data-category="Mascotas">Mascotas</button>
+                <button class="chip eco-chip" data-category="Joyería">Joyería</button>
+                <button class="chip eco-chip" data-category="Ropa">Ropa</button>
+                <button class="chip eco-chip" data-category="Colección">Colección</button>
+                <button class="chip eco-chip" data-category="Pulseras">Pulseras</button>
+                <button class="chip eco-chip" data-category="Llaveros">Llaveros</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main-content eco-main-content" id="main-eco-content">
+        
+        <section class="ecopoints-balance-card toggleable-section" style="margin-bottom: 20px;">
+            <div class="balance-info">
+                <span class="balance-label">Tu saldo actual</span>
+                <div class="balance-amount">
+                    <i class="fa-solid fa-leaf" style="color: #6cc82a;"></i>
+                    <span id="user-ecopoints-display">0</span>
+                    <small>pts</small>
+                </div>
+            </div>
+            <div class="balance-action">
+                <button class="btn-history">Ver Historial</button>
+            </div>
+        </section>
+
+        <section class="app-section" id="search-results-section" style="display: none; padding-top: 0; background: transparent;">
+            <div class="section-header" style="margin-bottom: 15px; padding: 0 15px;">
+                <h2 style="font-size: 15px; color: #333;">Resultados de búsqueda</h2>
+            </div>
+            <div class="eco-grid-results" id="search-product-list">
+                </div>
+        </section>
+
+        <section class="app-section toggleable-section" style="background: transparent; padding-top: 0; padding-bottom: 40px;">
+            <div class="section-header eco-section-title" style="margin-bottom: 10px;">
+                <h2 style="font-size: 14px; color: #666; font-weight: 500;">Premios Disponibles</h2>
+            </div>
+            
+            <div class="products-grid-vertical" id="eco-product-list">
+                </div>
+            
+            <div id="eco-loading-spinner" style="display: none; text-align: center; padding: 20px; color: #A951F6;">
+                <i class="fa-solid fa-spinner fa-spin fa-2xl"></i>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="app-bottom-nav">
+        <a href="index.html" class="nav-item" aria-label="Inicio">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Ecopoints.html" class="nav-item active" aria-label="EcoPoints">
+            <i class="fa-solid fa-leaf" style="color: #A951F6;"></i>
+            <span style="color: #A951F6;">EcoPoints</span>
+        </a>
+        
+        <a href="FCanje.html" class="nav-item bottom-cart-icon" aria-label="Bolsa de Canje">
+            <i class="fa-solid fa-gift"></i>
+            <span class="cart-badge eco-cart-badge" id="bottom-eco-cart-badge">0</span>
+            <span>Canjear</span>
+        </a>
+
+        <a href="index.html" class="nav-item" aria-label="Mis pedidos">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Pedidos</span>
+        </a>
+        <a href="index.html" class="nav-item" aria-label="Mi cuenta">
+            <i class="fa-regular fa-user"></i>
+            <span>Cuenta</span>
+        </a>
+    </nav>
+
+    <script src="js/Products.js" defer></script>
+    <script src="js/Ecopoints.js" defer></script> 
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Lógica para actualizar el Badge de EcoPoints (FCanje)
+            const updateEcoCartBadge = () => {
+                const ecoCart = JSON.parse(localStorage.getItem("appEcoCart")) || [];
+                const totalItems = ecoCart.reduce((sum, item) => sum + item.quantity, 0);
+                const bottomBadge = document.getElementById('bottom-eco-cart-badge');
+                
+                if (bottomBadge) {
+                    bottomBadge.textContent = totalItems;
+                    if(totalItems > 0) {
+                        bottomBadge.style.transform = 'scale(1.2)';
+                        setTimeout(() => bottomBadge.style.transform = 'scale(1)', 200);
+                    }
+                }
+            };
+            
+            setTimeout(updateEcoCartBadge, 300);
+            window.updateEcoCartBadge = updateEcoCartBadge;
+
+            const cameraIcon = document.querySelector(".camera-icon");
+            if (cameraIcon) {
+                cameraIcon.addEventListener("click", () => {
+                    alert("📸 Búsqueda por cámara en mantenimiento.");
+                });
+            }
+        });
+    </script>
+</body>
+</html>
