@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Detalle del Premio | INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    
+    <link rel="icon" href="imagenes/logo.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    
+    <link rel="stylesheet" href="Produc-Detalle.css">
+    
+    <style>
+        /* ESTILOS DE CABECERA TIPO APP */
+      
+        .header-actions-modern {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        /* Buscador Píldora Funcional y Profesional */
+        .search-pill-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-pill-container i {
+            position: absolute;
+            left: 10px;
+            color: white;
+            font-size: 12px;
+            pointer-events: none;
+        }
+        .search-pill-container input {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px 6px 28px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            outline: none;
+            width: 300px; 
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, width 0.3s;
+            -webkit-appearance: none; 
+        }
+        .search-pill-container input[type="search"]::-webkit-search-cancel-button {
+            display: none; 
+        }
+        .search-pill-container input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .search-pill-container input:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 250px; 
+        }
+
+        /* Estilo para el badge en la barra inferior */
+        .bottom-cart-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bottom-cart-icon .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: 5px; 
+            background-color: #A951F6;
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            border: 2px solid white; 
+            z-index: 10;
+        }
+
+        /* Ocultar elementos dinámicamente durante la búsqueda */
+        .search-active-hide {
+            display: none !important;
+        }
+        
+        .product-detail-main {
+            padding-bottom: 140px !important; 
+        }
+
+        .detail-price-box { border-left-color: #6cc82a; }
+        .price-offer { color: #6cc82a !important; }
+        .option-pill.active { border-color: #6cc82a; background-color: #f4e8ff; color: #6cc82a; }
+
+        /* ==================================================
+           ESTILO ALIEXPRESS: TARJETAS LIMPIAS (SIN BOTONES)
+        ================================================== */
+        .ecopoint-card .add-btn,
+        .ecopoint-card .redeem-btn,
+        .ecopoint-card .view-options-btn {
+            display: none !important;
+        }
+        .ecopoint-card .product-info {
+            padding-bottom: 15px !important;
+        }
+        .ecopoint-card .eco-title-click::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 5;
+        }
+        .ecopoint-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative; 
+        }
+        .ecopoint-card:active {
+            transform: scale(0.97);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* CARRUSEL HORIZONTAL PARA RECOMENDACIONES */
+        .eco-horizontal-slider {
+            display: flex;
+            gap: 12px;
+            padding: 0 15px 15px 15px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+        .eco-horizontal-slider::-webkit-scrollbar {
+            display: none; 
+        }
+    </style>
+</head>
+<body class="app-body" style="background-color: #fcfcfc;">
+
+    <header class="app-top-header detail-header">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: space-between;">
+            
+            <button class="menu-icon back-btn" onclick="window.history.back();" style="background:none; border:none; color:white; cursor:pointer; padding: 0;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            
+            <div class="header-actions-modern">
+                <form class="search-pill-container" action="javascript:void(0);" onsubmit="executeEcoDetailSearch();">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input 
+                        type="search" 
+                        id="eco-detail-search-input" 
+                        placeholder="Buscar Premio..."
+                        enterkeyhint="search"
+                        autocomplete="off"
+                    >
+                </form>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="app-main-content product-detail-main">
+        
+        <section class="app-section" id="eco-search-results-section" style="display: none; padding-top: 15px; background: transparent;">
+            <div class="section-header" style="margin-bottom: 15px; padding: 0 15px;">
+                <h2 style="font-size: 15px; color: #333;">Resultados de búsqueda</h2>
+            </div>
+            <div id="eco-search-product-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding: 0 15px;">
+            </div>
+        </section>
+
+        <section class="detail-image-section toggleable-section" style="background: white; padding: 15px; margin-bottom: 10px;">
+            <div class="main-image-wrapper" style="position: relative; width: 100%; height: 250px; text-align: center;">
+                <div id="eco-badge-container"></div>
+                <img id="eco-main-image" src="imagenes/default.jpg" alt="Premio" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+            <div class="thumbnail-gallery" id="eco-thumbnail-container" style="display: flex; gap: 10px; margin-top: 15px; overflow-x: auto;">
+            </div>
+        </section>
+
+        <section class="detail-info-section toggleable-section" style="background: white; padding: 20px 15px; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px;">
+                <span id="eco-category" class="brand-name" style="font-size: 11px; font-weight: 600; color: #6cc82a; text-transform: uppercase;">Categoría</span>
+            </div>
+            
+            <h1 id="eco-name" class="detail-product-title" style="font-size: 18px; margin-bottom: 5px; color: #222;">Cargando premio...</h1>
+            <p style="font-size: 11px; color: #888; margin-bottom: 15px;">Cód: <span id="eco-code">---</span> | Stock: <span id="eco-stock" style="font-weight: 600; color: #333;">0</span></p>
+            
+            <div class="prices" style="margin-bottom: 15px;">
+                <span id="eco-points-display" style="font-size: 26px; font-weight: 700; color: #6cc82a;">
+                    <i class="fa-solid fa-leaf"></i> 0 pts
+                </span>
+            </div>
+        </section>
+
+        <section class="detail-options-section toggleable-section" style="background: white; padding: 20px 15px; margin-bottom: 10px;">
+            <div class="option-group" id="eco-model-group" style="display: none; margin-bottom: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #444; display: block; margin-bottom: 8px;">Diseño / Modelo</label>
+                <div class="pill-container" id="eco-model-container" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+            </div>
+            <div class="option-group" id="eco-color-group" style="display: none; margin-bottom: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #444; display: block; margin-bottom: 8px;">Color</label>
+                <div class="pill-container" id="eco-color-container" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+            </div>
+            <div class="option-group" id="eco-size-group" style="display: none; margin-bottom: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #444; display: block; margin-bottom: 8px;">Talla / Tamaño</label>
+                <div class="pill-container" id="eco-size-container" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+            </div>
+            
+            <div class="option-group" style="margin-top: 15px;">
+                <label style="font-size: 12px; font-weight: 600; color: #444; display: block; margin-bottom: 8px;">Cantidad</label>
+                <div class="quantity-control" style="display: inline-flex; align-items: center; background: #f4f4f4; border-radius: 25px; padding: 2px;">
+                    <button class="minus-btn" id="eco-minus" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: white; font-size: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor:pointer;">-</button>
+                    <input type="number" id="eco-qty" value="1" readonly style="width: 40px; text-align: center; border: none; background: transparent; font-size: 15px; font-weight: 600; color: #333;">
+                    <button class="plus-btn" id="eco-plus" style="width: 35px; height: 35px; border-radius: 50%; border: none; background: white; font-size: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor:pointer;">+</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-description-section toggleable-section" style="background: white; padding: 10px 15px;">
+            <div class="accordion-item open" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                <div class="accordion-header" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                    <h3 style="font-size: 13px; font-weight: 600; color: #333;">Descripción</h3>
+                    <i class="fa-solid fa-chevron-down arrow" style="color: #888; font-size: 12px;"></i>
+                </div>
+                <div class="accordion-body" style="font-size: 12px; color: #666; padding-top: 10px; line-height: 1.6;">
+                    <p id="eco-description">Cargando descripción...</p>
+                    <p style="margin-top: 10px; font-size: 12px; color: #888;">Código: <span id="eco-code-desc"></span></p>
+                </div>
+            </div>
+
+            <div class="accordion-item" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                <div class="accordion-header" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                    <h3 style="font-size: 13px; font-weight: 600; color: #333;">Características</h3>
+                    <i class="fa-solid fa-chevron-down arrow" style="color: #888; font-size: 12px;"></i>
+                </div>
+                <div class="accordion-body" id="eco-shipping" style="display: none; font-size: 12px; color: #666; padding-top: 10px; line-height: 1.6; white-space: pre-line;">
+                    Consulte las características del premio.
+                </div>
+            </div>
+
+            <div class="accordion-item" style="padding: 10px 0;">
+                <div class="accordion-header" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                    <h3 style="font-size: 13px; font-weight: 600; color: #333;">Información Adicional</h3>
+                    <i class="fa-solid fa-chevron-down arrow" style="color: #888; font-size: 12px;"></i>
+                </div>
+                <div class="accordion-body" style="display: none; font-size: 12px; color: #666; padding-top: 10px; line-height: 1.6;">
+                    <ul id="eco-additional-info" style="padding-left: 20px; font-size: 13px; color: #555;"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-section toggleable-section" style="margin-top: 15px; padding: 15px 0; background: white;">
+            <div class="section-header" style="margin: 0 15px 10px 15px;">
+                <h2 style="font-size: 15px; font-weight: 600; color: #333;">Otros premios que te pueden interesar</h2>
+            </div>
+            <div class="eco-horizontal-slider" id="recommended-list"></div>
+        </section>
+
+    </main>
+
+    <div class="sticky-buy-bar toggleable-section" style="position: fixed; bottom: 60px; width: 100%; max-width: 480px; background: white; padding: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); border-radius: 15px 15px 0 0; z-index: 100;">
+        <div style="display: flex; flex-direction: column; justify-content: center; flex: 0.5;">
+            <span style="font-size: 10px; color: #888;">Total:</span>
+            <span id="sticky-canje-total" style="font-size: 16px; font-weight: 700; color: #6cc82a;">0 pts</span>
+        </div>
+        <button class="buy-btn btn-primary" id="btn-iniciar-canje" style="flex: 1; border: none; background-color: #111; color: white; padding: 12px; border-radius: 25px; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 4px 10px rgba(169, 81, 246, 0.3);">Agregar a Bolsa</button>
+    </div>
+
+    <nav class="app-bottom-nav">
+        <a href="index.html" class="nav-item" aria-label="Inicio">
+            <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="Ecopoints.html" class="nav-item active" aria-label="EcoPoints">
+            <i class="fa-solid fa-leaf" style="color: #A951F6;"></i>
+            <span style="color: #A951F6;">EcoPoints</span>
+        </a>
+        
+        <a href="FCanje.html" class="nav-item bottom-cart-icon" aria-label="Bolsa de Canje">
+            <i class="fa-solid fa-gift"></i>
+            <span class="cart-badge eco-cart-badge" id="bottom-eco-cart-badge">0</span>
+            <span>Canjear</span>
+        </a>
+
+        <a href="index.html" class="nav-item" aria-label="Mis pedidos">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Pedidos</span>
+        </a>
+        <a href="index.html" class="nav-item" aria-label="Mi cuenta">
+            <i class="fa-regular fa-user"></i>
+            <span>Cuenta</span>
+        </a>
+    </nav>
+
+    <script src="js/Products.js" defer></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Actualizar Badge Inferior
+            const updateEcoBadgeBottom = () => {
+                const cart = JSON.parse(localStorage.getItem("appEcoCart")) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const bottomBadge = document.getElementById("bottom-eco-cart-badge");
+                if(bottomBadge) {
+                    bottomBadge.textContent = totalItems;
+                    if(totalItems > 0) {
+                        bottomBadge.style.transform = 'scale(1.2)';
+                        setTimeout(() => bottomBadge.style.transform = 'scale(1)', 200);
+                    }
+                }
+            };
+            updateEcoBadgeBottom();
+            window.updateEcoBadgeBottom = updateEcoBadgeBottom; 
+
+            // 2. Cargar Producto Seleccionado
+            const reward = JSON.parse(localStorage.getItem("selectedEcoDetail"));
+            if (!reward) {
+                window.location.href = "Ecopoints.html";
+                return;
+            }
+
+            let currentMaxStock = reward.stock || 0;
+            const ptsPerUnit = reward.points || Math.floor((reward.originalPrice || 0) * 10); 
+
+            document.getElementById("eco-name").textContent = reward.name;
+            document.getElementById("eco-code").textContent = reward.code || "N/A";
+            document.getElementById("eco-code-desc").textContent = reward.code || "N/A";
+            document.getElementById("eco-stock").textContent = currentMaxStock;
+            document.getElementById("eco-category").textContent = reward.category;
+            document.getElementById("eco-points-display").innerHTML = `<i class="fa-solid fa-leaf"></i> ${ptsPerUnit} pts`;
+            document.getElementById("sticky-canje-total").textContent = ptsPerUnit + " pts";
+            document.getElementById("eco-description").textContent = reward.description;
+            
+            if(reward.shippingPolicy) {
+                document.getElementById("eco-shipping").innerHTML = reward.shippingPolicy.replace(/\n/g, '<br>');
+            } else {
+                document.getElementById("eco-shipping").innerHTML = "Consulte las características del premio.";
+            }
+
+            const additionalInfoContainer = document.getElementById("eco-additional-info");
+            if(reward.additionalInfo) {
+                additionalInfoContainer.innerHTML = reward.additionalInfo;
+            } else {
+                additionalInfoContainer.innerHTML = "<li>No hay información adicional.</li>";
+            }
+
+            if (reward.exclusive) {
+                document.getElementById("eco-badge-container").innerHTML = `<div class="discount-badge" style="background-color: #A951F6; position:absolute; z-index:10; top: 10px; left: 10px; font-size:12px; padding: 4px 8px; border-radius: 4px; color:white; font-weight:bold;">¡Exclusivo!</div>`;
+            }
+
+            const mainImg = document.getElementById("eco-main-image");
+            if (reward.images && reward.images.main) {
+                mainImg.src = reward.images.main;
+                const thumbContainer = document.getElementById("eco-thumbnail-container");
+                const allImages = [reward.images.main, reward.images.extra1, reward.images.extra2, reward.images.extra3].filter(Boolean);
+                
+                if(allImages.length > 1) {
+                    allImages.forEach((imgSrc, index) => {
+                        const img = document.createElement("img");
+                        img.src = imgSrc;
+                        img.style.cssText = "width: 50px; height: 50px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; object-fit: cover; flex-shrink: 0;";
+                        if(index === 0) img.style.borderColor = "#A951F6";
+                        
+                        img.addEventListener("click", () => {
+                            mainImg.style.opacity = 0.5;
+                            setTimeout(() => { mainImg.src = imgSrc; mainImg.style.opacity = 1; }, 150);
+                            thumbContainer.querySelectorAll("img").forEach(i => i.style.borderColor = "transparent");
+                            img.style.borderColor = "#A951F6";
+                        });
+                        thumbContainer.appendChild(img);
+                    });
+                }
+            }
+
+            const renderPills = (containerId, groupContainerId, optionsArray) => {
+                const container = document.getElementById(containerId);
+                const group = document.getElementById(groupContainerId);
+                if (!optionsArray || optionsArray.length === 0 || (optionsArray.length === 1 && optionsArray[0] === "Unico")) {
+                    group.style.display = 'none'; container.dataset.selectedValue = "Unico"; return false;
+                }
+                group.style.display = 'block'; container.innerHTML = ''; container.dataset.selectedValue = ""; 
+                optionsArray.forEach(optionValue => {
+                    const btn = document.createElement("button");
+                    btn.className = "option-pill";
+                    btn.style.cssText = "padding: 6px 12px; border: 1px solid #ddd; border-radius: 20px; background: white; font-size: 12px; cursor: pointer; color: #555; transition: all 0.2s ease;";
+                    btn.textContent = optionValue;
+                    btn.addEventListener("click", () => {
+                        container.querySelectorAll("button").forEach(b => { b.style.borderColor = "#ddd"; b.style.color = "#555"; b.style.backgroundColor = "white"; b.style.fontWeight = "normal"; });
+                        btn.style.borderColor = "#A951F6"; btn.style.color = "#A951F6"; btn.style.backgroundColor = "#f4e8ff"; btn.style.fontWeight = "600";
+                        container.dataset.selectedValue = optionValue;
+                    });
+                    container.appendChild(btn);
+                });
+                return true; 
+            };
+
+            const hasModels = renderPills("eco-model-container", "eco-model-group", reward.models);
+            const hasColors = renderPills("eco-color-container", "eco-color-group", reward.colors);
+            const hasSizes = renderPills("eco-size-container", "eco-size-group", reward.sizes);
+
+            const qtyInput = document.getElementById("eco-qty");
+            const btnMinus = document.getElementById("eco-minus");
+            const btnPlus = document.getElementById("eco-plus");
+            const btnCanje = document.getElementById("btn-iniciar-canje");
+            const totalDisplay = document.getElementById("sticky-canje-total");
+
+            const updateTotalPoints = (qty) => { totalDisplay.textContent = (qty * ptsPerUnit) + " pts"; };
+
+            if (currentMaxStock === 0) {
+                qtyInput.value = 0; btnMinus.disabled = true; btnPlus.disabled = true; btnCanje.disabled = true;
+                btnCanje.textContent = "Agotado"; btnCanje.style.backgroundColor = "#ccc"; updateTotalPoints(0); btnCanje.style.boxShadow = "none";
+            } else {
+                btnMinus.addEventListener("click", () => {
+                    let currentVal = parseInt(qtyInput.value) || 1;
+                    if (currentVal > 1) { qtyInput.value = currentVal - 1; updateTotalPoints(currentVal - 1); }
+                });
+                btnPlus.addEventListener("click", () => {
+                    let currentVal = parseInt(qtyInput.value) || 1;
+                    if (currentVal < currentMaxStock) { qtyInput.value = currentVal + 1; updateTotalPoints(currentVal + 1); } 
+                    else { alert(`Solo tenemos ${currentMaxStock} unidades disponibles.`); }
+                });
+            }
+
+            document.querySelectorAll(".accordion-header").forEach(header => {
+                header.addEventListener("click", () => {
+                    const item = header.closest(".accordion-item");
+                    const body = item.querySelector(".accordion-body");
+                    const arrow = item.querySelector(".arrow");
+                    item.classList.toggle("open");
+                    if (item.classList.contains("open")) { body.style.display = "block"; arrow.style.transform = "rotate(180deg)"; } 
+                    else { body.style.display = "none"; arrow.style.transform = "rotate(0deg)"; }
+                });
+            });
+
+            // 3. Añadir a la Bolsa
+            btnCanje.addEventListener("click", () => {
+                if (currentMaxStock <= 0) return; 
+
+                const modelContainer = document.getElementById("eco-model-container");
+                const colorContainer = document.getElementById("eco-color-container");
+                const sizeContainer = document.getElementById("eco-size-container");
+
+                if (hasModels && !modelContainer.dataset.selectedValue) { alert("❌ Selecciona un modelo."); return; }
+                if (hasColors && !colorContainer.dataset.selectedValue) { alert("❌ Selecciona un color."); return; }
+                if (hasSizes && !sizeContainer.dataset.selectedValue) { alert("❌ Selecciona una talla."); return; }
+
+                const itemToAdd = {
+                    id: reward.id, code: reward.code || "N/A", name: reward.name, points: ptsPerUnit,
+                    image: reward.images?.main || "imagenes/default.jpg", quantity: parseInt(qtyInput.value) || 1,
+                    model: modelContainer.dataset.selectedValue || "Unico", color: colorContainer.dataset.selectedValue || "Unico",
+                    size: sizeContainer.dataset.selectedValue || "Unico", maxStock: reward.stock
+                };
+
+                let ecoCart = JSON.parse(localStorage.getItem("appEcoCart")) || [];
+                const existingIndex = ecoCart.findIndex(item => item.id === itemToAdd.id && item.model === itemToAdd.model && item.color === itemToAdd.color && item.size === itemToAdd.size);
+
+                if(existingIndex >= 0) { ecoCart[existingIndex].quantity += itemToAdd.quantity; } 
+                else { ecoCart.push(itemToAdd); }
+
+                localStorage.setItem("appEcoCart", JSON.stringify(ecoCart));
+                updateEcoBadgeBottom(); 
+                
+                const originalText = btnCanje.textContent;
+                btnCanje.textContent = "¡Agregado!";
+                btnCanje.style.backgroundColor = "#A951F6";
+                setTimeout(() => { btnCanje.textContent = originalText; btnCanje.style.backgroundColor = "#111"; }, 1500);
+            });
+            
+            // ==========================================
+            // 4. CARRUSEL RECOMENDACIONES (CORREGIDO)
+            // ==========================================
+            // Ahora leemos directo de window.allProducts de Products.js
+            setTimeout(() => {
+                if (window.allProducts && window.allProducts.length > 0) {
+                    const recommendedList = document.getElementById("recommended-list");
+                    
+                    // Convertimos toda la base al vuelo a formato "Eco"
+                    const allEco = window.allProducts.map(p => ({
+                        ...p,
+                        points: Math.floor((p.originalPrice || 0) * 10)
+                    }));
+                    
+                    let recommended = allEco.filter(p => p.category === reward.category && p.id !== reward.id);
+                    
+                    if (recommended.length < 4) {
+                        const fallbacks = allEco.filter(p => p.id !== reward.id && !recommended.includes(p));
+                        recommended = recommended.concat(fallbacks);
+                    }
+
+                    const finalRecommendations = recommended.slice(0, 6);
+
+                    if (finalRecommendations.length > 0) {
+                        recommendedList.innerHTML = "";
+                        finalRecommendations.forEach(rec => {
+                            const imgSrc = rec.images?.main || "imagenes/default.jpg";
+                            const card = document.createElement("div");
+                            
+                            card.className = "app-product-card ecopoint-card";
+                            card.style.cssText = "width: 140px; flex: 0 0 auto; margin-bottom: 0; position: relative; cursor: pointer; scroll-snap-align: start;";
+                            card.setAttribute("data-id", rec.id);
+                            
+                            card.innerHTML = `
+                                <div class="product-image-container eco-title-click" style="height: 100px; padding: 5px;">
+                                    <img src="${imgSrc}" alt="${rec.name}" style="width:100%; height:100%; object-fit:contain;">
+                                </div>
+                                <div class="product-info eco-title-click" style="padding: 8px 8px 12px;">
+                                    <p class="product-name" style="font-size: 11px; min-height: 28px; line-height: 1.2; margin-bottom: 4px; color:#333;">${rec.name}</p>
+                                    <span class="price-offer" style="font-size: 13px; color: #A951F6; font-weight: 700; display:block;">
+                                        <i class="fa-solid fa-leaf"></i> ${rec.points} pts
+                                    </span>
+                                </div>
+                            `;
+                            
+                            card.addEventListener("click", () => {
+                                localStorage.setItem("selectedEcoDetail", JSON.stringify(rec));
+                                window.location.reload(); 
+                            });
+                            
+                            recommendedList.appendChild(card);
+                        });
+                    } else {
+                        recommendedList.closest('section').style.display = 'none';
+                    }
+                }
+            }, 500);
+
+            // ==========================================
+            // 5. BÚSQUEDA EN TIEMPO REAL (CORREGIDA)
+            // ==========================================
+            const searchInput = document.getElementById('eco-detail-search-input');
+            const searchResultsSection = document.getElementById('eco-search-results-section');
+            const searchProductList = document.getElementById('eco-search-product-list');
+            const sectionsToHide = document.querySelectorAll('.toggleable-section');
+
+            searchInput.addEventListener('input', function(e) {
+                const term = e.target.value.trim().toLowerCase();
+                
+                if (term === '') {
+                    sectionsToHide.forEach(el => el.classList.remove('search-active-hide'));
+                    searchResultsSection.style.display = 'none';
+                    return;
+                }
+
+                if (window.allProducts && window.allProducts.length > 0) {
+                    sectionsToHide.forEach(el => el.classList.add('search-active-hide'));
+                    searchResultsSection.style.display = 'block';
+                    
+                    const allEcoSearch = window.allProducts.map(p => ({
+                        ...p, points: Math.floor((p.originalPrice || 0) * 10)
+                    }));
+
+                    const results = allEcoSearch.filter(p => 
+                        p.name.toLowerCase().includes(term) || (p.category && p.category.toLowerCase().includes(term))
+                    );
+
+                    if (results.length === 0) {
+                        searchProductList.style.display = 'block';
+                        searchProductList.innerHTML = `<div style="width: 100%; text-align: center; padding: 40px 20px; color: #888; grid-column: 1 / -1;"><i class="fa-solid fa-box-open fa-2xl" style="margin-bottom: 15px; color: #ddd;"></i><br>No encontramos premios para "${term}"</div>`;
+                    } else {
+                        searchProductList.style.display = 'grid'; 
+                        searchProductList.innerHTML = '';
+                        results.forEach(product => {
+                            const imgSrc = product.images?.main || "imagenes/default.jpg";
+                            const card = document.createElement("div");
+                            card.className = "app-product-card ecopoint-card";
+                            card.style.cssText = "width: 100%; margin-bottom: 0; cursor: pointer; transition: transform 0.2s ease;"; 
+                            card.setAttribute("data-id", product.id);
+                            
+                            card.innerHTML = `
+                                <div class="product-image-container eco-title-click" style="height: 100px;">
+                                    <img src="${imgSrc}" alt="${product.name}" loading="lazy" style="width:100%; height:100%; object-fit:contain;">
+                                </div>
+                                <div class="product-info eco-title-click" style="padding: 8px 8px 12px;">
+                                    <p class="product-name" style="font-size: 11px; min-height: 28px; line-height: 1.2; margin-bottom: 4px; color:#333;">${product.name}</p>
+                                    <div class="ecopoint-price" style="margin-bottom:0; font-size:12px; font-weight:700; color:#A951F6;">
+                                        <i class="fa-solid fa-leaf"></i> ${product.points} pts
+                                    </div>
+                                </div>
+                            `;
+                            card.addEventListener("click", () => {
+                                localStorage.setItem("selectedEcoDetail", JSON.stringify(product));
+                                window.location.reload(); 
+                            });
+                            searchProductList.appendChild(card);
+                        });
+                    }
+                }
+            });
+        });
+
+        function executeEcoDetailSearch() {
+            const searchInput = document.getElementById('eco-detail-search-input');
+            const query = searchInput.value.trim();
+            searchInput.blur(); 
+            if (query) {
+                localStorage.setItem('globalSearchQuery', query);
+                window.location.href = 'Ecopoints.html';
+            }
+        }
+    </script>
+</body>
+</html>
