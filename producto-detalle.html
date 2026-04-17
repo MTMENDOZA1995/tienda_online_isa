@@ -42,20 +42,20 @@
             font-size: 12px;
             font-weight: 500;
             outline: none;
-            width: 300px; 
+            width: 220px; 
             font-family: 'Poppins', sans-serif;
             transition: background-color 0.3s, width 0.3s;
-            -webkit-appearance: none; /* Elimina estilos base de iOS */
+            -webkit-appearance: none; 
         }
         .search-pill-container input[type="search"]::-webkit-search-cancel-button {
-            display: none; /* Oculta la "X" por defecto */
+            display: none; 
         }
         .search-pill-container input::placeholder {
             color: rgba(255, 255, 255, 0.8);
         }
         .search-pill-container input:focus {
             background-color: rgba(255, 255, 255, 0.3);
-            width: 190px; /* Se expande suavemente */
+            width: 250px; 
         }
 
         /* Estilo para el badge en la barra inferior */
@@ -82,6 +82,7 @@
             padding: 0 4px;
             border: 2px solid white; 
             z-index: 10;
+            transition: transform 0.2s ease;
         }
 
         .sticky-buy-bar {
@@ -93,9 +94,36 @@
             padding-bottom: 140px !important; 
         }
 
-        /* Ocultar elementos dinámicamente durante la búsqueda */
         .search-active-hide {
             display: none !important;
+        }
+
+        /* ==================================================
+           ESTILO ALIEXPRESS: TARJETAS LIMPIAS (Para recomendaciones)
+        ================================================== */
+        .app-product-card .add-btn,
+        .app-product-card .redeem-btn,
+        .app-product-card .view-options-btn {
+            display: none !important;
+        }
+        .app-product-card .product-info {
+            padding-bottom: 15px !important;
+        }
+        .app-product-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .app-product-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 5;
+        }
+        .app-product-card:active {
+            transform: scale(0.97);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -266,7 +294,6 @@
     <script src="js/Products.js" defer></script> 
     <script src="js/cart.js" defer></script>
     <script src="js/product-detail.js" defer></script>
-    <script src="js/search.js" defer></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -289,13 +316,9 @@
                 // Aseguramos que la base de datos esté lista
                 if (window.allProducts && window.allProducts.length > 0) {
                     
-                    // Ocultamos todos los detalles y botón de compra
                     sectionsToHide.forEach(el => el.classList.add('search-active-hide'));
-                    
-                    // Mostramos el contenedor de resultados
                     searchResultsSection.style.display = 'block';
 
-                    // Buscamos
                     const results = window.allProducts.filter(p => 
                         p.name.toLowerCase().includes(term) || 
                         (p.category && p.category.toLowerCase().includes(term))
@@ -309,6 +332,7 @@
                                 No encontramos "${term}"
                             </div>`;
                     } else {
+                        searchProductList.style.display = 'grid'; 
                         searchProductList.innerHTML = '';
                         results.forEach(rec => {
                             const originalPrice = rec.originalPrice || 0;
@@ -333,12 +357,7 @@
                             const card = document.createElement("div");
                             card.className = "app-product-card";
                             card.style.cssText = "width: 100%; flex: auto; margin-bottom: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: relative; cursor:pointer;";
-                            
-                            // Clic en la tarjeta abre el detalle recargando la página
-                            card.addEventListener("click", () => {
-                                localStorage.setItem("selectedProductDetail", JSON.stringify(rec));
-                                window.location.reload(); 
-                            });
+                            card.setAttribute("data-id", rec.id);
 
                             card.innerHTML = `
                                 <div class="product-image-container" style="height: 100px; padding: 5px;">
@@ -376,11 +395,45 @@
             }
         });
 
-        // 3. Si presionan enter o el botón "Buscar" del teclado
+        // 3. INTERCEPTOR GLOBAL: Abre el detalle al tocar cualquier tarjeta
+        document.addEventListener("click", (e) => {
+            const card = e.target.closest(".app-product-card");
+            
+            if (card && !card.classList.contains("ecopoint-card")) {
+                e.preventDefault();
+
+                let productId = card.getAttribute("data-id");
+                let productToView = null;
+
+                if (!productId) {
+                    const hiddenBtn = card.querySelector("[data-id]");
+                    if (hiddenBtn) productId = hiddenBtn.getAttribute("data-id");
+                }
+
+                if (productId && window.allProducts) {
+                    productToView = window.allProducts.find(p => String(p.id) === String(productId));
+                }
+
+                if (!productToView && window.allProducts) {
+                    const nameElement = card.querySelector(".product-name");
+                    if (nameElement) {
+                        const productName = nameElement.textContent.trim();
+                        productToView = window.allProducts.find(p => p.name === productName);
+                    }
+                }
+
+                if (productToView) {
+                    localStorage.setItem("selectedProductDetail", JSON.stringify(productToView));
+                    window.location.reload(); // Recarga en la misma página para ver el nuevo producto
+                }
+            }
+        });
+
+        // 4. Si presionan enter o el botón "Buscar" del teclado
         function executeDetailSearch() {
             const searchInput = document.getElementById('detail-search-input');
             const query = searchInput.value.trim();
-            searchInput.blur(); // Oculta el teclado
+            searchInput.blur(); 
             if (query) {
                 localStorage.setItem('globalSearchQuery', query);
                 window.location.href = 'Productos.html?q=' + encodeURIComponent(query);
