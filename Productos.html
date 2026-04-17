@@ -13,16 +13,16 @@
     <link rel="stylesheet" href="Productos.css"> 
     
     <style>
-        /* Ajustes para alinear Logo y Buscador en la misma fila (Igual que index) */
+        /* Ajustes para alinear Logo y Buscador en la misma fila */
         .app-top-header {
-            padding: 10px 15px 0 15px; /* Quitamos padding bottom para que los chips peguen bien */
+            padding: 10px 15px 0 15px; 
         }
         .header-top-bar {
             display: flex;
             align-items: center;
             gap: 15px;
             width: 100%;
-            margin-bottom: 10px; /* Separación con los chips */
+            margin-bottom: 10px; 
         }
         .header-logo-compact {
             display: flex;
@@ -95,9 +95,43 @@
         .category-filter-chips {
             position: static; 
             top: auto; 
-            margin: 0 -15px; /* Para que ocupen todo el ancho de la pantalla */
+            margin: 0 -15px; 
             background-color: transparent; 
             padding: 0 15px 10px 15px;
+        }
+
+        /* ==================================================
+           ESTILO ALIEXPRESS: TARJETAS LIMPIAS (SIN BOTONES)
+        ================================================== */
+        .app-product-card .add-btn,
+        .app-product-card .redeem-btn,
+        .app-product-card .view-options-btn {
+            display: none !important;
+        }
+        
+        .app-product-card .product-info {
+            padding-bottom: 15px !important;
+        }
+        
+        /* Expande el área de clic a toda la tarjeta */
+        .app-product-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Capa transparente que cubre la tarjeta para captar el clic */
+        .app-product-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 10;
+        }
+        
+        .app-product-card:active {
+            transform: scale(0.97);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -119,14 +153,14 @@
         <div class="category-filter-chips">
             <div class="chips-container" id="category-chips">
                 <button class="chip active" data-category="all">Todas</button>
-                <button class="chip" data-category="celulares">Celulares</button>
-                <button class="chip" data-category="tecnologia">Tecnología</button>
-                <button class="chip" data-category="mascotas">Mascotas</button>
-                <button class="chip" data-category="joyeria">Joyería</button>
-                <button class="chip" data-category="ropa">Ropa</button>
-                <button class="chip" data-category="coleccion">Colección</button>
-                <button class="chip" data-category="pulseras">Pulseras</button>
-                <button class="chip" data-category="llaveros">Llaveros</button>
+                <button class="chip" data-category="Celulares">Celulares</button>
+                <button class="chip" data-category="Tecnología">Tecnología</button>
+                <button class="chip" data-category="Mascotas">Mascotas</button>
+                <button class="chip" data-category="Joyería">Joyería</button>
+                <button class="chip" data-category="Ropa">Ropa</button>
+                <button class="chip" data-category="Colección">Colección</button>
+                <button class="chip" data-category="Pulseras">Pulseras</button>
+                <button class="chip" data-category="Llaveros">Llaveros</button>
             </div>
         </div>
     </header>
@@ -203,6 +237,8 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. Lógica del Badge Inferior
             if(typeof window.updateCartBadge === 'function') {
                 const originalUpdate = window.updateCartBadge;
                 window.updateCartBadge = () => {
@@ -219,6 +255,52 @@
                     }
                 };
                 setTimeout(window.updateCartBadge, 500);
+            }
+        });
+
+        // 2. DELEGACIÓN DE EVENTOS GLOBAL (Fuera del DOMContentLoaded)
+        // Esto asegura que sin importar lo que haga search.js, atraparemos el clic
+        document.addEventListener("click", (e) => {
+            // Verificamos si tocamos una tarjeta de producto
+            const card = e.target.closest(".app-product-card");
+            
+            // Excluimos las tarjetas de EcoPoints (si es que por error se mezclan)
+            if (card && !card.classList.contains("ecopoint-card")) {
+                
+                // Evitamos que enlaces <a> anidados hagan recargar la página
+                e.preventDefault(); 
+
+                let productToView = null;
+                let productId = card.getAttribute("data-id");
+
+                // Intento 1: Buscar ID en la tarjeta
+                if (!productId) {
+                    // Intento 2: Buscar ID en un botón oculto dentro de la tarjeta
+                    const hiddenBtn = card.querySelector("[data-id]");
+                    if (hiddenBtn) {
+                        productId = hiddenBtn.getAttribute("data-id");
+                    }
+                }
+
+                if (productId && window.allProducts) {
+                    productToView = window.allProducts.find(p => String(p.id) === String(productId));
+                }
+
+                // Intento 3 (EL TRUCO MAESTRO): Si todo lo anterior falla, buscamos por el Título
+                if (!productToView && window.allProducts) {
+                    const nameElement = card.querySelector(".product-name");
+                    if (nameElement) {
+                        const productName = nameElement.textContent.trim();
+                        // Buscamos el producto exacto que coincida con ese nombre en la BD
+                        productToView = window.allProducts.find(p => p.name === productName);
+                    }
+                }
+
+                // Ejecución: Si lo encontramos, lo guardamos y vamos al detalle
+                if (productToView) {
+                    localStorage.setItem("selectedProductDetail", JSON.stringify(productToView));
+                    window.location.href = "producto-detalle.html";
+                }
             }
         });
     </script>
