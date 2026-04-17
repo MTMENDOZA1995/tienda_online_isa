@@ -1,17 +1,21 @@
 // js/Products.js
+// ==========================================================================
+// CATÁLOGO PRINCIPAL DE PRODUCTOS Y MOTOR DE RENDERIZADO
+// ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-    // --- Selectores del DOM ---
+    
+    // --- 1. Selectores del DOM ---
     const productListContainer = document.querySelector("#product-list"); 
-    const loadingSpinner = document.getElementById("loading-spinner"); // Spinner de carga (si existe)
-    const categoryChips = document.querySelectorAll(".chip"); // Nuevos chips de categorías
+    const loadingSpinner = document.getElementById("loading-spinner"); 
+    const categoryChips = document.querySelectorAll(".chip"); 
 
-    // Configuración para la carga de productos
-    const PRODUCTS_PER_LOAD = 10; // Cantidad de productos a cargar por vez
+    // --- 2. Configuración de Carga ---
+    const PRODUCTS_PER_LOAD = 10; 
     let currentProductIndex = 0; 
-    let isLoading = false; // Variable de control para el scroll infinito
+    let isLoading = false; 
 
-    // --- Datos de productos ---
+    // --- 3. Base de Datos de Productos ---
     const allProducts = [
         {
             id: 23,
@@ -28,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000061-62",
             stock: 1,
             category: "Ropa", 
-            shippingPolicy: `• Material: Poliéster, lana de coral.\n• Género: Mujeres\n• Incluye: 2 unidades`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Poliéster, lana de coral.\n• Género: Mujeres\n• Incluye: 2 unidades",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Crema","Plomo"],
             sizes: ["Unico"]
@@ -49,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000041-42",
             stock: 1,
             category: "Joyería", 
-            shippingPolicy: `• Material: Acero Inoxidable.\n• Género: Unisex\n• Incluye: 1 unidad`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Acero Inoxidable.\n• Género: Unisex\n• Incluye: 1 unidad",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Rosa - Mujer","Oscuro - Hombre"],
             sizes: ["Unico"]
@@ -70,8 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000040",
             stock: 1,
             category: "Joyería", 
-            shippingPolicy: `• Material: Acero Inoxidable.\n• Género: Mujeres`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Acero Inoxidable.\n• Género: Mujeres",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Plateado"],
             sizes: ["Unico"]
@@ -91,8 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "dj44-bu01s-dj44-bu02s",
             stock: 3,
             category: "Mascotas", 
-            shippingPolicy: `• Material: PVC y Acero Inox.\n• Género: Macotas`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: PVC y Acero Inox.\n• Género: Macotas",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Azul", "Rosado"],
             sizes: ["Unico"]
@@ -112,8 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000030",
             stock: 5,
             category: "Pulseras", 
-            shippingPolicy: `• Material: Acero Inoxidable.\n• Género: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Acero Inoxidable.\n• Género: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Dorado", "Negro"],
             sizes: ["Unico"]
@@ -133,8 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000029",
             stock: 6,
             category: "Pulseras",
-            shippingPolicy: `• Material: Aleación de Cu.\n• Género: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Aleación de Cu.\n• Género: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -154,8 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "123175043",
             stock: 1,
             category: "Pulseras",
-            shippingPolicy: `• Material: Cuero Sintético.\n• Género: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Cuero Sintético.\n• Género: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -175,8 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000028",
             stock: 3,
             category: "Pulseras",
-            shippingPolicy: `• Material: Cuero Sintético.\n• Género: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Cuero Sintético.\n• Género: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -196,8 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "D1166",
             stock: 4,
             category: "Pulseras",
-            shippingPolicy: `• Material: Cuero Sintetico.\n• Género: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Cuero Sintetico.\n• Género: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -217,8 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000027",
             stock: 4,
             category: "Pulseras",
-            shippingPolicy: `• Material: Caucho.\n• Genero: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Caucho.\n• Genero: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -238,8 +242,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000024-25-26",
             stock: 3,
             category: "Colección",
-            shippingPolicy: `• Material: Aleación de Cu.\n• Genero: Unisex`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Aleación de Cu.\n• Genero: Unisex",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Hombre Araña", "Casco de Locky", "Guante de Tahnos"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -259,8 +263,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000020-21",
             stock: 2,
             category: "Colección",
-            shippingPolicy: `• Material: PVC.`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: PVC.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Pikachu", "Psydock"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -280,8 +284,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000018",
             stock: 124,
             category: "Colección",
-            shippingPolicy: `• Material: PVC.\n• Generación: 1\n• Originales: No\n• Incluye: 1 unidad`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: PVC.\n• Generación: 1\n• Originales: No\n• Incluye: 1 unidad",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Aleatorio"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -300,9 +304,9 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             code: "ISA-0000017",
             stock: 28,
-            category: "Tecnologia",
-             shippingPolicy: `• Material: Batería Alcalina\n• Recargable: No\n• Voltaje: 12V\n• Modelo: A23`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            category: "Tecnología",
+            shippingPolicy: "• Material: Batería Alcalina\n• Recargable: No\n• Voltaje: 12V\n• Modelo: A23",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -322,8 +326,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000016",
             stock: 20,
             category: "Tecnología",
-            shippingPolicy: `• Material: Carcasa ABS.\n• Batería: Pila 12V 23A - No incluye\n• Color de Luz: Blanco Frío`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Carcasa ABS.\n• Batería: Pila 12V 23A - No incluye\n• Color de Luz: Blanco Frío",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -343,16 +347,16 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000013",
             stock: 13,
             category: "Celulares",
-            shippingPolicy: `• Material: Fibra de carbono.\n• Incluye: 2 unidades`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Fibra de carbono.\n• Incluye: 2 unidades",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
         },
         {
             id: 6,
-            name: "Par de Dedales Gamer Fibra Electrica ",
-            description: "Par de Dedales Gamer Fibra Electrica ",
+            name: "Par de Dedales Gamer Fibra Electrica",
+            description: "Par de Dedales Gamer Fibra Electrica",
             originalPrice: 13.00,
             discountPercent: 70,
             images: {
@@ -364,8 +368,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000011",
             stock: 3,
             category: "Celulares",
-            shippingPolicy: `• Material: Fibra de carbono.\n• Incluye: 2 unidades`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Fibra de carbono.\n• Incluye: 2 unidades",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Azul", "Rojo", "Morado"],
             sizes: ["Unico"]
@@ -385,8 +389,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000010",
             stock: 1,
             category: "Celulares",
-            shippingPolicy: `• Material: Silicona.`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Silicona.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
@@ -406,8 +410,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000009",
             stock: 3,
             category: "Celulares",
-            shippingPolicy: `• Material: Silicona`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Silicona",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["MD1", "MD2"],
             colors: ["Unico"],
             sizes: ["Unico "]
@@ -427,8 +431,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000008",
             stock: 1,
             category: "Celulares",
-            shippingPolicy: `• Conector Analógico: Puerto Jack de 3.5 mm.`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Conector Analógico: Puerto Jack de 3.5 mm.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Alambricos AKG"],
             colors: ["Blanco"],
             sizes: ["Unico "]
@@ -448,8 +452,8 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "ISA-0000002-3-4-5-6-7",
             stock: 12,
             category: "Celulares",
-            shippingPolicy: `• Material: Película de Vidrio.`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Película de Vidrio.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["10S-4G", "Note 10S-5G", " Note 10 Pro"],
             colors: ["Unico"],
             sizes: ["Unico "]
@@ -469,55 +473,49 @@ document.addEventListener("DOMContentLoaded", () => {
             code: "2433101",
             stock: 2,
             category: "Celulares",
-            shippingPolicy: `• Material: Película de Vidrio.`,
-            additionalInfo: `<li><a href="Politica-Envio.html">Política de Envío y Entrega</a></li>`,
+            shippingPolicy: "• Material: Película de Vidrio.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
         }
     ];
 
-    // =========================================================================
-    // --- NUEVO: EXPORTAR GLOBALMENTE EL CATÁLOGO ---
-    // Con esta única línea, permitimos que FCompra.js lea los productos.
-    // =========================================================================
+    // Exportar globalmente
     window.allProducts = allProducts;
 
 
-    // =========================================================================
-    // INICIO DEL MOTOR DE BÚSQUEDA Y FILTRADO INICIAL
-    // =========================================================================
+    // --- 4. Inicialización y Búsqueda URL ---
     let filteredProducts = [...allProducts]; 
 
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('q');
 
-    if (searchQuery) {
-        const queryLower = searchQuery.toLowerCase();
-        
-        // Filtra los productos que coincidan en el nombre o la categoría
-        filteredProducts = allProducts.filter(product => 
-            product.name.toLowerCase().includes(queryLower) || 
-            product.category.toLowerCase().includes(queryLower)
-        );
+    // Utilidad profesional: Función para quitar acentos
+    const removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
 
-        // Desactiva los botones (chips) de categoría porque estamos en modo búsqueda
+    if (searchQuery) {
+        const queryClean = removeAccents(searchQuery.toLowerCase());
+        
+        filteredProducts = allProducts.filter(product => {
+            const nameClean = removeAccents(product.name.toLowerCase());
+            const catClean = removeAccents(product.category.toLowerCase());
+            return nameClean.includes(queryClean) || catClean.includes(queryClean);
+        });
+
         if (categoryChips.length > 0) {
             categoryChips.forEach(c => c.classList.remove("active"));
         }
         
-        // Rellenar el input visualmente si existe
         const searchInput = document.querySelector(".app-search-bar input");
         if (searchInput) {
             searchInput.value = searchQuery;
         }
     }
-    // =========================================================================
-    // FIN DEL MOTOR DE BÚSQUEDA
-    // =========================================================================
 
-    // --- Funciones de Utilidad ---
-
+    // --- 5. Funciones de Utilidad ---
     const formatPrice = (amount) => {
         return new Intl.NumberFormat('es-PE', {
             style: 'currency',
@@ -526,7 +524,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }).format(amount);
     };
 
-    // Generador de HTML para tarjetas estilo App
+    // Generador de HTML
     const createProductCardHTML = (product) => {
         const original = Number(product.originalPrice) || 0;
         const discount = Number(product.discountPercent) || 0;
@@ -552,10 +550,12 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         }
 
+        const mainImg = product.images?.main || "imagenes/default.jpg";
+
         return `
             <div class="product-image-container">
                 ${discountTagHTML}
-                <img src="${product.images?.main || "imagenes/default.jpg"}" alt="${product.name}" loading="lazy">
+                <img src="${mainImg}" alt="${product.name}" loading="lazy" onerror="this.src='imagenes/default.jpg'">
                 <button class="favorite-btn" aria-label="Agregar a favoritos"><i class="fa-regular fa-heart"></i></button>
             </div>
             
@@ -574,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     };
 
-    // Función de renderizado (añade o reemplaza)
+    // --- 6. Motor de Renderizado Optimizado ---
     const renderProducts = (productsToRender, append = false) => {
         if (!productListContainer) return;
 
@@ -597,28 +597,32 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // USO DE DOCUMENT FRAGMENT (Mejora de Rendimiento Profesional)
+        const fragment = document.createDocumentFragment();
+
         for (let i = startIndex; i < endIndex; i++) {
             const product = productsToRender[i];
             const productCard = document.createElement("div");
             
             productCard.classList.add("app-product-card"); 
-            productCard.setAttribute("data-category", product.category.toLowerCase());
+            productCard.setAttribute("data-category", removeAccents(product.category.toLowerCase()));
             productCard.innerHTML = createProductCardHTML(product);
             
-            productListContainer.appendChild(productCard);
+            fragment.appendChild(productCard);
         }
 
+        productListContainer.appendChild(fragment);
         currentProductIndex = endIndex; 
     };
 
-    // Lógica para botones de las tarjetas
+    // --- 7. Eventos de las Tarjetas ---
     const attachProductDetailListeners = () => {
         if (!productListContainer) return;
 
         productListContainer.addEventListener("click", (event) => {
             const target = event.target;
             
-            // Clic en "Agregar"
+            // Lógica Botón "Agregar"
             if (target.classList.contains("add-to-cart-btn")) {
                 event.preventDefault(); 
                 const productId = parseInt(target.dataset.productId);
@@ -628,9 +632,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     localStorage.setItem("selectedProductDetail", JSON.stringify(selectedProduct));
                     window.location.href = "producto-detalle.html"; 
                 }
+                return; // Corta la ejecución para no evaluar el botón de favoritos
             }
             
-            // Clic en "Corazón"
+            // Lógica Botón "Corazón" (Favoritos)
             const favoriteBtn = target.closest('.favorite-btn');
             if (favoriteBtn) {
                 event.preventDefault();
@@ -646,38 +651,35 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // --- EVENT LISTENERS (Filtros por Chips) ---
+    // --- 8. Eventos de Filtros (Chips) ---
     if (categoryChips.length > 0) {
         categoryChips.forEach(chip => {
             chip.addEventListener("click", (e) => {
-                // Al hacer clic en un chip, limpiamos la barra de búsqueda en la URL si existiera
                 if (window.location.search) {
                     window.history.pushState({}, document.title, window.location.pathname);
                     const searchInput = document.querySelector(".app-search-bar input");
                     if(searchInput) searchInput.value = "";
                 }
 
-                // Actualiza el aspecto de los chips
                 categoryChips.forEach(c => c.classList.remove("active"));
                 e.target.classList.add("active");
                 
-                // Filtra la lista
-                const selectedCategory = e.target.textContent.toLowerCase();
+                const selectedCategory = removeAccents(e.target.textContent.toLowerCase());
+                
                 if (selectedCategory === "todas" || selectedCategory === "todos") {
                     filteredProducts = [...allProducts]; 
                 } else {
                     filteredProducts = allProducts.filter(product =>
-                        product.category.toLowerCase() === selectedCategory
+                        removeAccents(product.category.toLowerCase()) === selectedCategory
                     );
                 }
                 
-                // Vuelve a pintar la cuadrícula desde cero
                 renderProducts(filteredProducts, false); 
             });
         });
     }
 
-    // --- LÓGICA DE SCROLL INFINITO (Intersection Observer) ---
+    // --- 9. Lógica de Scroll Infinito ---
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && !isLoading) {
             if (currentProductIndex < filteredProducts.length) {
@@ -695,23 +697,18 @@ document.addEventListener("DOMContentLoaded", () => {
         rootMargin: "0px 0px 200px 0px" 
     });
 
-    // --- INICIALIZACIÓN ---
+    // --- 10. Arranque Inicial ---
     if (productListContainer) {
-        // Detectar si estamos en el "carrusel horizontal" de index.html
         if (productListContainer.classList.contains("products-carousel")) {
-            // En el inicio solo mostramos 20 y no activamos scroll infinito
             renderProducts(filteredProducts.slice(0, 20), false);
         } else {
-            // En Productos.html (cuadrícula), activamos carga normal y scroll infinito
             renderProducts(filteredProducts, false);
             
-            // Le decimos al observador que vigile el final de la página
             const bottomTrigger = document.querySelector(".app-trust-section") || document.querySelector(".app-footer-lite");
             if (bottomTrigger) {
                 observer.observe(bottomTrigger);
             }
         }
-        
         attachProductDetailListeners();
     }
 });
