@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pago y Confirmación |INNOVACIÓN SOSTENIBLE & ARTÍCULOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="FCompra.css"> 
+    
+    <style>
+        .payment-options { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .payment-option { cursor: pointer; display: block; position: relative; margin: 0; }
+        .payment-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+        .payment-option .option-content { display: flex; align-items: center; padding: 15px; border: 2px solid #eee; border-radius: 12px; background: white; transition: all 0.3s ease; gap: 15px; }
+        .payment-option input[type="radio"]:checked ~ .option-content { border-color: #6cc82a; background-color: #f4f8ff; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.1); }
+        .payment-option .option-text-group { display: flex; flex-direction: column; flex: 1; }
+        .payment-option .option-title { font-weight: 600; font-size: 14px; color: #333; margin-bottom: 2px; }
+        .payment-option .option-desc { font-size: 11px; color: #666; }
+        .payment-option input[type="radio"]:checked ~ .option-content .option-title { color: #6cc82a; }
+
+        .summary-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; color: #555; }
+        #final-delivery-type { font-size: 11px; font-weight: 500; text-align: right; max-width: 60%; color: #777; }
+        .total-row { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ddd; align-items: center; }
+        .total-label { font-weight: 600; color: #666; font-size: 12px; }
+        .total-amount { font-weight: 700; color: #333; font-size: 14px; }
+
+        /* Estilo para el aviso de retiro en almacen */
+        .free-delivery-box {
+            display: none; /* Se activa por JS */
+            text-align: center;
+            padding: 25px 20px;
+            background: #f0fff4;
+            border: 1px dashed #6cc82a;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="app-body">
+
+    <header class="app-top-header checkout-header">
+        <div class="header-main-row" style="margin-bottom: 0; justify-content: center; position: relative;">
+            <button class="menu-icon back-btn" onclick="window.location.href='Entrega-canje.html';" style="background:none; border:none; color:white; cursor:pointer; position: absolute; left: 0;">
+                <i class="fa-solid fa-arrow-left fa-lg"></i>
+            </button>
+            <div style="color: white; font-weight: 600; font-size: 15px;">Finalizar Canje</div>
+        </div>
+    </header>
+
+    <main class="app-main-content checkout-main" style="padding-bottom: 90px; background-color: #f8f9fa;">
+        
+        <section class="checkout-section">
+            <div class="checkout-section-header">
+                <h3><i class="fa-solid fa-file-invoice" style="color: #6cc82a; margin-right: 8px;"></i> Resumen de Canje</h3>
+            </div>
+            
+            <div class="summary-card">
+                <div class="summary-row">
+                    <span>Puntos a descontar:</span>
+                    <span id="final-points-total" style="font-weight: 700; color: #6cc82a;">0 pts</span>
+                </div>
+                <div class="summary-row">
+                    <span>Entrega:</span>
+                    <span id="final-delivery-type">Cargando...</span>
+                </div>
+                <div class="summary-row">
+                    <span>Costo de Envío:</span>
+                    <span id="final-shipping" style="font-weight: 600; color: #333;">S/ 0.00</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span class="total-label">Total a Pagar (Envío):</span>
+                    <span id="final-total" class="total-amount">S/ 0.00</span>
+                </div>
+            </div>
+
+            <div id="free-shipping-notice" class="free-delivery-box">
+                <i class="fa-solid fa-store" style="font-size: 24px; color: #6cc82a; margin-bottom: 10px;"></i>
+                <p style="font-size: 13px; color: #6cc82a; font-weight: 600; margin: 0;">¡Envío no requerido!</p>
+                <p style="font-size: 11px; color: #666; margin-top: 5px;">Tu entrega es en almacén, puedes proceder a confirmar tu canje sin pagos adicionales.</p>
+            </div>
+        </section>
+
+        <section class="checkout-section" id="payment-method-section">
+            <div class="checkout-section-header">
+                <h3><i class="fa-solid fa-wallet" style="color: #6cc82a; margin-right: 8px;"></i> Pago del Envío</h3>
+            </div>
+            <p style="font-size: 11px; color: #888; margin-bottom: 15px; padding-left: 5px;">
+                Selecciona cómo deseas pagar el monto en Soles (S/).
+            </p>
+
+            <div class="payment-options">
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="Yape / Plin" checked>
+                    <div class="option-content">
+                        <i class="fa-solid fa-qrcode" style="font-size: 24px; color: #6cc82a;"></i>
+                        <div class="option-text-group">
+                            <span class="option-title">Yape / Plin</span>
+                            <span class="option-desc">Transferencia rápida y segura</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="Tarjeta Débito / Crédito">
+                    <div class="option-content">
+                        <div style="display: flex; gap: 5px; color: #6cc82a;">
+                            <i class="fa-brands fa-cc-visa fa-xl"></i>
+                            <i class="fa-brands fa-cc-mastercard fa-xl"></i>
+                        </div>
+                        <div class="option-text-group">
+                            <span class="option-title">Tarjeta Débito / Crédito</span>
+                            <span class="option-desc">Link de pago (Niubiz / Izipay)</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="Contra Entrega">
+                    <div class="option-content">
+                        <i class="fa-solid fa-hand-holding-dollar" style="font-size: 24px; color: #6cc82a;"></i>
+                        <div class="option-text-group">
+                            <span class="option-title">Contra Entrega</span>
+                            <span class="option-desc">Paga al recibir en efectivo</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="sticky-buy-bar" style="position: fixed; bottom: 0; width: 100%; max-width: 480px; background: white; padding: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 -2px 15px rgba(0,0,0,0.08); z-index: 100;">
+        <button class="buy-btn btn-primary" id="btn-procesar-pago" style="width: 100%; border: none; background-color: #6cc82a; color: white; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <i class="fa-brands fa-whatsapp fa-lg"></i> Confirmar y Enviar
+        </button>
+    </div>
+
+    <script src="js/FCanje.js" defer></script>
+</body>
+</html>
