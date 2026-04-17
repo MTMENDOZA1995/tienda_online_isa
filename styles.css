@@ -1,5 +1,5 @@
 /* ==========================================================================
-   DISEÑO ESTILO APP NATIVA (TIPO SAGA FALABELLA / MERCADOLIBRE)
+   DISEÑO ESTILO APP NATIVA (TIPO SAGA FALABELLA / MERCADOLIBRE / ALIEXPRESS)
    ========================================================================== */
 
 * {
@@ -111,6 +111,93 @@ body.app-body {
     cursor: pointer;
     margin-left: 10px; /* Esto lo separa del input (el texto) */
     padding-right: 5px; /* Esto evita que toque el borde derecho del contenedor */
+}
+
+/* ESTILOS DE BARRA DE BÚSQUEDA PÍLDORA (INDEX.HTML) */
+.header-top-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+.header-logo-compact {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.header-logo-compact img {
+    height: 35px; 
+    width: auto;
+    object-fit: contain;
+}
+.header-search-form {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.header-search-form i.fa-magnifying-glass {
+    position: absolute;
+    left: 15px;
+    color: #888;
+    font-size: 14px;
+    pointer-events: none;
+}
+.header-search-form input {
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 40px 10px 38px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    outline: none;
+    -webkit-appearance: none;
+}
+.header-search-form input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+.header-search-form i.camera-icon {
+    position: absolute;
+    right: 15px;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* BARRA INFERIOR (BOTTOM NAV) & BADGE (Reutilizado de INDEX) */
+.bottom-cart-icon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bottom-cart-icon .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: 5px; 
+    background-color: #ff3b30;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    height: 16px;
+    min-width: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid white; 
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+/* Ocultar elementos dinámicamente durante la búsqueda */
+.search-active-hide {
+    display: none !important;
 }
 
 /* --- 2. ACCESOS RÁPIDOS (BURBUJAS CIRCULARES SUPERIORES) --- */
@@ -240,7 +327,9 @@ body.app-body {
     object-fit: cover; 
 }
 
-/* --- 6. TARJETAS DE PRODUCTOS (COMPACTAS / RECOMENDADOS) --- */
+
+/* --- 6. TARJETAS DE PRODUCTOS (ESTILO ALIEXPRESS INTEGRADO) --- */
+
 .app-product-card {
     flex: 0 0 auto;
     width: 135px; /* Ancho reducido para ver 2.5 tarjetas en móvil */
@@ -251,6 +340,30 @@ body.app-body {
     background: #fff;
     position: relative;
     padding-bottom: 8px;
+    /* Efectos de Interacción */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Ocultar botones forzosamente para mantener la tarjeta limpia */
+.app-product-card .add-btn,
+.app-product-card .redeem-btn,
+.app-product-card .view-options-btn {
+    display: none !important;
+}
+
+/* Capa invisible para atrapar el clic en toda la superficie de la tarjeta */
+.app-product-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 10;
+}
+
+.app-product-card:active {
+    transform: scale(0.97);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .product-image-container { 
@@ -276,6 +389,7 @@ body.app-body {
     font-weight: 700;
     padding: 2px 5px;
     border-radius: 4px;
+    z-index: 15; /* Por encima de la capa de clic */
 }
 
 .favorite-btn {
@@ -294,10 +408,12 @@ body.app-body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 15; /* Por encima de la capa de clic */
 }
 
 .product-info { 
     padding: 8px; 
+    padding-bottom: 15px !important; /* Ajuste visual por falta de botón */
     text-align: left; 
 }
 
@@ -314,12 +430,11 @@ body.app-body {
     font-weight: 500; 
     margin-bottom: 6px;
     line-height: 1.3;
-    /* Cortar a dos líneas exactamente con puntos suspensivos */
     display: -webkit-box; 
     -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical; 
     overflow: hidden;
-    min-height: 28px; /* Mantiene la alineación incluso si el texto es de 1 línea */
+    min-height: 28px; 
 }
 
 .prices { 
@@ -340,22 +455,8 @@ body.app-body {
     color: #d0021b; 
 }
 
-.add-btn {
-    width: 100%;
-    background-color: #6cc82a;
-    color: #fff;
-    border: none;
-    padding: 6px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
+.btn-container { padding: 0 8px; }
 
-.add-btn:active {
-    background-color: #5aaf26;
-}
 
 /* --- 7. FOOTER LITE Y GARANTÍAS DE CONFIANZA --- */
 .app-trust-section {
