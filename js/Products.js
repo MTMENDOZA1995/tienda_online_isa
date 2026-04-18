@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Guantes Peluche Garra de Gato",
             description: "Ideales para días fríos, disfraces o para quienes aman los accesorios únicos y adorables.",
             originalPrice: 24.00, 
-            discountPercent: 70,
+            discountPercent: 60, // CORREGIDO: Faltaba el número 0 aquí.
             images: { 
                 main: "productos/ISA-0000061.jpg",
                 extra1: "productos/ISA-0000061-1.jpg",
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Collar Bluelory de la Suerte para Pareja",
             description: "Símbolo especial de unión, protección y buena fortuna para compartir en pareja",
             originalPrice: 27.00, 
-            discountPercent: 70,
+            discountPercent: 60,
             images: { 
                 main: "productos/ISA-0000041.jpg",
                 extra1: "productos/ISA-0000041-1.jpg",
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Aretes Rosa",
             description: "Aretes de diseño elegante, fabricados en acero inoxidable de alta calidad.",
             originalPrice: 13.00, 
-            discountPercent: 70,
+            discountPercent: 50,
             images: { 
                 main: "productos/ISA-0000040-1.jpg",
                 extra1: "productos/ISA-0000040-2.jpg",
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Pulsera Bluelory Acero Inox. Unisex",
             description: "Pulsera Bluelory Acero Inox. Unisex, Negro-Dorado.",
             originalPrice: 19.00, 
-            discountPercent: 70,
+            discountPercent: 60,
             images: { 
                 main: "productos/ISA-0000030.jpg",
                 extra1: "productos/ISA-0000030-1.jpg",
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Pulsera uniendo Corazones Parejas",
             description: "Pulsera uniendo Corazones Parejas",
             originalPrice: 9.00,
-            discountPercent: 70,
+            discountPercent: 40,
             images: {
                 main: "productos/ISA-0000029.jpg",
                 extra1: "",
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Pulsera Multicapa Punk Unisex",
             description: "Pulsera Multicapa Punk Unisex",
             originalPrice: 6.00,
-            discountPercent: 70,
+            discountPercent: 20,
             images: {
                 main: "productos/123175043.jpg",
                 extra1: "",
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Pulsera Cáñamo Unisex - Marron",
             description: "Pulsera Cáñamo Unisex - Marron",
             originalPrice: 13.00,
-            discountPercent: 70,
+            discountPercent: 60,
             images: {
                 main: "productos/D1166-2.jpg",
                 extra1: "productos/D1166.jpg",
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Pulsera Punk de Caucho Hombre",
             description: "Pulsera Punk de Caucho Hombre",
             originalPrice: 13.00,
-            discountPercent: 70,
+            discountPercent: 50,
             images: {
                 main: "productos/ISA-0000027.jpg",
                 extra1: "productos/ISA-0000027-1.jpg",
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Case Funda de silicona Poco X3 GT",
             description: "Case Funda de silicona Poco X3 GT",
             originalPrice: 24.00,
-            discountPercent: 70,
+            discountPercent: 60,
             images: {
                 main: "productos/ISA-0000010.jpg",
                 extra1: "",
@@ -439,10 +439,10 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: 2,
-            name: "Vidrio Templado +Prot. Camara",
-            description: "Vidrio Templado + Prot. Camara",
+            name: "Vidrio Templado +Prot. Camara Xiaomi",
+            description: "Vidrio Templado +Prot. Camara Xiaomi",
             originalPrice: 19.00,
-            discountPercent: 70,
+            discountPercent: 50,
             images: {
                 main: "productos/ISA-0000002.jpg",
                 extra1: "",
@@ -454,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
             category: "Celulares",
             shippingPolicy: "• Material: Película de Vidrio.",
             additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
-            models: ["10S-4G", "Note 10S-5G", " Note 10 Pro"],
+            models: ["Note 10S-5G", "Note 10S-4G", " Note 10 Pro","Poco F3","Poco M3","Note 9 Pro"],
             colors: ["Unico"],
             sizes: ["Unico "]
         },
@@ -544,9 +544,10 @@ document.addEventListener("DOMContentLoaded", () => {
             discountTagHTML = `<span class="discount-badge">-${discount}%</span>`;
 
         } else {
+            // CORRECCIÓN: Cuando NO hay descuento, usamos estilo normal en lugar del estilo rojo vibrante.
             product.price = original;
             priceDisplayHTML = `
-                <span class="price-offer">${formatPrice(original)}</span>
+                <span style="font-size: 14px; font-weight: 700; color: #333;">${formatPrice(original)}</span>
             `;
         }
 
@@ -597,7 +598,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // USO DE DOCUMENT FRAGMENT (Mejora de Rendimiento Profesional)
         const fragment = document.createDocumentFragment();
 
         for (let i = startIndex; i < endIndex; i++) {
@@ -632,7 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     localStorage.setItem("selectedProductDetail", JSON.stringify(selectedProduct));
                     window.location.href = "producto-detalle.html"; 
                 }
-                return; // Corta la ejecución para no evaluar el botón de favoritos
+                return; 
             }
             
             // Lógica Botón "Corazón" (Favoritos)
