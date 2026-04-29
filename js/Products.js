@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Guantes Peluche Garra de Gato",
             description: "Ideales para días fríos, disfraces o para quienes aman los accesorios únicos y adorables.",
             originalPrice: 24.00, 
-            discountPercent: 60, // CORREGIDO: Faltaba el número 0 aquí.
+            discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000061.jpg",
                 extra1: "productos/ISA-0000061-1.jpg",
@@ -490,13 +490,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('q');
+    const discountQuery = urlParams.get('discount'); // NUEVA LÓGICA: Leer el descuento desde la URL
 
     // Utilidad profesional: Función para quitar acentos
     const removeAccents = (str) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
-    if (searchQuery) {
+    // Filtro 1: Si el usuario tocó la imagen del descuento
+    if (discountQuery) {
+        const targetDiscount = parseInt(discountQuery);
+        
+        // Filtramos para mostrar únicamente productos con ese descuento exacto
+        filteredProducts = allProducts.filter(product => product.discountPercent === targetDiscount);
+
+        if (categoryChips.length > 0) {
+            categoryChips.forEach(c => c.classList.remove("active"));
+        }
+    } 
+    // Filtro 2: Búsqueda normal de texto
+    else if (searchQuery) {
         const queryClean = removeAccents(searchQuery.toLowerCase());
         
         filteredProducts = allProducts.filter(product => {
@@ -544,7 +557,6 @@ document.addEventListener("DOMContentLoaded", () => {
             discountTagHTML = `<span class="discount-badge">-${discount}%</span>`;
 
         } else {
-            // CORRECCIÓN: Cuando NO hay descuento, usamos estilo normal en lugar del estilo rojo vibrante.
             product.price = original;
             priceDisplayHTML = `
                 <span style="font-size: 14px; font-weight: 700; color: #333;">${formatPrice(original)}</span>
