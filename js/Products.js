@@ -18,6 +18,111 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- 3. Base de Datos de Productos ---
     const allProducts = [
         {
+            id: 28,
+            name: "Candado de Seguridad Maletas",
+            description: "Candado de Seguridad para Maletas ",
+            originalPrice:16.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000108.JPEG ",
+                extra1: "productos/ISA-0000108-1.JPEG ",
+                extra2: "productos/ISA-0000108-2.JPEG",
+                extra3: ""
+            },
+            code: "ISA-0000108",
+            stock: 2,
+            category: "Hogar", 
+            shippingPolicy: "• Material: Aleación de Aluminio.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 27,
+            name: "Protector de Pantalla Mate - Samsung S24 - Samsung S24 + - Samsung S24 Ultra",
+            description: "Pelicula de ceramica suave mate para Samsung S24 - Samsung S24 + - Samsung S24 Ultra - No Vidrio Templado",
+            originalPrice: 8.00, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000099.JPEG ",
+                extra1: "productos/ISA-0000099-1.JPEG ",
+                extra2: "productos/ISA-0000099-2.JPEG ",
+                extra3: ""
+            },
+            code: "ISA-0000104-105-106",
+            stock: 10,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Cerámica mate, No vidrio Templado.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Samsung S24","Samsung S24 + ","Samsung S24 Ultra"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 26,
+            name: "Funda Pokemon Pikachu Samsung S24",
+            description: "Funda Pokemon Pikachu Samsung S24",
+            originalPrice: 16.00, 
+            discountPercent: 35, 
+            images: { 
+                main: "productos/ISA-0000102.png",
+                extra1: "productos/ISA-0000102-1.png",
+                extra2: "",
+                extra3: ""
+            },
+            code: "ISA-0000102",
+            stock: 1,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Silicona",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Samsung S24"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 25,
+            name: "Funda Pokemon Gengar Samsung S24",
+            description: "Funda para Samsung S24 - Pokemon Gengar",
+            originalPrice: 15.90, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000101.png",
+                extra1: "productos/ISA-0000101-1.png",
+                extra2: "",
+                extra3: ""
+            },
+            code: "ISA-0000101",
+            stock: 1,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Poliuretano termoplástico.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Samsung S24"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },   
+        {
+            id: 24,
+            name: "Protector de Pantalla mate Xiomi Redmi Note 8 Pro",
+            description: "Pelicula de ceramica suave mate para Xiomi Redmi Note 8 Pro- No Vidrio Templado",
+            originalPrice: 10.00, 
+            discountPercent: 20, 
+            images: { 
+                main: "productos/ISA-0000099.JPEG ",
+                extra1: "productos/ISA-0000099-1.JPEG ",
+                extra2: "productos/ISA-0000099-2.JPEG ",
+                extra3: ""
+            },
+            code: "ISA-0000099",
+            stock: 1,
+            category: "Celulares", 
+            shippingPolicy: "• Material: No vidrio Templado.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
             id: 23,
             name: "Guantes Peluche Garra de Gato",
             description: "Ideales para días fríos, disfraces o para quienes aman los accesorios únicos y adorables.",
@@ -30,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 extra3: ""
             },
             code: "ISA-0000061-62",
-            stock: 1,
+            stock: 4,
             category: "Ropa", 
             shippingPolicy: "• Material: Poliéster, lana de coral.\n• Género: Mujeres\n• Incluye: 2 unidades",
             additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
@@ -51,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 extra3: "productos/ISA-0000041-2.jpg"
             },
             code: "ISA-0000041-42",
-            stock: 1,
+            stock: 4,
             category: "Joyería", 
             shippingPolicy: "• Material: Acero Inoxidable.\n• Género: Unisex\n• Incluye: 1 unidad",
             additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
@@ -190,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Pulsera Cáñamo Unisex - Marron",
             description: "Pulsera Cáñamo Unisex - Marron",
             originalPrice: 13.00,
-            discountPercent: 60,
+            discountPercent: 70,
             images: {
                 main: "productos/D1166-2.jpg",
                 extra1: "productos/D1166.jpg",
@@ -345,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 extra3: "productos/ISA-0000013-2.jpg"
             },
             code: "ISA-0000013",
-            stock: 13,
+            stock: 11,
             category: "Celulares",
             shippingPolicy: "• Material: Fibra de carbono.\n• Incluye: 2 unidades",
             additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
@@ -366,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 extra3: "productos/ISA-0000011-3.jpg"
             },
             code: "ISA-0000011",
-            stock: 3,
+            stock: 2,
             category: "Celulares",
             shippingPolicy: "• Material: Fibra de carbono.\n• Incluye: 2 unidades",
             additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
