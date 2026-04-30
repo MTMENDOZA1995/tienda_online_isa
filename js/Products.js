@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 main: "productos/ISA-0000124.jpeg",
                 extra1: "productos/ISA-0000124-1.jpeg",
                 extra2: "productos/ISA-0000124-2.jpeg",
-                extra3: "productos/ISA-0000124-2.jpeg"
+                extra3: "productos/ISA-0000124-3.jpeg"
             },
             code: "ISA-0000124",
             stock: 1,
