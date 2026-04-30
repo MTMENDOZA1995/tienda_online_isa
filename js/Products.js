@@ -17,6 +17,343 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- 3. Base de Datos de Productos ---
     const allProducts = [
+
+        {
+            id: 44,
+            name: "Candado inteligente con huella Dactilar",
+            description: "Candado inteligente con huella dactilar, ideal para asegurar tu hogar con seguridad y comodidad.",
+            originalPrice:103.00, 
+            discountPercent: 70, 
+            images: { 
+                main: "productos/ISA-0000133.jpeg",
+                extra1: "productos/ISA-0000133-1.jpeg",
+                extra2: "productos/ISA-0000133-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000133",
+            stock: 1,
+            category: "Tecnología", 
+            shippingPolicy: "• Material: Metal.\n• Voltaje: 36 V.\n• Entrada: Micro USB\n• Incluye: Cable y Manual de usuario",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Plateado"],
+            sizes: ["Unico"]
+        },         
+        {
+            id: 43,
+            name: "Auriculares deportivos hifi",
+            description: "Auriculares deportivos hifi, con micrófono integrado, ideales para disfrutar de tu música y llamadas con comodidad y calidad de sonido durante tus actividades deportivas.",
+            originalPrice:56.00, 
+            discountPercent: 70, 
+            images: { 
+                main: "productos/ISA-0000131.jpeg",
+                extra1: "productos/ISA-0000131-1.jpeg",
+                extra2: "productos/ISA-0000131-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000131",
+            stock: 1,
+            category: "Celulares", 
+            shippingPolicy: "• Microfono: Si.\n• Control de Volumen: Si.\n• Conexión: Alambrica\n• Conector: 3,5 mm.\n• Largo: 120cm.\n• Incluye: Manual de usuario",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 42,
+            name: "Cinta Adhesiva Doble Cara",
+            description: "Cinta adhesiva doble cara, ideal para unir y sujetar diversos materiales en aplicaciones industriales y domésticas.",
+            originalPrice:11.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000122.jpeg",
+                extra1: "productos/ISA-0000122-1.jpeg",
+                extra2: "productos/ISA-0000122-2.jpeg",
+                extra3: "productos/ISA-0000122-3.jpeg"
+            },
+            code: "ISA-0000122",
+            stock: 1,
+            category: "Hogar", 
+            shippingPolicy: "• Largo: 100cm.\n• Ancho: 2cm.\n• Grosor: 1mm",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["2cm x 100cm"]
+        },        
+        {
+            id: 41,
+            name: "Auriculares AK6 alambricos",
+            description: "Auriculares AK6 alambricos, con micrófono integrado, ideales para disfrutar de tu música y llamadas con comodidad y calidad de sonido.",
+            originalPrice:57.00, 
+            discountPercent: 70, 
+            images: { 
+                main: "productos/ISA-0000130.jpeg",
+                extra1: "productos/ISA-0000130-1.png",
+                extra2: "",
+                extra3: ""
+            },
+            code: "ISA-0000130",
+            stock: 1,
+            category: "Celulares", 
+            shippingPolicy: "• Microfono: Si.\n• Control de Volumen: Si.\n• Conexión: Alambrica\n• Conector: 3,5 mm\n• Largo: 120cm",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Transparente"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 40,
+            name: "Rollo de Cinta - Organizador de Cables",
+            description: "Rollo de Cinta de Sujeción para cables electricos 5M, ideal para organizar y sujetar cables en diversas aplicaciones.",
+            originalPrice:8.00, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000129.jpeg",
+                extra1: "productos/ISA-0000129-1.png",
+                extra2: "productos/ISA-0000129-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000129",
+            stock: 1,
+            category: "Computación", 
+            shippingPolicy: "• Largo: 5 metros.\n• Ancho: 1 centimetro",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Blanco"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 39,
+            name: "Soporte Giratorio para Celular  360°",
+            description: "Soporte Giratorio para Celular  360°, práctico y funcional para sostener tu celular en cualquier ángulo.",
+            originalPrice:9.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000127.jpeg",
+                extra1: "productos/ISA-0000127-1.jpeg",
+                extra2: "productos/ISA-0000128.jpeg",
+                extra3: "productos/ISA-0000128-1.jpeg"
+            },
+            code: "ISA-0000127-128",
+            stock: 6,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Aleación de Zinc y PVC.\n• Incluye: 1 Unidad",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Plateado","Negro"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 38,
+            name: "Cinta Metrica Retractil 150 CM",
+            description: "Cinta Métrica Retractil de 150 cm, ideal para medir con precisión en diversas aplicaciones.",
+            originalPrice:8.00, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000125.jpeg",
+                extra1: "productos/ISA-0000125-1.jpeg",
+                extra2: "productos/ISA-0000125-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000125",
+            stock: 1,
+            category: "Hogar", 
+            shippingPolicy: "• Material: PVC.\n• Tamaño: 1.5 metros",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Blanco"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 37,
+            name: "Llavero Portacredenciales Expandible - Retractil",
+            description: "Llavero Portacredenciales Expandible - Retractil, práctico y funcional para llevar tus credenciales de manera segura y accesible.",
+            originalPrice:18.00, 
+            discountPercent: 70, 
+            images: { 
+                main: "productos/ISA-0000124.jpeg",
+                extra1: "productos/ISA-0000124-1.jpeg",
+                extra2: "productos/ISA-0000124-2.jpeg",
+                extra3: "roductos/ISA-0000124-3.jpeg"
+            },
+            code: "ISA-0000124",
+            stock: 1,
+            category: "Llaveros", 
+            shippingPolicy: "• Material: PVC.\n• Incluye: 1 Unidad",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 36,
+            name: "Llavero Portacredenciales Retractil",
+            description: "Llavero Portacredenciales Retractil, práctico y funcional para llevar tus credenciales de manera segura y accesible.",
+            originalPrice:10.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000123.png",
+                extra1: "productos/ISA-0000123-1.jpeg",
+                extra2: "productos/ISA-0000123-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000123",
+            stock: 1,
+            category: "Llaveros", 
+            shippingPolicy: "• Material: PVC.\n• Incluye: 1 Unidad",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 35,
+            name: "Mini Afilador de Cuchillo",
+            description: "Afilador de Cuchillo Portátil, compacto y fácil de usar, ideal para mantener tus cuchillos afilados en cualquier momento y lugar.",
+            originalPrice:11.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000121.jpeg",
+                extra1: "productos/ISA-0000121-1.jpeg",
+                extra2: "productos/ISA-0000121-2.jpeg",
+                extra3: "productos/ISA-0000121-3.jpeg"
+            },
+            code: "ISA-0000121",
+            stock: 1,
+            category: "Electrodomésticos", 
+            shippingPolicy: "• Material: PVC.\n• Incluye: 1 Unidad",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 34,
+            name: "Portadocumentos Lanyard",
+            description: "Funda de tarjeta individual para tarjetas de acceso e indetificación - No incluye cordon",
+            originalPrice:6.00, 
+            discountPercent: 20, 
+            images: { 
+                main: "productos/ISA-0000119.jpeg",
+                extra1: "productos/ISA-0000119-1.jpeg",
+                extra2: "productos/ISA-0000119-2.jpeg",
+                extra3: "productos/ISA-0000119-3.jpeg"
+            },
+            code: "ISA-0000119",
+            stock: 10,
+            category: "Llaveros", 
+            shippingPolicy: "• Material: PVC.\n• Incluye: 1 Portadocumentos",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 33,
+            name: "Portatarjetas de Idetifcación + Cordon",
+            description: "Portatarjetas de idetificación de material de plastico + Cordon",
+            originalPrice:7.00, 
+            discountPercent: 30, 
+            images: { 
+                main: "productos/ISA-0000118.png",
+                extra1: "productos/ISA-0000118-1.jpeg",
+                extra2: "productos/ISA-0000118-2.jpeg",
+                extra3: "productos/ISA-0000118-3.jpeg"
+            },
+            code: "ISA-0000118",
+            stock: 6,
+            category: "Llaveros", 
+            shippingPolicy: "• Material: plastico .\n• Incluye: 1 Tarjetero + 1 cordon",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 32,
+            name: "Soporte Giratorio para Celular",
+            description: "Soporte Giratorio para Celular",
+            originalPrice:11.00, 
+            discountPercent: 70, 
+            images: { 
+                main: "productos/ISA-0000114.jpeg",
+                extra1: "productos/ISA-0000114-1.jpeg",
+                extra2: "productos/ISA-0000014.jpeg",
+                extra3: "productos/ISA-0000114-2.jpeg"
+            },
+            code: "ISA-0000114-14",
+            stock: 9,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Aleación de zinc.\n• Soporte: Plegable",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro","Dorado"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 31,
+            name: "Adaptador de Cargador USB a tipo C",
+            description: "Adaptador de Cargador USB a tipo C",
+            originalPrice:10.00, 
+            discountPercent: 40, 
+            images: { 
+                main: "productos/ISA-0000113.jpeg",
+                extra1: "productos/ISA-0000113-1.jpeg",
+                extra2: "",
+                extra3: ""
+            },
+            code: "ISA-0000113",
+            stock: 1,
+            category: "Tecnología", 
+            shippingPolicy: "• Material: Pvc.\n• Conector: Tipo C",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 30,
+            name: "Conector Tipo C a USB",
+            description: "Conector Tipo C a USB",
+            originalPrice:10.00, 
+            discountPercent: 40, 
+            images: { 
+                main: "productos/ISA-0000112.jpeg",
+                extra1: "productos/ISA-0000112-1.jpeg",
+                extra2: "",
+                extra3: ""
+            },
+            code: "ISA-0000112",
+            stock: 1,
+            category: "Tecnología", 
+            shippingPolicy: "• Material: Pvc.\n• Conector: USB",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 29,
+            name: "Candado de Seguridad para Maletas",
+            description: "Candado de Seguridad para Maletas ",
+            originalPrice:12.00, 
+            discountPercent: 30, 
+            images: { 
+                main: "productos/ISA-0000109.JPEG ",
+                extra1: "productos/ISA-0000109-1.JPEG ",
+                extra2: "productos/ISA-0000109-2.JPEG",
+                extra3: ""
+            },
+            code: "ISA-0000109",
+            stock: 3,
+            category: "Hogar", 
+            shippingPolicy: "• Material: Aleación de Aluminio.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Plateado"],
+            sizes: ["Unico"]
+        }, 
         {
             id: 28,
             name: "Candado de Seguridad Maletas",
@@ -24,9 +361,9 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice:16.00, 
             discountPercent: 50, 
             images: { 
-                main: "productos/ISA-0000108.jpeg",
-                extra1: "productos/ISA-0000108-1.jpeg",
-                extra2: "productos/ISA-0000108-2.jpeg",
+                main: "productos/ISA-0000108.JPEG ",
+                extra1: "productos/ISA-0000108-1.JPEG ",
+                extra2: "productos/ISA-0000108-2.JPEG",
                 extra3: ""
             },
             code: "ISA-0000108",
@@ -45,9 +382,9 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice: 8.00, 
             discountPercent: 0, 
             images: { 
-                main: "productos/ISA-0000099.jpeg",
-                extra1: "productos/ISA-0000099-1.jpeg",
-                extra2: "productos/ISA-0000099-2.jpeg",
+                main: "productos/ISA-0000099.JPEG ",
+                extra1: "productos/ISA-0000099-1.JPEG ",
+                extra2: "productos/ISA-0000099-2.JPEG ",
                 extra3: ""
             },
             code: "ISA-0000104-105-106",
@@ -103,8 +440,8 @@ document.addEventListener("DOMContentLoaded", () => {
         },   
         {
             id: 24,
-            name: "Protector de Pantalla mate Xiomi Redmi Note 8 Pro",
-            description: "Pelicula de ceramica suave mate para Xiomi Redmi Note 8 Pro- No Vidrio Templado",
+            name: "Protector de Pantalla mate Xiaomi Redmi Note 8 Pro",
+            description: "Pelicula de ceramica suave mate para Xiaomi Redmi Note 8 Pro- No Vidrio Templado",
             originalPrice: 10.00, 
             discountPercent: 20, 
             images: { 
