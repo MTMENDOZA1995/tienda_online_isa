@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice:16.00, 
             discountPercent: 50, 
             images: { 
-                main: "productos/ISA-0000108.JPEG ",
-                extra1: "productos/ISA-0000108-1.JPEG ",
-                extra2: "productos/ISA-0000108-2.JPEG",
+                main: "productos/ISA-0000108.jpeg",
+                extra1: "productos/ISA-0000108-1.jpeg",
+                extra2: "productos/ISA-0000108-2.jpeg",
                 extra3: ""
             },
             code: "ISA-0000108",
@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
             originalPrice: 8.00, 
             discountPercent: 0, 
             images: { 
-                main: "productos/ISA-0000099.JPEG ",
-                extra1: "productos/ISA-0000099-1.JPEG ",
-                extra2: "productos/ISA-0000099-2.JPEG ",
+                main: "productos/ISA-0000099.jpeg",
+                extra1: "productos/ISA-0000099-1.jpge",
+                extra2: "productos/ISA-0000099-2.jpeg",
                 extra3: ""
             },
             code: "ISA-0000104-105-106",
