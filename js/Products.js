@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000099.jpeg",
-                extra1: "productos/ISA-0000099-1.jpge",
+                extra1: "productos/ISA-0000099-1.jpeg",
                 extra2: "productos/ISA-0000099-2.jpeg",
                 extra3: ""
             },
