@@ -19,6 +19,153 @@ document.addEventListener("DOMContentLoaded", () => {
     const allProducts = [
 
         {
+            id: 51,
+            name: "Camiseta Manga Larga",
+            description: "Camiseta manga larga, diseño elegante y moderno, ideal para cualquier ocasión.",
+            originalPrice:26.00, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000116.jpeg",
+                extra1: "productos/ISA-0000116-1.jpeg",
+                extra2: "productos/ISA-0000116-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-00000116",
+            stock: 1,
+            category: "Ropa", 
+            shippingPolicy: "• Material: Aleación de Algodón.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["M"]
+        }, 
+        {
+            id: 50,
+            name: "Anillo Bluelory Acero Inoxidable",
+            description: "Anillo Bluelory Acero Inoxidable, diseño elegante y moderno, ideal para expresar amor y estilo en cualquier ocasión.",
+            originalPrice:13.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000044.png",
+                extra1: "productos/ISA-0000044-1.png",
+                extra2: "productos/ISA-0000044-2.png",
+                extra3: "productos/ISA-0000060-3.jpg"
+            },
+            code: "ISA-0000044-45-46-47-48-49-50-51-52",
+            stock: 15,
+            category: "Joyería", 
+            shippingPolicy: "• Material: Acero Inoxidable.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["6mm(7) Black","6mm(8) Gold","6mm(9) Gold","8mm(9) Black","8mm(10) Black","8mm(11) Black","8mm(9) Gold","8mm(10) Gold","8mm(11) Gold"]
+        }, 
+        {
+            id: 49,
+            name: "Anillo de Cristal de Acero Inoxidable",
+            description: "Anillo de Acero Inoxidable con diseño de cristal, ideal para expresar amor y estilo en cualquier ocasión.",
+            originalPrice:14.00, 
+            discountPercent: 60, 
+            images: { 
+                main: "productos/ISA-0000053.png",
+                extra1: "productos/ISA-0000053-1.jpg",
+                extra2: "productos/ISA-0000053-2.jpg",
+                extra3: "productos/ISA-0000060-3.jpg"
+            },
+            code: "ISA-0000053-54-55",
+            stock: 6,
+            category: "Joyería", 
+            shippingPolicy: "• Material: Acero Inoxidable.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["09","10","11"]
+        },        
+        {
+            id: 48,
+            name: "Anillo consimbologia de Arbol Cristal de Acero Inoxidable",
+            description: "Anillo de Acero Inoxidable con diseño de árbol y cristales, ideal para expresar amor y estilo en cualquier ocasión.",
+            originalPrice:11.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000059.jpg",
+                extra1: "productos/ISA-0000059-1.jpg",
+                extra2: "productos/ISA-0000059-2.jpg",
+                extra3: "productos/ISA-0000060-3.jpg"
+            },
+            code: "ISA-0000059-58",
+            stock: 4,
+            category: "Joyería", 
+            shippingPolicy: "• Material: Acero Inoxidable.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["10","11"]
+        },   
+        {
+            id: 47,
+            name: "Anillo con simblogia de Arbol de Acero Inoxidable",
+            description: "Anillo de Acero Inoxidable con diseño de árbol, ideal para expresar amor y estilo en cualquier ocasión.",
+            originalPrice:11.00, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000060.png",
+                extra1: "productos/ISA-0000060-1.jpg",
+                extra2: "productos/ISA-0000060-2.jpg",
+                extra3: "productos/ISA-0000060-3.jpg"
+            },
+            code: "ISA-0000060",
+            stock: 2,
+            category: "Joyería", 
+            shippingPolicy: "• Material: Acero Inoxidable.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["10"]
+        },         
+        {
+            id: 46,
+            name: "Pulsera de Aleación Corazón Flechado Unisex",
+            description: "Pulsera Aleación Corazón Flechado Unisex, diseño elegante y moderno, ideal para expresar amor y estilo en cualquier ocasión.",
+            originalPrice:4.00, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000033.png",
+                extra1: "productos/ISA-0000034.png",
+                extra2: "productos/ISA-0000035.png",
+                extra3: ""
+            },
+            code: "ISA-0000033-34-35",
+            stock: 7,
+            category: "Pulseras", 
+            shippingPolicy: "• Material: Aleacoión de Zinc.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Corazón Flechado","Cruz Unix","Redondo Unix"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 45,
+            name: "Llavero con Mosqueton estilo Vitange",
+            description: "Llavero con mosquetón estilo Vitange.",
+            originalPrice:6.00, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000111.png",
+                extra1: "productos/ISA-0000111-1.png",
+                extra2: "productos/ISA-0000111-2.jpeg",
+                extra3: "productos/ISA-0000111-3.jpeg"
+            },
+            code: "ISA-0000111",
+            stock: 1,
+            category: "Llaveros", 
+            shippingPolicy: "• Material: Aleacoión de Zinc.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
             id: 44,
             name: "Candado inteligente con huella Dactilar",
             description: "Candado inteligente con huella dactilar, ideal para asegurar tu hogar con seguridad y comodidad.",
@@ -464,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Guantes Peluche Garra de Gato",
             description: "Ideales para días fríos, disfraces o para quienes aman los accesorios únicos y adorables.",
             originalPrice: 24.00, 
-            discountPercent: 0, 
+            discountPercent: 60, 
             images: { 
                 main: "productos/ISA-0000061.jpg",
                 extra1: "productos/ISA-0000061-1.jpg",
