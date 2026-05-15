@@ -19,10 +19,514 @@ document.addEventListener("DOMContentLoaded", () => {
     const allProducts = [
 
         {
+            id: 75,
+            name: "Anillo Bicristal Acero Inoxidable",
+            description: "Estilo único y moderno, con diseño de doble cristal que es elegante, ideal para complementar tu look con un toque de sofisticación y brillo.",
+            originalPrice: 10.30, 
+            discountPercent:70, 
+            images: { 
+                main: "productos/ISA-0000056.png",
+                extra1: "productos/ISA-0000057.png",
+                extra2: "productos/ISA-0000060-3.jpg",
+                extra3: ""
+            },
+            code: "ISA-0000056-57",
+            stock: 6,
+            category: "Pulseras", 
+            shippingPolicy: "• Material: Acero Inoxidable.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["10","11"]
+        },
+        {
+            id: 74,
+            name: "Pulsera de Acero Inox. Anonymous",
+            description: "Pulsera de acero inoxidable con diseño inspirado en el símbolo de Anonymous, ideal para complementar tu estilo con un toque de misterio y rebeldía.",
+            originalPrice: 30.66, 
+            discountPercent:70, 
+            images: { 
+                main: "productos/ISA-0000032.png",
+                extra1: "productos/ISA-0000032-1.png",
+                extra2: "productos/ISA-0000032-2.png",
+                extra3: ""
+            },
+            code: "ISA-0000032",
+            stock: 2,
+            category: "Pulseras", 
+            shippingPolicy: "• Material: Acero Inoxidable.\n• Tamaño:  19cm",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 73,
+            name: "Riñonera Canguro Unisex - Estilo Urbano",
+            description: "Ideal para llevar tus objetos personales de manera segura y cómoda, con diseño unisex y estilo urbano para complementar tu look diario.",
+            originalPrice: 56.64, 
+            discountPercent:70, 
+            images: { 
+                main: "productos/ISA-0000159.jpeg",
+                extra1: "productos/ISA-0000159-1.jpeg",
+                extra2: "productos/ISA-0000159-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000159",
+            stock: 1,
+            category: "Ropa", 
+            shippingPolicy: "• Material: Nailon.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 72,
+            name: "Protector de Elices para Dron DJI Mini 5 Pro",
+            description: "Ideal para proteger las hélices de tu dron DJI Mini 5 Pro, con diseño resistente y seguro para mantener tu dispositivo en perfecto estado durante el vuelo.",
+            originalPrice: 49.28, 
+            discountPercent:0, 
+            images: { 
+                main: "productos/ISA-0000158.jpeg",
+                extra1: "productos/ISA-0000158-1.jpeg",
+                extra2: "productos/ISA-0000158-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000158",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Resina ABS.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 71,
+            name: "Funda Case Para Mando Control RC/ RC2 para DRON DJI",
+            description: "Ideal para proteger tu control RC o RC2 de dron DJI, con diseño resistente y seguro para mantener tu dispositivo en perfecto estado durante el vuelo.",
+            originalPrice: 30.20, 
+            discountPercent:20, 
+            images: { 
+                main: "productos/ISA-0000157.jpeg",
+                extra1: "productos/ISA-0000157-1.jpeg",
+                extra2: "productos/ISA-0000157-2.jpeg",
+                extra3: "productos/ISA-0000157-3.jpeg"
+            },
+            code: "ISA-0000157",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Silicona.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 70,
+            name: "Vidrio Templado para Control RC/ RC2 para DRON DJI",
+            description: "Ideal para proteger la pantalla de tu control RC o RC2 de dron DJI, con diseño resistente y seguro para mantener tu dispositivo en perfecto estado durante el vuelo.",
+            originalPrice: 16.89, 
+            discountPercent:0, 
+            images: { 
+                main: "productos/ISA-0000156.jpeg",
+                extra1: "productos/ISA-0000156-1.jpeg",
+                extra2: "productos/ISA-0000156-2.jpeg",
+                extra3: "productos/ISA-0000156-3.jpeg"
+            },
+            code: "ISA-0000156",
+            stock: 2,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Vidrio Templado Mate.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 69,
+            name: "Plataforma de Aterrizaje para Dron DJI - Portátil",
+            description: "Ideal para proporcionar un lugar seguro y estable para el aterrizaje de tu dron DJI, con diseño portátil y resistente para proteger tu dispositivo durante el despegue y aterrizaje.",
+            originalPrice: 48.60, 
+            discountPercent:0, 
+            images: { 
+                main: "productos/ISA-0000155.jpeg",
+                extra1: "productos/ISA-0000155-1.jpeg",
+                extra2: "productos/ISA-0000155-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000155",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Poliéster\n• Diametro:  55cm \n• Incluye: 1 Unidad.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["D:55CM"]
+        },
+        {
+            id: 68,
+            name: "Carcasa protectora de Pantalla de Control RC / RC2 para DRON DJI",
+            description: "Ideal para proteger la pantalla de tu control RC o RC2 de dron DJI, con diseño resistente y seguro para mantener tu dispositivo en perfecto estado durante el vuelo.",
+            originalPrice: 93.99, 
+            discountPercent:50, 
+            images: { 
+                main: "productos/ISA-0000154.jpeg",
+                extra1: "productos/ISA-0000154-1.jpeg",
+                extra2: "productos/ISA-0000154-2.jpeg",
+                extra3: "productos/ISA-0000154-3.jpeg"
+            },
+            code: "ISA-0000154",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Plastico\n• Modelos:RC, RC2 \n• Incluye: 1 Unidad.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 67,
+            name: "Correa de Cuello para control RC / RC2 / RC PRO - DRON DJI",
+            description: "Ideal para llevar tu control RC, RC2 o RC PRO de dron DJI de manera segura y cómoda, con diseño ergonómico y resistente para mantener el control durante el vuelo.",
+            originalPrice: 63.97, 
+            discountPercent: 40, 
+            images: { 
+                main: "productos/ISA-0000153.jpeg",
+                extra1: "productos/ISA-0000153-1.jpeg",
+                extra2: "productos/ISA-0000153-2.jpeg",
+                extra3: "productos/ISA-0000153-3.jpeg"
+            },
+            code: "ISA-0000153",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Otros\n• Modelos: Dji Air 3S, Mini 4 Pro, Mini 5 Pro, otros\n• Incluye: 1 Unidad.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 66,
+            name: "Funda Portamemoria SD / Micro SD para Cámaras y Drones",
+            description: "Ideal para proteger y organizar tus tarjetas de memoria SD y Micro SD, con diseño compacto y resistente para mantener tus datos seguros durante tus aventuras fotográficas o de vuelo.",
+            originalPrice: 27.68, 
+            discountPercent: 30, 
+            images: { 
+                main: "productos/ISA-0000152.jpeg",
+                extra1: "productos/ISA-0000152-1.jpeg",
+                extra2: "productos/ISA-0000152-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000152",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Plastico",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 65,
+            name: "Funda Case Carcasa para celular Samsung S24",
+            description: "Ideal para proteger tu celular Samsung S24, con diseño resistente y elegante para mantener tu dispositivo seguro y con estilo.",
+            originalPrice: 21.98, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000151.jpeg",
+                extra1: "productos/ISA-0000151-1.jpeg",
+                extra2: "productos/ISA-0000150.jpeg",
+                extra3: "productos/ISA-0000151-2.jpeg"
+            },
+            code: "ISA-0000150-151",
+            stock: 2,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Silicona",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Gris Oscuro", "Azul Zafiro"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 64,
+            name: "Depusheng Intefaz de Audio - Transmisión, Mezclador, Modulador de voz",
+            description: "Ideal para mejorar la calidad de tus transmisiones, con funciones de mezcla y modulación de voz para una experiencia de audio profesional.",
+            originalPrice: 246.31, 
+            discountPercent: 60, 
+            images: { 
+                main: "productos/ISA-0000149.jpeg",
+                extra1: "productos/ISA-0000149-1.jpeg",
+                extra2: "productos/ISA-0000149-2.jpeg",
+                extra3: "productos/ISA-0000149-3.jpeg"
+            },
+            code: "ISA-0000149",
+            stock: 1,
+            category: "Electrónica", 
+            shippingPolicy: "• Voltaje: 36 V\n• Modo de Alimentación: Carga USB.\n• Bateria Recargable: Si.\n• Inalmbrico: Si.\n• Material: Resina ABS\n• Color: Negro.\n• Incluye: Manual, cable tipo C.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 63,
+            name: "Lector Biometrico de Huella Dactilar para Control de Acceso",
+            description: "Ideal para mejorar la seguridad y el control de acceso en tu hogar o negocio, con tecnología biométrica de huella dactilar para un acceso rápido y seguro.",
+            originalPrice: 283.20, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000148.jpeg",
+                extra1: "productos/ISA-0000148-1.jpeg",
+                extra2: "productos/ISA-0000148-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000148",
+            stock: 2,
+            category: "Electrónica", 
+            shippingPolicy: "• Capacidad de huella dactilar: 500\n• Lector de tarjetas: 500.\n• Lector de contraseñas: 500.\n• Medida: 106mm x 106mm.\n• Control: USB OTG 2.0.\n• No Multilingue: Chino, Inglés.\n• Corriente: <100mA.\n• Incluye: Manual.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 62,
+            name: "Pila AA Recargable de Litio de 3400 MWH PUJIMAX X2 Unidades",
+            description: "Ideal para alimentar tus dispositivos electrónicos, con capacidad de 3400 mWh y diseño recargable para mayor durabilidad y sostenibilidad.",
+            originalPrice: 26.10, 
+            discountPercent: 40, 
+            images: { 
+                main: "productos/ISA-0000147.jpeg",
+                extra1: "productos/ISA-0000147-1.jpeg",
+                extra2: "productos/ISA-0000147-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000147",
+            stock: 4,
+            category: "Electrónica", 
+            shippingPolicy: "• Material: Litio.\n• Recargable: Si.\n• Marca: PUJIMAX.\n• Incluye: 2 unidades.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["2 Unidades"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },  
+        {
+            id: 61,
+            name: "Probador de Batería de Carros con pantalla digital",
+            description: "Ideal para verificar el estado de tus baterías, con pantalla digital para una lectura clara y precisa.",
+            originalPrice: 53.10, 
+            discountPercent: 60, 
+            images: { 
+                main: "productos/ISA-0000146.jpeg",
+                extra1: "productos/ISA-0000146-1.jpeg",
+                extra2: "productos/ISA-0000146-2.jpeg",
+                extra3: "productos/ISA-0000146-3.jpeg"
+            },
+            code: "ISA-0000146",
+            stock: 1,
+            category: "Electrónica", 
+            shippingPolicy: "• Material: Policarbonato.\n• Voltaje: 36 V.\n• Bateria: No.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },         
+        {
+            id: 60,
+            name: "Funda - Case - Carcasa Mate Para Celular Samsung A53 5G",
+            description: "Ideal para proteger tu celular Samsung A53 5G, con diseño mate y resistente para mantener tu dispositivo seguro y elegante.",
+            originalPrice: 30.55, 
+            discountPercent: 60, 
+            images: { 
+                main: "productos/ISA-0000145.jpeg",
+                extra1: "productos/ISA-0000145-1.jpeg",
+                extra2: "productos/ISA-0000145-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000145",
+            stock: 1,
+            category: "Celulares", 
+            shippingPolicy: "• Material: Policarbonato.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 59,
+            name: "Plastificadora Laminadora A4 Voltaje MAXDONE",
+            description: "Ideal para proteger y preservar tus documentos importantes, con diseño compacto y fácil de usar para plastificar tus papeles en formato A4.",
+            originalPrice: 255.16, 
+            discountPercent: 40, 
+            images: { 
+                main: "productos/ISA-0000144.jpeg",
+                extra1: "productos/ISA-0000144-1.jpeg",
+                extra2: "productos/ISA-0000144-2.jpeg",
+                extra3: "productos/ISA-0000144-3.jpeg"
+            },
+            code: "ISA-0000144",
+            stock: 1,
+            category: "Electrónica", 
+            shippingPolicy: "• Fuente de alimentación: Fuente de Energía.\n• Voltaje: 220 - 240 V. \n• Material: Pvc",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 58,
+            name: "Adaptador Multipuestos 3 en 1 USB - C - DMI 3.0",
+            description: "Ideal para conectar múltiples dispositivos a tu computadora o laptop, con puertos USB, tipo C y HDMI para mayor versatilidad y funcionalidad.",
+            originalPrice: 60.18, 
+            discountPercent: 40, 
+            images: { 
+                main: "productos/ISA-0000143.jpeg",
+                extra1: "productos/ISA-0000143-1.jpeg",
+                extra2: "productos/ISA-0000143-2.jpeg",
+                extra3: "productos/ISA-0000143-3.jpeg"
+            },
+            code: "ISA-0000143",
+            stock: 1,
+            category: "Tecnología", 
+            shippingPolicy: "• Voltaje: 36 V.\n• Tipo de conector: USB/ Tipo C/ HDMI.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },
+        {
+            id: 57,
+            name: "Joysticks para control RC/ RC2 - DRON DJI",
+            description: "Ideal para reemplazar los joysticks de tu control RC o RC2 de dron DJI, con diseño resistente y seguro para mantener el control durante el vuelo.",
+            originalPrice: 17.20, 
+            discountPercent: 30, 
+            images: { 
+                main: "productos/ISA-0000142.jpeg",
+                extra1: "productos/ISA-0000142-1.jpeg",
+                extra2: "productos/ISA-0000142-2.jpeg",
+                extra3: "productos/ISA-0000142-3.jpeg"
+            },
+            code: "ISA-0000142",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Aleación de Aluminio.\n• Incluye: 2 unidades",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 56,
+            name: "Tornillos de Liberación para control de Dron Dji / Camara",
+            description: "Ideal para reemplazar los tornillos de liberación de tu dron DJI o cámara, con diseño resistente y seguro para mantener tus dispositivos en su lugar durante el vuelo o uso.",
+            originalPrice: 15.51, 
+            discountPercent: 0, 
+            images: { 
+                main: "productos/ISA-0000141.jpeg",
+                extra1: "productos/ISA-0000141-1.jpeg",
+                extra2: "productos/ISA-0000141-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000141",
+            stock: 1,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Aleación de Zinc.\n• Incluye: 2 unidades",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 55,
+            name: "Pegatinas Reflectantes de Seguridad para Moto",
+            description: "Ideal para mejorar la visibilidad y seguridad de tu moto, con diseño reflectante para una conducción más segura durante la noche.",
+            originalPrice: 6.90, 
+            discountPercent: 30, 
+            images: { 
+                main: "productos/ISA-0000140.jpeg",
+                extra1: "productos/ISA-0000140-1.jpeg",
+                extra2: "productos/ISA-0000140-2.jpeg",
+                extra3: ""
+            },
+            code: "ISA-0000140",
+            stock: 3,
+            category: "Repuestos", 
+            shippingPolicy: "• Material: Polietireno.\n• Tamaño: 14.5x2.5-12.5x2.5-10x2.5 cm.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 54,
+            name: "Portaidentificación Retractil Vertical",
+            description: "Ideal para llevar tus credenciales de manera segura y accesible, con diseño vertical y mecanismo retráctil para mayor comodidad.",
+            originalPrice: 21.42, 
+            discountPercent: 50, 
+            images: { 
+                main: "productos/ISA-0000139.jpeg",
+                extra1: "productos/ISA-0000139-1.jpeg",
+                extra2: "productos/ISA-0000139-2.jpeg",
+                extra3: "productos/ISA-0000139-3.jpeg"
+            },
+            code: "ISA-0000139",
+            stock: 1,
+            category: "Llaveros", 
+            shippingPolicy: "• Material: PVC.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Unico"],
+            sizes: ["Unico"]
+        },        
+        {
+            id: 53,
+            name: "Candado de seguridad para equipaje de 3 digitos",
+            description: "Candado de seguridad para equipaje, diseño resistente y seguro.",
+            originalPrice: 35.40, 
+            discountPercent: 70, 
+            images: { 
+                main: "productos/ISA-0000138.jpeg",
+                extra1: "productos/ISA-0000138-1.jpeg",
+                extra2: "productos/ISA-0000138-2.jpeg",
+                extra3: "productos/ISA-0000138-3.jpeg"
+            },
+            code: "ISA-0000138",
+            stock: 2,
+            category: "Hogar", 
+            shippingPolicy: "• Material: PVC.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro"],
+            sizes: ["Unico"]
+        }, 
+        {
+            id: 52,
+            name: "Candado de seguridad para equipaje",
+            description: "Candado de seguridad para equipaje, diseño resistente y seguro.",
+            originalPrice: 26.55, 
+            discountPercent: 60, 
+            images: { 
+                main: "productos/ISA-0000134.jpeg",
+                extra1: "productos/ISA-0000136.jpeg",
+                extra2: "productos/ISA-0000135.jpeg",
+                extra3: "productos/ISA-0000137.jpeg"
+            },
+            code: "ISA-0000134-35-36-37",
+            stock: 8,
+            category: "Hogar", 
+            shippingPolicy: "• Material: Aleación de Zinc.",
+            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
+            models: ["Unico"],
+            colors: ["Negro","Plateado","Celeste","Rojo"],
+            sizes: ["Unico"]
+        },        
+        {
             id: 51,
             name: "Camiseta Manga Larga",
             description: "Camiseta manga larga, diseño elegante y moderno, ideal para cualquier ocasión.",
-            originalPrice:26.00, 
+            originalPrice: 26.00, 
             discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000116.jpeg",
@@ -43,7 +547,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 50,
             name: "Anillo Bluelory Acero Inoxidable",
             description: "Anillo Bluelory Acero Inoxidable, diseño elegante y moderno, ideal para expresar amor y estilo en cualquier ocasión.",
-            originalPrice:13.00, 
+            originalPrice: 13.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000044.png",
@@ -64,7 +568,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 49,
             name: "Anillo de Cristal de Acero Inoxidable",
             description: "Anillo de Acero Inoxidable con diseño de cristal, ideal para expresar amor y estilo en cualquier ocasión.",
-            originalPrice:14.00, 
+            originalPrice: 14.00, 
             discountPercent: 60, 
             images: { 
                 main: "productos/ISA-0000053.png",
@@ -85,7 +589,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 48,
             name: "Anillo consimbologia de Arbol Cristal de Acero Inoxidable",
             description: "Anillo de Acero Inoxidable con diseño de árbol y cristales, ideal para expresar amor y estilo en cualquier ocasión.",
-            originalPrice:11.00, 
+            originalPrice: 11.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000059.jpg",
@@ -106,7 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 47,
             name: "Anillo con simblogia de Arbol de Acero Inoxidable",
             description: "Anillo de Acero Inoxidable con diseño de árbol, ideal para expresar amor y estilo en cualquier ocasión.",
-            originalPrice:11.00, 
+            originalPrice: 11.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000060.png",
@@ -122,12 +626,12 @@ document.addEventListener("DOMContentLoaded", () => {
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["10"]
-        },         
+        },        
         {
             id: 46,
             name: "Pulsera de Aleación Corazón Flechado Unisex",
             description: "Pulsera Aleación Corazón Flechado Unisex, diseño elegante y moderno, ideal para expresar amor y estilo en cualquier ocasión.",
-            originalPrice:4.00, 
+            originalPrice: 4.00, 
             discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000033.png",
@@ -148,7 +652,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 45,
             name: "Llavero con Mosqueton estilo Vitange",
             description: "Llavero con mosquetón estilo Vitange.",
-            originalPrice:6.00, 
+            originalPrice: 6.00, 
             discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000111.png",
@@ -169,7 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 44,
             name: "Candado inteligente con huella Dactilar",
             description: "Candado inteligente con huella dactilar, ideal para asegurar tu hogar con seguridad y comodidad.",
-            originalPrice:103.00, 
+            originalPrice: 103.00, 
             discountPercent: 70, 
             images: { 
                 main: "productos/ISA-0000133.jpeg",
@@ -185,12 +689,12 @@ document.addEventListener("DOMContentLoaded", () => {
             models: ["Unico"],
             colors: ["Plateado"],
             sizes: ["Unico"]
-        },         
+        },        
         {
             id: 43,
             name: "Auriculares deportivos hifi",
             description: "Auriculares deportivos hifi, con micrófono integrado, ideales para disfrutar de tu música y llamadas con comodidad y calidad de sonido durante tus actividades deportivas.",
-            originalPrice:56.00, 
+            originalPrice: 56.00, 
             discountPercent: 70, 
             images: { 
                 main: "productos/ISA-0000131.jpeg",
@@ -211,7 +715,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 42,
             name: "Cinta Adhesiva Doble Cara",
             description: "Cinta adhesiva doble cara, ideal para unir y sujetar diversos materiales en aplicaciones industriales y domésticas.",
-            originalPrice:11.00, 
+            originalPrice: 11.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000122.jpeg",
@@ -232,7 +736,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 41,
             name: "Auriculares AK6 alambricos",
             description: "Auriculares AK6 alambricos, con micrófono integrado, ideales para disfrutar de tu música y llamadas con comodidad y calidad de sonido.",
-            originalPrice:57.00, 
+            originalPrice: 57.00, 
             discountPercent: 70, 
             images: { 
                 main: "productos/ISA-0000130.jpeg",
@@ -253,7 +757,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 40,
             name: "Rollo de Cinta - Organizador de Cables",
             description: "Rollo de Cinta de Sujeción para cables electricos 5M, ideal para organizar y sujetar cables en diversas aplicaciones.",
-            originalPrice:8.00, 
+            originalPrice: 8.00, 
             discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000129.jpeg",
@@ -274,7 +778,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 39,
             name: "Soporte Giratorio para Celular  360°",
             description: "Soporte Giratorio para Celular  360°, práctico y funcional para sostener tu celular en cualquier ángulo.",
-            originalPrice:9.00, 
+            originalPrice: 9.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000127.jpeg",
@@ -295,7 +799,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 38,
             name: "Cinta Metrica Retractil 150 CM",
             description: "Cinta Métrica Retractil de 150 cm, ideal para medir con precisión en diversas aplicaciones.",
-            originalPrice:8.00, 
+            originalPrice: 8.00, 
             discountPercent: 0, 
             images: { 
                 main: "productos/ISA-0000125.jpeg",
@@ -316,7 +820,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 37,
             name: "Llavero Portacredenciales Expandible - Retractil",
             description: "Llavero Portacredenciales Expandible - Retractil, práctico y funcional para llevar tus credenciales de manera segura y accesible.",
-            originalPrice:18.00, 
+            originalPrice: 18.00, 
             discountPercent: 70, 
             images: { 
                 main: "productos/ISA-0000124.jpeg",
@@ -337,7 +841,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 36,
             name: "Llavero Portacredenciales Retractil",
             description: "Llavero Portacredenciales Retractil, práctico y funcional para llevar tus credenciales de manera segura y accesible.",
-            originalPrice:10.00, 
+            originalPrice: 10.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000123.png",
@@ -358,7 +862,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 35,
             name: "Mini Afilador de Cuchillo",
             description: "Afilador de Cuchillo Portátil, compacto y fácil de usar, ideal para mantener tus cuchillos afilados en cualquier momento y lugar.",
-            originalPrice:11.00, 
+            originalPrice: 11.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000121.jpeg",
@@ -379,7 +883,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 34,
             name: "Portadocumentos Lanyard",
             description: "Funda de tarjeta individual para tarjetas de acceso e indetificación - No incluye cordon",
-            originalPrice:6.00, 
+            originalPrice: 6.00, 
             discountPercent: 20, 
             images: { 
                 main: "productos/ISA-0000119.jpeg",
@@ -400,7 +904,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 33,
             name: "Portatarjetas de Idetifcación + Cordon",
             description: "Portatarjetas de idetificación de material de plastico + Cordon",
-            originalPrice:7.00, 
+            originalPrice: 7.00, 
             discountPercent: 30, 
             images: { 
                 main: "productos/ISA-0000118.png",
@@ -421,7 +925,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 32,
             name: "Soporte Giratorio para Celular",
             description: "Soporte Giratorio para Celular",
-            originalPrice:11.00, 
+            originalPrice: 11.00, 
             discountPercent: 70, 
             images: { 
                 main: "productos/ISA-0000114.jpeg",
@@ -442,7 +946,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 31,
             name: "Adaptador de Cargador USB a tipo C",
             description: "Adaptador de Cargador USB a tipo C",
-            originalPrice:10.00, 
+            originalPrice: 10.00, 
             discountPercent: 40, 
             images: { 
                 main: "productos/ISA-0000113.jpeg",
@@ -463,7 +967,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 30,
             name: "Conector Tipo C a USB",
             description: "Conector Tipo C a USB",
-            originalPrice:10.00, 
+            originalPrice: 10.00, 
             discountPercent: 40, 
             images: { 
                 main: "productos/ISA-0000112.jpeg",
@@ -484,7 +988,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 29,
             name: "Candado de Seguridad para Maletas",
             description: "Candado de Seguridad para Maletas ",
-            originalPrice:12.00, 
+            originalPrice: 12.00, 
             discountPercent: 30, 
             images: { 
                 main: "productos/ISA-0000109.jpeg",
@@ -505,7 +1009,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: 28,
             name: "Candado de Seguridad Maletas",
             description: "Candado de Seguridad para Maletas ",
-            originalPrice:16.00, 
+            originalPrice: 16.00, 
             discountPercent: 50, 
             images: { 
                 main: "productos/ISA-0000108.jpeg",
@@ -1079,7 +1583,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('q');
-    const discountQuery = urlParams.get('discount'); // NUEVA LÓGICA: Leer el descuento desde la URL
+    const discountQuery = urlParams.get('discount'); 
 
     // Utilidad profesional: Función para quitar acentos
     const removeAccents = (str) => {
@@ -1089,8 +1593,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Filtro 1: Si el usuario tocó la imagen del descuento
     if (discountQuery) {
         const targetDiscount = parseInt(discountQuery);
-        
-        // Filtramos para mostrar únicamente productos con ese descuento exacto
         filteredProducts = allProducts.filter(product => product.discountPercent === targetDiscount);
 
         if (categoryChips.length > 0) {
@@ -1117,7 +1619,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- 5. Funciones de Utilidad ---
+    // --- 5. Funciones de Utilidad y Matemáticas ---
+    
+    // Novedad: Utilidad para redondear a la decena de céntimos más cercana (terminar en 0)
+    const roundToNearestTenCents = (amount) => {
+        return Math.round(amount * 10) / 10;
+    };
+
     const formatPrice = (amount) => {
         return new Intl.NumberFormat('es-PE', {
             style: 'currency',
@@ -1128,7 +1636,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Generador de HTML
     const createProductCardHTML = (product) => {
-        const original = Number(product.originalPrice) || 0;
+        // Obtenemos y redondeamos el precio original a que termine en 0
+        let original = Number(product.originalPrice) || 0;
+        original = roundToNearestTenCents(original);
+
         const discount = Number(product.discountPercent) || 0;
 
         let finalPrice = original;
@@ -1136,7 +1647,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let discountTagHTML = '';
 
         if (discount > 0 && discount < 100) {
-            finalPrice = Number((original * (1 - discount / 100)).toFixed(2));
+            // Aplicamos el descuento y redondeamos el resultado a que termine en 0
+            finalPrice = original * (1 - discount / 100);
+            finalPrice = roundToNearestTenCents(finalPrice);
+            
             product.price = finalPrice; 
 
             priceDisplayHTML = `
@@ -1207,6 +1721,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             productCard.classList.add("app-product-card"); 
             productCard.setAttribute("data-category", removeAccents(product.category.toLowerCase()));
+            productCard.setAttribute("data-id", product.id); // CORREGIDO: Clave para asegurar los clics perfectos
             productCard.innerHTML = createProductCardHTML(product);
             
             fragment.appendChild(productCard);
@@ -1265,9 +1780,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 categoryChips.forEach(c => c.classList.remove("active"));
                 e.target.classList.add("active");
                 
-                const selectedCategory = removeAccents(e.target.textContent.toLowerCase());
+                // CORREGIDO: Ahora busca el 'data-category' correcto y no el texto del botón
+                const selectedCategory = removeAccents(e.target.dataset.category.toLowerCase());
                 
-                if (selectedCategory === "todas" || selectedCategory === "todos") {
+                if (selectedCategory === "all" || selectedCategory === "todas" || selectedCategory === "todos") {
                     filteredProducts = [...allProducts]; 
                 } else {
                     filteredProducts = allProducts.filter(product =>
