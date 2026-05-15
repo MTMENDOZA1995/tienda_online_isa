@@ -30,15 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Botón de compra
     const addToCartDetailBtn = document.getElementById("add-to-cart-btn");
 
-    // Carrusel de recomendados (Nuevo)
+    // Carrusel de recomendados
     const recommendedList = document.getElementById("recommended-list");
 
-    // Variable global para controlar el stock actual
+    // Variables globales
     let currentMaxStock = 0;
-    // Variable global para guardar el producto actual (sirve para las recomendaciones)
     let currentProduct = null;
 
-    // --- Funciones de Utilidad ---
+    // --- Funciones de Utilidad y Matemáticas ---
+    
+    const roundToNearestTenCents = (amount) => {
+        return Math.round(amount * 10) / 10;
+    };
+
     const formatCurrency = (amount) => {
         if (typeof amount !== 'number' || isNaN(amount)) return "S/ 0.00";
         return new Intl.NumberFormat('es-PE', {
@@ -48,9 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }).format(amount);
     };
 
-    /**
-     * Renderiza opciones como botones "Píldora"
-     */
     const renderPillOptions = (container, optionsArray) => {
         if (!container) return;
         container.innerHTML = ''; 
@@ -122,21 +123,31 @@ document.addEventListener("DOMContentLoaded", () => {
         currentMaxStock = currentProduct.stock || 0;
         if (productStockElem) productStockElem.textContent = currentMaxStock;
 
-        // Precios
-        let finalPrice = currentProduct.originalPrice;
+        // --- CÁLCULO Y COLOR DE PRECIOS ---
+        let originalPrice = roundToNearestTenCents(currentProduct.originalPrice || 0);
+        let finalPrice = originalPrice;
 
-        if (currentProduct.originalPrice && currentProduct.discountPercent > 0) {
-            finalPrice = currentProduct.originalPrice * (1 - currentProduct.discountPercent / 100);
+        if (originalPrice > 0 && currentProduct.discountPercent > 0) {
+            finalPrice = roundToNearestTenCents(originalPrice * (1 - currentProduct.discountPercent / 100));
 
-            if (productPriceOldElem) productPriceOldElem.textContent = formatCurrency(currentProduct.originalPrice);
-            if (productPriceElem) productPriceElem.textContent = formatCurrency(finalPrice);
+            if (productPriceOldElem) {
+                productPriceOldElem.textContent = formatCurrency(originalPrice);
+                productPriceOldElem.style.display = 'inline';
+            }
+            if (productPriceElem) {
+                productPriceElem.textContent = formatCurrency(finalPrice);
+                productPriceElem.style.color = '#d0021b'; // ROJO: Porque sí hay oferta
+            }
             
             if (discountBadge) {
                 discountBadge.textContent = `-${currentProduct.discountPercent}%`;
                 discountBadge.style.display = 'block';
             }
         } else {
-            if (productPriceElem) productPriceElem.textContent = formatCurrency(currentProduct.originalPrice);
+            if (productPriceElem) {
+                productPriceElem.textContent = formatCurrency(originalPrice);
+                productPriceElem.style.color = '#333'; // NEGRO: Porque no hay oferta
+            }
             if (productPriceOldElem) productPriceOldElem.style.display = 'none';
             if (discountBadge) discountBadge.style.display = 'none';
         }
@@ -205,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderRecommendedList = () => {
         if (!recommendedList || !currentProduct) return;
         
-        // Esperamos a que window.allProducts se cargue desde Products.js
         setTimeout(() => {
             const catalogDB = window.allProducts || [];
             if (catalogDB.length === 0) {
@@ -213,51 +223,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 1. Filtrar: Mismas categoría, que tengan stock, y que no sea el producto actual
             let recommended = catalogDB.filter(p => 
                 p.category === currentProduct.category && 
                 p.id !== currentProduct.id && 
                 p.stock > 0
             );
 
-            // 2. Si no hay 4 de la misma categoría, rellenar con otros
             if (recommended.length < 4) {
                 const fallbacks = catalogDB.filter(p => p.id !== currentProduct.id && !recommended.includes(p) && p.stock > 0);
                 recommended = recommended.concat(fallbacks);
             }
 
-            // Tomamos los primeros 6
             const finalRecommendations = recommended.slice(0, 6);
 
             if (finalRecommendations.length === 0) {
-                recommendedList.closest('section').style.display = 'none'; // Ocultar si no hay nada
+                recommendedList.closest('section').style.display = 'none'; 
                 return;
             }
 
             recommendedList.innerHTML = "";
 
-            // Renderizar las tarjetas (Igual que en FCompra)
             finalRecommendations.forEach(rec => {
-                const originalPrice = rec.originalPrice || 0;
-                let finalPrice = originalPrice;
+                let originalRecPrice = roundToNearestTenCents(rec.originalPrice || 0);
+                let finalRecPrice = originalRecPrice;
                 let priceHTML = "";
 
                 if (rec.discountPercent > 0) {
-                    finalPrice = originalPrice * (1 - rec.discountPercent / 100);
+                    finalRecPrice = roundToNearestTenCents(originalRecPrice * (1 - rec.discountPercent / 100));
                     priceHTML = `
-                        <span style="font-size: 10px; color: #999; text-decoration: line-through; display:block;">${formatCurrency(originalPrice)}</span>
-                        <span class="price-offer" style="font-size: 13px; color: #d0021b; font-weight: 700;">${formatCurrency(finalPrice)}</span>
+                        <span style="font-size: 10px; color: #999; text-decoration: line-through; display:block;">${formatCurrency(originalRecPrice)}</span>
+                        <span class="price-offer" style="font-size: 13px; color: #d0021b; font-weight: 700;">${formatCurrency(finalRecPrice)}</span>
                     `;
                 } else {
                     priceHTML = `
-                        <span class="price-offer" style="font-size: 13px; color: #6cc82a; font-weight: 700; display:block; margin-top:14px;">${formatCurrency(finalPrice)}</span>
+                        <span style="font-size: 13px; color: #333; font-weight: 700; display:block; margin-top:14px;">${formatCurrency(finalRecPrice)}</span>
                     `;
                 }
 
                 const imgSrc = rec.images?.main || "imagenes/default.jpg";
                 const badgeHTML = rec.discountPercent > 0 ? `<div class="discount-badge" style="font-size: 9px; padding: 2px 4px;">-${rec.discountPercent}%</div>` : '';
 
-                // ¿Requiere que el usuario seleccione color/talla?
                 const requiresChoice = (rec.models && rec.models.length > 1) ||
                                        (rec.colors && rec.colors.length > 1) ||
                                        (rec.sizes && rec.sizes.length > 1);
@@ -295,7 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     if (productToView) {
                         localStorage.setItem("selectedProductDetail", JSON.stringify(productToView));
-                        // Recargar la página limpia para mostrar el nuevo producto
                         window.location.reload(); 
                     }
                 });
@@ -308,7 +312,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     const productToUpsell = finalRecommendations.find(p => p.id === productId);
                     
                     if (productToUpsell) {
-                        const finalPrice = productToUpsell.discountPercent > 0 ? productToUpsell.originalPrice * (1 - productToUpsell.discountPercent / 100) : productToUpsell.originalPrice;
+                        let origP = roundToNearestTenCents(productToUpsell.originalPrice || 0);
+                        let finP = origP;
+                        if (productToUpsell.discountPercent > 0) {
+                            finP = roundToNearestTenCents(origP * (1 - productToUpsell.discountPercent / 100));
+                        }
+
                         const defModel = productToUpsell.models && productToUpsell.models.length > 0 ? productToUpsell.models[0] : "Unico";
                         const defColor = productToUpsell.colors && productToUpsell.colors.length > 0 ? productToUpsell.colors[0] : "Unico";
                         const defSize = productToUpsell.sizes && productToUpsell.sizes.length > 0 ? productToUpsell.sizes[0] : "Unico";
@@ -317,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             id: productToUpsell.id,
                             code: productToUpsell.code || "No especificado",
                             name: productToUpsell.name,
-                            price: Number(finalPrice.toFixed(2)),
+                            price: Number(finP.toFixed(2)),
                             image: productToUpsell.images?.main || "imagenes/default.jpg",
                             quantity: 1,
                             model: defModel, color: defColor, size: defSize,
@@ -339,10 +348,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
 
-        }, 150); // Pequeño retraso para asegurar que Products.js haya cargado el catálogo global
+        }, 150); 
     };
 
-    // Ejecutar el recomendador
     renderRecommendedList();
 
 
@@ -385,16 +393,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("❌ Por favor, selecciona un tamaño."); return;
             }
 
-            let finalPrice = currentProduct.originalPrice;
+            let originalPriceCart = roundToNearestTenCents(currentProduct.originalPrice || 0);
+            let finalPriceCart = originalPriceCart;
+
             if (currentProduct.discountPercent > 0) {
-                finalPrice = currentProduct.originalPrice * (1 - currentProduct.discountPercent / 100);
+                finalPriceCart = roundToNearestTenCents(originalPriceCart * (1 - currentProduct.discountPercent / 100));
             }
 
             const itemToAdd = {
                 id: currentProduct.id,
                 code: currentProduct.code || "No especificado",
                 name: currentProduct.name,
-                price: Number(finalPrice.toFixed(2)), 
+                price: Number(finalPriceCart.toFixed(2)), 
                 image: currentProduct.images?.main || "imagenes/default.jpg",
                 quantity: quantity,
                 model: selectedModel || "Unico",
