@@ -58,17 +58,20 @@
             width: 250px; 
         }
 
-        /* Estilo para el badge en la barra inferior */
-        .bottom-cart-icon {
+        /* Estilo para el badge en la barra inferior (Alineación Perfecta) */
+        .app-bottom-nav .nav-item {
+            width: 20%; /* Asegura que los 5 botones ocupen el mismo espacio */
+        }
+        .nav-icon-wrapper {
             position: relative;
-            display: flex;
-            flex-direction: column;
+            display: inline-flex;
+            justify-content: center;
             align-items: center;
         }
-        .bottom-cart-icon .cart-badge {
+        .nav-icon-wrapper .cart-badge {
             position: absolute;
-            top: -5px;
-            right: 5px; 
+            top: -6px;
+            right: -8px; 
             background-color: #ff3b30;
             color: white;
             font-size: 9px;
@@ -82,7 +85,6 @@
             padding: 0 4px;
             border: 2px solid white; 
             z-index: 10;
-            transition: transform 0.2s ease;
         }
 
         .sticky-buy-bar {
@@ -99,7 +101,7 @@
         }
 
         /* ==================================================
-           ESTILO ALIEXPRESS: TARJETAS LIMPIAS (Para recomendaciones)
+           ESTILO ALIEXPRESS: TARJETAS LIMPIAS (Para recomendaciones/búsqueda)
         ================================================== */
         .app-product-card .add-btn,
         .app-product-card .redeem-btn,
@@ -159,7 +161,7 @@
                 <h2 style="font-size: 15px; color: #333;">Resultados de búsqueda</h2>
             </div>
             <div class="products-grid-vertical" id="search-product-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding: 0 15px;">
-                </div>
+            </div>
         </section>
 
         <section class="detail-image-section toggleable-section">
@@ -277,15 +279,17 @@
             <span>Buscar</span>
         </a>
         <a href="FCompra.html" class="nav-item bottom-cart-icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="cart-badge" id="bottom-cart-badge">0</span>
+            <div class="nav-icon-wrapper">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge" id="bottom-cart-badge" style="display: none;">0</span>
+            </div>
             <span>Bolsa</span>
         </a>
         <a href="index.html" class="nav-item">
             <i class="fa-solid fa-box-archive"></i>
             <span>Pedidos</span>
         </a>
-        <a href="index.html" class="nav-item">
+        <a href="cuenta.html" class="nav-item">
             <i class="fa-regular fa-user"></i>
             <span>Cuenta</span>
         </a>
@@ -301,6 +305,11 @@
             const searchResultsSection = document.getElementById('search-results-section');
             const searchProductList = document.getElementById('search-product-list');
             const sectionsToHide = document.querySelectorAll('.toggleable-section');
+
+            // Utilidad de Redondeo para el buscador local
+            const roundToTenCents = (amount) => {
+                return Math.round(amount * 10) / 10;
+            };
 
             // 1. Filtrado en tiempo real
             searchInput.addEventListener('input', function(e) {
@@ -334,20 +343,22 @@
                     } else {
                         searchProductList.style.display = 'grid'; 
                         searchProductList.innerHTML = '';
+                        
                         results.forEach(rec => {
-                            const originalPrice = rec.originalPrice || 0;
+                            // REDONDEO MATEMÁTICO INTEGRADO AQUÍ
+                            let originalPrice = roundToTenCents(rec.originalPrice || 0);
                             let finalPrice = originalPrice;
                             let priceHTML = "";
 
                             if (rec.discountPercent > 0) {
-                                finalPrice = originalPrice * (1 - rec.discountPercent / 100);
+                                finalPrice = roundToTenCents(originalPrice * (1 - rec.discountPercent / 100));
                                 priceHTML = `
                                     <span style="font-size: 10px; color: #999; text-decoration: line-through; display:block;">S/ ${originalPrice.toFixed(2)}</span>
                                     <span class="price-offer" style="font-size: 13px; color: #d0021b; font-weight: 700;">S/ ${finalPrice.toFixed(2)}</span>
                                 `;
                             } else {
                                 priceHTML = `
-                                    <span class="price-offer" style="font-size: 13px; color: #6cc82a; font-weight: 700; display:block; margin-top:14px;">S/ ${finalPrice.toFixed(2)}</span>
+                                    <span class="price-offer" style="font-size: 13px; color: #333; font-weight: 700; display:block; margin-top:14px;">S/ ${finalPrice.toFixed(2)}</span>
                                 `;
                             }
 
@@ -357,7 +368,7 @@
                             const card = document.createElement("div");
                             card.className = "app-product-card";
                             card.style.cssText = "width: 100%; flex: auto; margin-bottom: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); position: relative; cursor:pointer;";
-                            card.setAttribute("data-id", rec.id);
+                            card.setAttribute("data-id", rec.id); // Fundamental para atrapar el clic
 
                             card.innerHTML = `
                                 <div class="product-image-container" style="height: 100px; padding: 5px;">
@@ -380,14 +391,18 @@
                 const originalUpdate = window.updateCartBadge;
                 window.updateCartBadge = () => {
                     originalUpdate(); 
-                    const cart = window.appCart || [];
-                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    const cart = window.appCart || JSON.parse(localStorage.getItem("appCart")) || [];
+                    const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
                     const bottomBadge = document.getElementById('bottom-cart-badge');
+                    
                     if (bottomBadge) {
                         bottomBadge.textContent = totalItems;
                         if(totalItems > 0) {
+                            bottomBadge.style.display = "flex";
                             bottomBadge.style.transform = 'scale(1.2)';
                             setTimeout(() => bottomBadge.style.transform = 'scale(1)', 200);
+                        } else {
+                            bottomBadge.style.display = "none";
                         }
                     }
                 };
@@ -395,7 +410,7 @@
             }
         });
 
-        // 3. INTERCEPTOR GLOBAL: Abre el detalle al tocar cualquier tarjeta
+        // 3. INTERCEPTOR GLOBAL: Abre el detalle al tocar cualquier tarjeta de búsqueda
         document.addEventListener("click", (e) => {
             const card = e.target.closest(".app-product-card");
             
