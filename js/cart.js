@@ -6,14 +6,24 @@
 // 1. Inicialización Global Inmediata (Fuera del DOMContentLoaded para que otros scripts lo vean)
 window.appCart = JSON.parse(localStorage.getItem("appCart")) || [];
 
+// --- Utilidad Matemática Global ---
+// Redondea a la decena de céntimos más cercana (ej. 26.55 -> 26.60)
+window.roundToNearestTenCents = (amount) => {
+    return Math.round(amount * 10) / 10;
+};
+
 // --- Utilidad Global para Moneda ---
 window.formatCurrency = (amount) => {
     if (typeof amount !== 'number' || isNaN(amount)) return "S/ 0.00";
+    
+    // Aplicamos el redondeo obligatorio antes de darle formato de moneda
+    const roundedAmount = window.roundToNearestTenCents(amount);
+    
     return new Intl.NumberFormat('es-PE', {
         style: 'currency',
         currency: 'PEN',
         minimumFractionDigits: 2,
-    }).format(amount);
+    }).format(roundedAmount);
 };
 
 // --- Guardar en LocalStorage ---
@@ -47,6 +57,9 @@ window.addToCart = (productToAdd) => {
             alert(`Solo hay ${productToAdd.maxStock} unidades disponibles en stock.`);
             productToAdd.quantity = productToAdd.maxStock;
         }
+        
+        // Aseguramos que el precio entre redondeado a la base de datos del carrito
+        productToAdd.price = window.roundToNearestTenCents(productToAdd.price);
         window.appCart.push(productToAdd);
     }
 
@@ -87,7 +100,7 @@ window.renderCartUI = () => {
     
     cartBadges.forEach(badge => {
         badge.textContent = totalItems;
-        badge.style.display = totalItems > 0 ? "block" : "none";
+        badge.style.display = totalItems > 0 ? "flex" : "none";
     });
 
     // 2. Si existe un dropdown tradicional (para versión PC), lo actualiza
@@ -107,7 +120,9 @@ window.renderCartUI = () => {
         if (clearBtn) clearBtn.style.display = "none";
     } else {
         window.appCart.forEach((item, index) => {
-            totalAmount += (item.price * item.quantity);
+            // Aseguramos que el cálculo matemático también use precios redondeados
+            const itemRoundedPrice = window.roundToNearestTenCents(item.price);
+            totalAmount += (itemRoundedPrice * item.quantity);
             
             // Construir texto de variantes
             let variantText = [];
@@ -120,7 +135,7 @@ window.renderCartUI = () => {
             tr.innerHTML = `
                 <td><img src="${item.image}" alt="img" style="width: 35px; height: 35px; object-fit: cover; border-radius:4px;"></td>
                 <td style="font-size:11px; line-height:1.2;">${item.name} ${variantDisplay}</td>
-                <td style="font-weight:600; color:#6cc82a; font-size:12px;">${window.formatCurrency(item.price)}</td>
+                <td style="font-weight:600; color:#6cc82a; font-size:12px;">${window.formatCurrency(itemRoundedPrice)}</td>
                 <td style="text-align:center; font-size:12px;">x${item.quantity}</td>
                 <td style="text-align:center;">
                     <button onclick="window.removeFromCart(${index})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-size:14px;">
@@ -135,6 +150,8 @@ window.renderCartUI = () => {
         if (clearBtn) clearBtn.style.display = "block";
     }
 
+    // Redondeo final al total para evitar errores de precisión de JavaScript (ej. 10.200000001)
+    totalAmount = window.roundToNearestTenCents(totalAmount);
     if (cartTotalElem) cartTotalElem.textContent = `Total: ${window.formatCurrency(totalAmount)}`;
 };
 
