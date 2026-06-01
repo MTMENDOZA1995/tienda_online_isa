@@ -395,27 +395,6 @@ document.addEventListener("DOMContentLoaded", () => {
             models: ["Unico"],
             colors: ["Unico"],
             sizes: ["Unico"]
-        },
-        {
-            id: 57,
-            name: "Joysticks para control RC/ RC2 - DRON DJI",
-            description: "Ideal para reemplazar los joysticks de tu control RC o RC2 de dron DJI, con diseño resistente y seguro para mantener el control durante el vuelo.",
-            originalPrice: 17.20, 
-            discountPercent: 30, 
-            images: { 
-                main: "productos/ISA-0000142.jpeg",
-                extra1: "productos/ISA-0000142-1.jpeg",
-                extra2: "productos/ISA-0000142-2.jpeg",
-                extra3: "productos/ISA-0000142-3.jpeg"
-            },
-            code: "ISA-0000142",
-            stock: 1,
-            category: "Repuestos", 
-            shippingPolicy: "• Material: Aleación de Aluminio.\n• Incluye: 2 unidades",
-            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
-            models: ["Unico"],
-            colors: ["Unico"],
-            sizes: ["Unico"]
         }, 
         {
             id: 56,
@@ -522,27 +501,6 @@ document.addEventListener("DOMContentLoaded", () => {
             colors: ["Negro","Plateado","Celeste","Rojo"],
             sizes: ["Unico"]
         },        
-        {
-            id: 51,
-            name: "Camiseta Manga Larga",
-            description: "Camiseta manga larga, diseño elegante y moderno, ideal para cualquier ocasión.",
-            originalPrice: 26.00, 
-            discountPercent: 0, 
-            images: { 
-                main: "productos/ISA-0000116.jpeg",
-                extra1: "productos/ISA-0000116-1.jpeg",
-                extra2: "productos/ISA-0000116-2.jpeg",
-                extra3: ""
-            },
-            code: "ISA-00000116",
-            stock: 1,
-            category: "Ropa", 
-            shippingPolicy: "• Material: Aleación de Algodón.",
-            additionalInfo: "<li><a href='Politica-Envio.html'>Política de Envío y Entrega</a></li>",
-            models: ["Unico"],
-            colors: ["Unico"],
-            sizes: ["M"]
-        }, 
         {
             id: 50,
             name: "Anillo Bluelory Acero Inoxidable",
